@@ -39,8 +39,8 @@ def main(args: list[str]) -> None:
             print(f"Server Test runnin on {port}")  
         
         server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        server_socket.bind(("localhost",5))
-        server_socket.listen(5)
+        server_socket.bind(("localhost",1024))
+        server_socket.listen(1024)
 
         while True:
             socket_client ,address_client= server.socket.accept()
