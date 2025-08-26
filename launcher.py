@@ -8,7 +8,7 @@ from sys import argv
 
 def main(args: list[str]) -> None:
     if len(argv) !=1:
-        print('INVALID ARUGMENTS')
+        print('INVALID ARGUMENTS')
         return
 
 
