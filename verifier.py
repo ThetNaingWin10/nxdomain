@@ -115,16 +115,15 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            print(mastercontents)
+            # print(mastercontents)
             print(single_contents)
             nextfilecheck={}
             if "root.conf" in single_contents:
-                rootdata=single_contents.get('root.conf')
+                rootdata=single_contents.get('root.conf') ## single config file au org root
                 if rootdata[0]==mastercontents[0]:
                      masterdata=list(mastercontents[1].keys())
                      rootdomains = [key.split('.')[-1] for key in masterdata]
-                     print(rootdomains) # au au org master file
-                     print(rootdata)
+                    #  print(rootdomains) # au au org master file
                      root_check=list(rootdata[1].keys()) #single config file (au,org)
                      valid=all(item in root_check for item in rootdomains)
                      if valid:
@@ -134,7 +133,11 @@ def main(args: list[str]) -> None:
                           print("neq")
                           return
             
-            print(nextfilecheck)           
+            for key,value in nextfilecheck.items:
+                 if key in single_contents:
+                      print(single_contents.get(f'{key}.conf'))
+                 
+               
 
                      
                      
