@@ -13,8 +13,7 @@ def read_configuration(filepath) :
         for line in file:
             line=line.strip()
             if line:
-                id,value=line.split(',')
-                list[int(id)]=value
+                list.append(line)
     return list
 
 def compare_config(masterconfig,singlefileconfig):
@@ -25,18 +24,19 @@ def main(args: list[str]) -> None:
     single_files=argv[2]
 
     masterconfig=read_configuration(master_file)
+    print(masterconfig[0])
+    print(masterconfig[1])
 
     single_dir=pathlib.Path(single_files).iterdir()
-    result="eq"
 
-    for singlefile in single_dir:
-        if singlefile.is_file():
-            config=read_configuration(singlefile)
-            if config is not None:
-                if not compare_config(masterconfig,config):
-                    result= "neq"
-                    break
-    print(result)
+    # for singlefile in single_dir:
+    #     if singlefile.is_file():
+    #         config=read_configuration(singlefile)
+    #         if config is not None:
+    #             if not compare_config(masterconfig,config):
+    #                 result= "neq"
+    #                 break
+    # print("eq")
     
 
 
