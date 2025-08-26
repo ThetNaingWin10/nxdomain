@@ -70,7 +70,10 @@ def resolve_domain(root_serversocket,time_out,domain):
                     else :
                         auth_port=int(response)
                         auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                        auth_socket.connect((root_server_ip,int(auth_port)))
+                        try:
+                            auth_socket.connect((root_server_ip,int(auth_port)))
+                        except ConnectionRefusedError:
+                            print("FAILED TO CONNECT TO AUTH")
                         auth_socket.send(f"{domain}\n".encode("utf-8"))
 
                         ip=auth_socket.recv(1024).decode("utf-8")
