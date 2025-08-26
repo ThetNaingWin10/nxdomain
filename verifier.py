@@ -69,6 +69,7 @@ def main(args: list[str]) -> None:
         domain_length=domain.split(".")
         i=len(domain_length)-1
         # z=0
+        #dasf
         try :
 
             for single_file in single_files.iterdir():
