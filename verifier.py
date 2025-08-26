@@ -9,17 +9,9 @@ import pathlib
 master_list=[]
 
 
-def check(currentport,files):
-    if(content[0]==currentport):
-                for line in content:
-                    if "," in line:
-                        parts=line.split(',')
-                        domain_check=parts[0]
-                        porting_address=parts[1]
-                        
-                        if(domain_check==domain.rsplit('.',3)[3]):
-                            return porting_address
-    return None
+def check(currentport,contents):
+     for line in contents:
+          print(line)
 
 
 def main(args: list[str]) -> None:
@@ -71,21 +63,15 @@ def main(args: list[str]) -> None:
                       return
 
         print(master_lines)
-        list=[]
         
         for items in single_files.iterdir():
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.readlines()
-                    #    print(currentport)
                        if(int(currentport)==int(contents[0])):
-                             print(contents)
-                    #    list.append(int(contents[0]))
-                    
+                             check(currentport,contents)
+                            
 
-        # for ports in list:
-        #      if(int(currentport)==ports):
-        #           check(currentport,single_files)
    
     
 
