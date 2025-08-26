@@ -41,7 +41,7 @@ def main(args: list[str]) -> None:
             content=single_file.read_text().split("\n")
             while i>=0:
                 print(currentport)
-                print(domain.rsplit('.',3)[2])
+                print(domain.rsplit('.',3)[3])
                 print(content)
                 print(i)
                 currentport=check(currentport,domain,content,i)
