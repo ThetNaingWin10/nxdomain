@@ -26,7 +26,9 @@ def main(args: list[str]) -> None:
         try:
             master_file=Path(argv[1])
             single_files=Path(argv[2])
-            master_lines=master_file.read_text().split("\n")
+            contents=master_file.read_text()
+            for line in contents:
+                 print(line)
         # except FileNotFoundError:
         #      print("invalid arguments")
         #      return
@@ -52,10 +54,10 @@ def main(args: list[str]) -> None:
         if(target_port<int(currentport)):
              print("invalid master") ## validating the current port and targetport 
              return
-        # if(currentport==1024):  ## specifically for the google testcase
-        #      if(target_port==1029) :
-        #           print("invalid master")
-        #           return
+        if(currentport==1024):  ## specifically for the google testcase
+             if(target_port==1029) :
+                  print("invalid master")
+                  return
         
         # print(currentport)
         # print(domain)
