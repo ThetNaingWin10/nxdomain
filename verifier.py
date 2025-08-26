@@ -137,7 +137,7 @@ def main(args: list[str]) -> None:
                 for key, (value, inner_dict) in full_domain.items():
                     if element in inner_dict:
                         reached_ports.append(inner_dict[element][0])
-            targetedports=[port for port_list in mastercontents[1].values() for port in port_list[1:]]
+            targetedports=[port for port_list in mastercontents[1].values() for port in port_list][1:]
 
             print(targetedports)
             print(reached_ports)
