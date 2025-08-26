@@ -77,7 +77,6 @@ def main(args: list[str]) -> None:
         list2=[]
         list3=[]
         for line in master_lines:
-             print(line)
              if ',' in line:
                 line=line.split(",")
                 lastdomain=line[0].split(".")
@@ -86,8 +85,8 @@ def main(args: list[str]) -> None:
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
                 list3.append(line[0])
-        # for line in list1:
-        #      print(line) 
+        for line in list1:
+             print(line) 
         # for line in list2:
         #      print(line)
         # for line in list3:
