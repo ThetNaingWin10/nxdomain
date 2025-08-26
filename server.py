@@ -16,9 +16,19 @@ def handle_command(command):
     if(parts==3):
         action,hostname,port=parts
         if action=="!ADD":
-            dns_records[hostname]=port
-        else :
+            for key,value in dns_records.items():
+                if value==port:
+                    return
+                else:
+                    dns_records[hostname]=port
+        else:
             print("INVALID",flush=True)
+            
+    # if(parts==2):
+    #     action,hostname=parts
+    #     if(action=="!DEL"):
+    #         del dns_records[hostname]
+
             
     # global dns_records
     # parts=command.split()
