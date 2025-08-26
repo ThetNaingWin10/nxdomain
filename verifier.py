@@ -26,19 +26,16 @@ def main(args: list[str]) -> None:
         try:
             master_file=Path(argv[1])
             single_files=Path(argv[2])
-            contents=master_file.read_text()
-            for line in contents:
-                 print(line)
-        # except FileNotFoundError:
-        #      print("invalid arguments")
-        #      return
+            master_lines=master_file.read_text().split("\n")
+        except FileNotFoundError:
+             print("invalid arguments")
+             return
         except IndexError:
              print("invalid arguments")
              return
 
         currentport=master_lines[0].strip()
         domain=master_lines[1].split(",")[0]
-
         target_port=int(master_lines[1].split(",")[1])
    
 
