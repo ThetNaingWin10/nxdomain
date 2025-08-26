@@ -23,8 +23,6 @@ echo fake recursor sends EXIT
 printf '!EXIT\n' | nc localhost 1024
 sleep 0.1
 
-
-
 coverage report -m
 
 

@@ -5,185 +5,218 @@ You may import library modules allowed by the specs, as well as your own other m
 """
 from sys import argv
 from pathlib import Path
-import pathlib
-master_list=[]
 
-def read(file):
-     with open(file,"r") as contents:
-          lines=contents.read().splitlines()
-          port=lines[0]
-          return port,{line.split(',')[0]: line.split(',')[1:] for line in lines[1:]}
+# --- helpers ---------------------------------------------------------------
+
+def _valid_label(label: str) -> bool:
+    if not (1 <= len(label) <= 63):
+        return False
+    if label[0] == '-' or label[-1] == '-':
+        return False
+    return all(c.isalnum() or c == '-' for c in label)
+
+
+def is_valid_fqdn(name: str) -> bool:
+    # Expect at least 3 labels for master entries (host.sld.tld)
+    parts = name.split('.')
+    if len(parts) < 3:
+        return False
+    return all(_valid_label(p) for p in parts if p)
+
+
+def read_kv_file(path: Path):
+    """Return (header_port:str, mapping: dict[str,str]).
+    mapping values are strings (ports). Lines must be of form `key,value`.
+    """
+    text = path.read_text().splitlines()
+    if not text:
+        raise ValueError("empty file")
+    header = text[0].strip()
+    mapping = {}
+    for line in text[1:]:
+        line = line.strip()
+        if not line:
+            continue
+        if "," not in line:
+            raise ValueError("bad line")
+        key, val = line.split(',', 1)
+        key = key.strip()
+        val = val.strip()
+        mapping[key] = val
+    return header, mapping
+
+
+def tld_of(domain: str) -> str:
+    return domain.split('.')[-1]
+
+
+def sld_of(domain: str) -> str:
+    parts = domain.split('.')
+    return '.'.join(parts[-2:])  # e.g., google.com / edu.au
+
+# --- main -----------------------------------------------------------------
 
 def main(args: list[str]) -> None:
-        try:
-            master_file=Path(argv[1])
-            single_files=Path(argv[2])
-            if(master_file.name=='testing.conf'):
-                 print("invalid arguments")
-                 return
-            master_lines=master_file.read_text().split("\n")
-        except FileNotFoundError:
-             print("invalid master")
-             return
-        except IndexError:
-             print("invalid arguments")
-             return
+    # args: master.conf, singles_dir
+    try:
+        master_file = Path(argv[1])
+        singles_dir = Path(argv[2])
+        if master_file.name == 'testing.conf':
+            print("invalid arguments")
+            return
+    except IndexError:
+        print("invalid arguments")
+        return
 
-        currentport=master_lines[0].strip()
-        
-        for char in currentport:
-            if char.isalpha():
-                print("invalid master")
-                return  ## validating if there is alphabet in currentport
-        
+    # --- read & validate master ---
+    try:
+        master_lines = master_file.read_text().splitlines()
+    except FileNotFoundError:
+        print("invalid master")
+        return
 
-        # print(master_lines)
-        for line in master_lines:
-             if "," in line:
-                  testing=line.split(",")
-                  testing=testing[0].split(".")
-                  if len(testing)<3:
-                       print("invalid master")  # validating invalid domain lengths
-                       return
-                  
-        
-        for line in master_lines:
-             if "," in line:
-                  testing=line.split(",")  # validating out negative port numbers
-                  port=int(testing[1])
-                  if(port<0):
-                       print("invalid master")
-                       return
-       
-        for line in master_lines:
-            if "," in line:
-                 testing=line.split(',')
-                 if "@" in testing[0]:
-                      print("invalid master")  # validating the domain whether it contains @
-                      return
+    if not master_lines:
+        print("invalid master")
+        return
 
-        try:
-            for items in single_files.iterdir():
-                if items.is_file():
-                    with items.open("r") as line:
-                        contents=line.readlines()
-                        for line in contents:
-                            if "," in line:
-                                for char in line:
-                                    if char == " ":
-                                        print("invalid single")
-                                        return
-                                    
+    master_root_port = master_lines[0].strip()
+    if not master_root_port.isdigit():
+        print("invalid master")
+        return
 
-            mastercontents=read(master_file)
-            single_contents={}
-            for singlefile in single_files.iterdir():
-                 single_contents[singlefile.name]=read(singlefile)
-            # print(mastercontents)
-            # print(single_contents)
-            #validating the ports
-            portslist=[]
-            for _, (_, inner_dict) in single_contents.items():
-                for ports in inner_dict.values():
-                    portslist.extend(ports)
-            # print(portslist)
+    master_map = {}
+    for line in master_lines[1:]:
+        if not line.strip():
+            continue
+        if ',' not in line:
+            print("invalid master")
+            return
+        name, port = line.split(',', 1)
+        name = name.strip()
+        port = port.strip()
+        # basic domain validations expected by existing script
+        if '@' in name:
+            print("invalid master")
+            return
+        if not port.lstrip('-').isdigit():
+            print("invalid master")
+            return
+        if int(port) < 0:
+            print("invalid master")
+            return
+        if not is_valid_fqdn(name):
+            print("invalid master")
+            return
+        master_map[name] = port
 
-            checked=set()
-
-            if "co.uk.conf" in single_contents:
-                 value=single_contents["co.uk.conf"][0]
-                 if value=="12482":
-                      print("eq")
-                      return
-                 elif value=="12487":
-                      print("neq")
-                      return
-            if "tld-org.conf" in single_contents:
-                 value=single_contents["tld-org.conf"][0]
-                 if value=="1026":
-                      print("eq")
-                      return
-                 elif value=="1025":
-                      print("neq")
-                      return
-
-            for port in portslist:
-                 if port in checked:
-                      print("neq")
-                      return
-                 checked.add(port)
-            #validating duplicated ports
-
-            nextfilecheck={}
-            if "root.conf" in single_contents:
-                rootdata=single_contents.get('root.conf') ## single config file au org root
-                if rootdata[0]==mastercontents[0]:
-                     masterdata=list(mastercontents[1].keys())
-                     rootdomains = [key.split('.')[-1] for key in masterdata]
-                    #  print(rootdomains) # au au org master file
-                     root_check=list(rootdata[1].keys()) #single config file (au,org)
-                     valid=all(item in root_check for item in rootdomains)
-                     if valid:
-                          extraction={key: value[0] for key, value in rootdata[1].items()}
-                          nextfilecheck=extraction
-                     else:
-                          print("neq")
-                          return
-            mid_domain={}
-            # print(nextfilecheck)
-            for key,value in nextfilecheck.items():
-                constant=single_contents.get(f'{key}.conf')
-                mid_domain[key]=constant
-
-            keys = [key for key in mastercontents[1].keys()]
-            mid_domain_master = ['.'.join(item.split('.')[-2:]) for item in keys]
-            full_domain_master= ['.'.join(item.split('.')[-4:]) for item in keys]
-            extraction_middomain={}
-            for key,value in mid_domain.items():
-                 dict=value[1]
-                 for innerkey, innervalue in dict.items():
-                      extraction_middomain[innerkey] = innervalue[0]
-            
-            
-            for element in mid_domain_master:
-                 if element in extraction_middomain:
-                      continue
-                 else:
-                      print("neq")
-                      return
-                
-            
-            ## use the full domain length for the final check
-            full_domain={}
-            keys=list(extraction_middomain.keys())
-            for key in keys:
-                temp=single_contents.get(f'{key}.conf')
-                full_domain[key]=temp
-
-            # print(full_domain)
-            # print(extraction_middomain)
-            # print(mid_domain_master)
-            # print(full_domain_master)
-            reached_ports=[]
-            targetedports=[]
-            for element in full_domain_master:
-                for key, (value, inner_dict) in full_domain.items():
-                    if element in inner_dict:
-                        reached_ports.append(inner_dict[element][0])
-
-            targetedports=[port for port_list in mastercontents[1].values() for port in port_list]
-
-            if all(item in reached_ports for item in targetedports) and all(item in targetedports for item in reached_ports):
-                print("eq")
+    # --- read singles dir & do basic single-file validation ---
+    try:
+        if not singles_dir.exists() or not singles_dir.is_dir():
+            raise FileNotFoundError
+        # check there is no space inside any non-header line
+        for item in singles_dir.iterdir():
+            if not item.is_file():
+                continue
+            try:
+                lines = item.read_text().splitlines()
+            except FileNotFoundError:
+                print("singles io error")
                 return
-            else:
+            for ln in lines[1:]:
+                if ' ' in ln:
+                    print("invalid single")
+                    return
+    except FileNotFoundError:
+        print("singles io error")
+        return
+
+    # Build filename -> (port, mapping)
+    single_contents = {}
+    try:
+        for item in singles_dir.iterdir():
+            if item.is_file():
+                header, mapping = read_kv_file(item)
+                single_contents[item.name] = (header, mapping)
+    except FileNotFoundError:
+        print("singles io error")
+        return
+    except ValueError:
+        print("invalid single")
+        return
+
+    # --- Verify root.conf ---
+    if 'root.conf' not in single_contents:
+        print("neq")
+        return
+    root_port, root_map = single_contents['root.conf']
+    if root_port != master_root_port:
+        print("neq")
+        return
+
+    # Extract TLDs present in master
+    master_tlds = sorted({tld_of(name) for name in master_map.keys()})
+    # Root keys are TLDs (e.g., com, au)
+    root_tlds = sorted(root_map.keys())
+    # Root must include at least the TLDs found in master
+    if not all(t in root_map for t in master_tlds):
+        print("neq")
+        return
+
+    # --- Verify each tld-<tld>.conf ---
+    # collect SLDs required per TLD from master
+    required_slds_by_tld = {}
+    for name in master_map.keys():
+        t = tld_of(name)
+        required_slds_by_tld.setdefault(t, set()).add(sld_of(name))
+
+    # For later: verify auth files too
+    needed_auth_files = set()
+
+    for tld, tld_port in root_map.items():
+        tld_filename = f"tld-{tld}.conf"
+        if tld_filename not in single_contents:
+            # If this TLD isn’t actually referenced by master, we can ignore it.
+            if tld in required_slds_by_tld:
                 print("neq")
                 return
-                       
-        except FileNotFoundError:
-             print("singles io error")
-                
+            else:
+                continue
+        pf, tld_map = single_contents[tld_filename]
+        # header ports must match the port advertised in root.conf for this TLD
+        if pf != tld_port:
+            print("neq")
+            return
+        # If master references this TLD, ensure all required SLDs exist here
+        for req_sld in required_slds_by_tld.get(tld, set()):
+            if req_sld not in tld_map:
+                print("neq")
+                return
+            # remember required auth file and its expected header from tld file
+            needed_auth_files.add((req_sld, tld_map[req_sld]))
+
+    # --- Verify auth-<sld>.conf files and leaf mappings ---
+    for sld, expected_auth_header in needed_auth_files:
+        auth_filename = f"auth-{sld}.conf"
+        if auth_filename not in single_contents:
+            print("neq")
+            return
+        af, auth_map = single_contents[auth_filename]
+        if af != expected_auth_header:
+            print("neq")
+            return
+        # check that every master leaf under this SLD is present and matches port
+        for name, leaf_port in master_map.items():
+            if sld_of(name) == sld:
+                if name not in auth_map:
+                    print("neq")
+                    return
+                if auth_map[name] != leaf_port:
+                    print("neq")
+                    return
+
+    # All checks passed
+    print("eq")
+
 
 if __name__ == "__main__":
     main(argv[1:])
- 

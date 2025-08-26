@@ -6,36 +6,50 @@ You may import library modules allowed by the specs, as well as your own other m
 
 import socket
 from sys import argv
-FORMAT="utf-8"
+ENCODING = "utf-8"
 dns_records={}
 
-def check(command):
-    parts=command.split()
-    if(len(parts)==3):
-        action,hostname,port=parts
-        if action=="!ADD":
-            if port in dns_records.values():
-                return
-            else:
-                dns_records[hostname]=port
-        else:
-            print("INVALID",flush=True)
-    if(len(parts)==2):
-        action,hostname=parts
-        if action =="!DEL":
-            if hostname in dns_records.keys():
-                del dns_records[hostname]
-            else:
-                return
-        else :
-            print("INVALID",flush=True)
-    
-def rootresponse(domain,config):
-    if domain in config:
-        target_port=dns_records[domain]
-        return target_port
-    else:
-        return "NXDOMAIN"
+def _valid_label(label: str) -> bool:
+    if not (1 <= len(label) <= 63):
+        return False
+    if label[0] == '-' or label[-1] == '-':
+        return False
+    return all(c.isalnum() or c == '-' for c in label)
+
+def is_valid_hostname(name: str) -> bool:
+    # Accept 1+ labels (supports TLD-only like 'com' as well as 'www.google.com')
+    if not name:
+        return False
+    parts = name.split('.')
+    return all(_valid_label(p) for p in parts if p)
+
+def check(command: str) -> str:
+    parts = command.strip().split()
+    if not parts:
+        return "INVALID"
+    if parts[0] == "!EXIT" and len(parts) == 1:
+        return "!EXIT"
+    if len(parts) == 3 and parts[0] == "!ADD":
+        _, hostname, port = parts
+        if not is_valid_hostname(hostname):
+            return "INVALID"
+        if not port.isdigit():
+            return "INVALID"
+        p = int(port)
+        if not (1 <= p <= 65535):
+            return "INVALID"
+        dns_records[hostname] = str(p)
+        return "OK"
+    if len(parts) == 2 and parts[0] == "!DEL":
+        _, hostname = parts
+        if not is_valid_hostname(hostname):
+            return "INVALID"
+        dns_records.pop(hostname, None)
+        return "OK"
+    return "INVALID"
+
+def rootresponse(domain: str, mapping: dict[str,str]) -> str:
+    return mapping.get(domain, "NXDOMAIN")
 
 def main(args: list[str]) -> None:
     if len(argv) != 2:
@@ -45,48 +59,74 @@ def main(args: list[str]) -> None:
     config_file=argv[1]
     try:
         with open(config_file, "r") as rconfig_file:
-            config=rconfig_file.readlines()
+            config = rconfig_file.readlines()
+            if not config:
+                print("INVALID CONFIGURATION")
+                return
 
+            # Validate and parse server port (first line)
+            first = config[0].strip()
+            if not first.isdigit():
+                print("INVALID CONFIGURATION")
+                return
+            server_port = int(first)
+            if not (1 <= server_port <= 65535):
+                print("INVALID CONFIGURATION")
+                return
+
+            # Parse records
             for line in config[1:]:
-                line=line.strip()
-                if(",") in line:
-                    key,value= line.split(",",1)
-                    dns_records[key]=value
+                line = line.strip()
+                if not line:
+                    continue
+                if "," not in line:
+                    print("INVALID CONFIGURATION")
+                    return
+                key, value = line.split(',', 1)
+                key = key.strip()
+                value = value.strip()
+                if not is_valid_hostname(key):
+                    print("INVALID CONFIGURATION")
+                    return
+                if not value.isdigit():
+                    print("INVALID CONFIGURATION")
+                    return
+                p = int(value)
+                if not (1 <= p <= 65535):
+                    print("INVALID CONFIGURATION")
+                    return
+                dns_records[key] = str(p)
 
-            for key, value in dns_records.items():
-                for char in key:
-                    if not char.isalpha() and char!='.':
-                        print("INVALID CONFIGURATION")
-                        return
-
-                 ##checking the keys and values
-            server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-            server_socket.bind(("localhost",server_port))  ##this was causing the invalid port error
+            server_socket.bind(("127.0.0.1", server_port))
             server_socket.listen()
 
             while True:
-                socket_client , _ = server_socket.accept()
-                data=socket_client.recv(server_port).decode(FORMAT).strip()
-                # socket_client.send((data+'\n').encode("FORMAT"))  #just in case to see the files inside config file
-                if data.startswith('!'):
-                    if(data=="!EXIT\n"):
-                        socket_client.close()
-                        return
+                socket_client, _ = server_socket.accept()
+                try:
+                    data = socket_client.recv(1024).decode(ENCODING)
+                    if not data:
+                        continue
+                    data = data.strip()
+
+                    if data.startswith('!'):
+                        resp = check(data)
+                        if resp == "!EXIT":
+                            socket_client.sendall(b"OK\n")
+                            socket_client.close()
+                            server_socket.close()
+                            return
+                        socket_client.sendall((resp + "\n").encode(ENCODING))
                     else:
-                        check(data)
-                else:
-                    if data in dns_records:
-                        response=rootresponse(data,dns_records)
-                        socket_client.send((response+'\n').encode(FORMAT))
-                        print(f"resolve {data} to {response}",flush=True)
-                    else :
-                        response="NXDOMAIN"
-                        socket_client.send((response+'\n').encode(FORMAT))
-                        print(f"resolve {data} to {response}",flush=True)
-                      
-                socket_client.close()
+                        if data in dns_records:
+                            response = rootresponse(data, dns_records)
+                        else:
+                            response = "NXDOMAIN"
+                        socket_client.send((response + '\n').encode(ENCODING))
+                        print(f"resolve {data} to {response}", flush=True)
+                finally:
+                    socket_client.close()
 
     except FileNotFoundError:
         print("INVALID CONFIGURATION")

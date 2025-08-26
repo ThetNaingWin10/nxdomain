@@ -4,121 +4,108 @@ Write code for your recursor here.
 You may import library modules allowed by the specs, as well as your own other modules.
 """
 import socket
-import signal
+import sys
+import time
 
-from sys import argv
-root_server_ip = "127.0.0.1"
-root_server_port = 1026
-FORMAT="utf-8"
+ENCODING = "utf-8"
 
-def timeoutsignal(signalnumber,frame):
-    raise TimeoutError("NXDOMAIN")
-  
-def valid(domain_name):
-    list=domain_name.split(".")
-    if len(list)==3 or len(list)==4 or len(list)==5:
-        C=list[-3]
-        B=list[-2]
-        A=list[-1]
-        #validating C
-        if C.startswith(".") or C.endswith("."):
-            return False
-        if not all(char.isalnum() or char == "-" or char == "." for char in C):
-            return False
-        #validating B
-        if not all(char.isalnum() or char == "-"  for char in B):
-            return False
-        #validating A
-        if not all(char.isalnum() or char == "-"  for char in A):
-            return False
-        else:
-            return True
-    else :
+
+def _valid_label(label: str) -> bool:
+    return (
+        1 <= len(label) <= 63
+        and label[0] != '-' and label[-1] != '-'
+        and all(c.isalnum() or c == '-' for c in label)
+    )
+
+
+def is_valid_domain(domain_name: str) -> bool:
+    parts = domain_name.split('.')
+    if len(parts) < 3:
         return False
-        
+    return all(_valid_label(p) for p in parts if p)
 
-def resolve_domain(root_serversocket,time_out,domain):
-        signal.signal(signal.SIGALRM,timeoutsignal)
-        timeout=float(time_out)
-        signal.alarm(round(timeout))
-        try:
 
-            root_serversocket.send(f"{domain.split('.')[-1]}\n".encode(FORMAT))
-
-            data=root_serversocket.recv(1024).decode(FORMAT) #received the TLD port
-            # the invalids outputs are from incorrect domains.
-
-            if data:
-                if data.startswith("NXDOMAIN"):
-                    print("NXDOMAIN", flush=True) 
-                else :
-                    data=int(data)
-            
-                    tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                    try:   
-                        tld_socket.connect((root_server_ip,data))
-                    except ConnectionRefusedError:
-                        print("FAILED TO CONNECT TO TLD")
-                        return
-                    tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode(FORMAT))
-
-                    #port of the authoritative nameserver
-                    
-                    response=tld_socket.recv(1024).decode(FORMAT)
-                    
-                    if(response.startswith("NXDOMAIN")):
-                        print("NXDOMAIN", flush=True)
-                    else :
-                        auth_port=int(response)
-                        auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                        try:
-                            auth_socket.connect((root_server_ip,int(auth_port)))
-                        except ConnectionRefusedError:
-                            print("FAILED TO CONNECT TO AUTH")
-                            return
-                        auth_socket.send(f"{domain}\n".encode(FORMAT))
-
-                        ip=auth_socket.recv(1024).decode(FORMAT)
-                        print(f"{ip}".strip(),flush=True)
-                        
-            else:
-                print("No data received")
-        except TimeoutError:
-            print("NXDOMAIN",flush=True)
-        finally:
-            signal.alarm(0)
-
-        
-
-def main(args: list[str]) -> None:
-    if len(args)!=2:
-        print("INVALID ARGUMENTS")
-        return
-    
-    root=int(argv[1])
-    time_out=argv[2]
-    
-    try :
-        server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-        server_socket.connect((root_server_ip,root))
-    except ConnectionRefusedError:
-        print("FAILED TO CONNECT TO ROOT")
-        return
-    except OverflowError:
-        print("INVALID ARGUMENTS")
-        return
-
+def _query_once(name: str, ip: str, port: int, timeout: float) -> str | None:
+    """Send single-line query `name` to (ip, port) with timeout seconds.
+    Returns decoded response (stripped) or None on timeout/error.
+    """
     try:
-        while True:
-            domain_name=input()
-            if not valid(domain_name):
-                print("INVALID",flush=True)
-            else:
-                resolve_domain(server_socket,time_out,domain_name)
-            
-    except EOFError:
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+            sock.settimeout(timeout)
+            sock.connect((ip, port))
+            sock.sendall(f"{name}\n".encode(ENCODING))
+            data = sock.recv(1024)
+            if not data:
+                return None
+            return data.decode(ENCODING).strip()
+    except (socket.timeout, OSError):
+        return None
+
+
+def resolve_domain(domain: str, root_ip: str, root_port: int, timeout_total: int) -> None:
+    """Resolve `domain` by querying root -> tld -> auth within a total deadline.
+    Prints the final mapping (e.g., "www.google.com,8987") or "NXDOMAIN".
+    """
+    start = time.monotonic()
+
+    # 1) Ask ROOT for the TLD (e.g., "com") -> returns TLD server port
+    labels = domain.split('.')
+    tld = labels[-1]
+    remaining = max(0.01, timeout_total - (time.monotonic() - start))
+    r = _query_once(tld, root_ip, root_port, remaining)
+    if not r or 'NXDOMAIN' in r:
+        print('NXDOMAIN')
         return
+    try:
+        tld_port = int(r)
+    except ValueError:
+        print('NXDOMAIN')
+        return
+
+    # 2) Ask TLD server for the SLD (e.g., "google.com") -> returns auth server port
+    sld = '.'.join(labels[-2:])
+    remaining = max(0.01, timeout_total - (time.monotonic() - start))
+    r = _query_once(sld, root_ip, tld_port, remaining)
+    if not r or 'NXDOMAIN' in r:
+        print('NXDOMAIN')
+        return
+    try:
+        auth_port = int(r)
+    except ValueError:
+        print('NXDOMAIN')
+        return
+
+    # 3) Ask AUTH server for the full domain (e.g., "www.google.com") -> final mapping
+    remaining = max(0.01, timeout_total - (time.monotonic() - start))
+    r = _query_once(domain, root_ip, auth_port, remaining)
+    if not r or 'NXDOMAIN' in r:
+        print('NXDOMAIN')
+        return
+
+    print(f"{domain},{r}")
+
+
+def main() -> None:
+    # Usage: recursor.py <domain> <root_ip> <root_port> <timeout_seconds>
+    if len(sys.argv) != 5:
+        print("usage: recursor.py <domain> <root_ip> <root_port> <timeout>")
+        return
+
+    domain_name = sys.argv[1].strip().rstrip('.').lower()
+    root_ip = sys.argv[2]
+    try:
+        root_port = int(sys.argv[3])
+        timeout = int(sys.argv[4])
+    except ValueError:
+        print("invalid port or timeout")
+        return
+
+    if not is_valid_domain(domain_name):
+        print("INVALID")
+        return
+
+    resolve_domain(domain_name, root_ip, root_port, timeout)
+
 
 if __name__ == "__main__":
-    main(argv[1:])
+    main()
