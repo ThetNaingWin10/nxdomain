@@ -74,7 +74,9 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
-                        
+                    
+                        if response!="NXDOMAIN":
+                            print(f"resolve {data} to {response}")
             #with open(config_file,"r") as file:
                # for line in file:
                    # socket_client.send(line.encode("utf-8"))
