@@ -41,9 +41,7 @@ def root_responses(domain,port,config):
     
 def get_port(domain,config):
     for line in config:
-        parts=line.strip().split(',')
-        if parts[0]==domain:
-            return int(parts[1])
+        return int(dns_records[domain])
     return None
 
 def main(args: list[str]) -> None:
