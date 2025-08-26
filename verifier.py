@@ -86,6 +86,7 @@ def main(args: list[str]) -> None:
             for key, (value, inner_dict) in single_contents.items():
                 for ports in inner_dict.values():
                     portslist.extend(ports)
+            print(portslist)
             checked=set()
             for port in portslist:
                  if port in checked:
