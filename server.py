@@ -22,6 +22,7 @@ def handle_command(command):
                 dns_records[hostname]=port
         else:
             print("INVALID",flush=True)
+            #asdf
             
     
 
