@@ -22,26 +22,15 @@ def handle_command(command):
                 dns_records[hostname]=port
         else:
             print("INVALID",flush=True)
-            
-            
-    
-
-            
-    # global dns_records
-    # parts=command.split()
-    # if(len(parts)==3):
-    #     action, hostname, port=parts
-    #     if action=="!ADD" :
-    #         dns_records[hostname]=port
-    #     elif action=="!DEL":
-    #         if hostname in dns_records:
-    #             del dns_records[hostname]
-    #     elif action=="!EXIT\n" :
-    #         sys.exit(1)
-    #     else:
-    #         print("INVALID")
-    # else:
-    #     print("INVALID")
+    if(len(parts)==2):
+        action,hostname=parts
+        if action =="!DEL":
+            if hostname in dns_records.keys():
+                del dns_records[hostname]
+            else:
+                return
+        else :
+            print("INVALID",flush=True)
     
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
@@ -84,7 +73,6 @@ def main(args: list[str]) -> None:
                             sys.exit(1)
                         else:
                             handle_command(data)
-                            config=dns_records;
 
                     else:
                         response=root_responses(data,port,config)
