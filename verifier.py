@@ -72,13 +72,16 @@ def main(args: list[str]) -> None:
 
         print(currentport)
         print(master_lines)
+        foundport=0
         
         for items in single_files.iterdir():
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.read()
-                       if(contents==currentport):
-                            print("Yes")
+                       if "." not in contents:
+                            foundport=int(contents)
+                            if contents==foundport:
+                                 print("True")
    
     
 
