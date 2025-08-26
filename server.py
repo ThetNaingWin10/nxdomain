@@ -28,7 +28,7 @@ def handle_command(command):
         print("INVALID")
     
 def root_responses(domain,port,config):
-    target_port=get_port(domain,config[1:])
+    target_port=get_port(domain,config)
     if target_port is not None:
         return str(target_port)
     else:
@@ -51,22 +51,23 @@ def main(args: list[str]) -> None:
 
     try:
         with open(config_file, "r") as rconfig_file:
-            port = int(rconfig_file.readline().strip())  
+            config=rconfig_file.readlines() 
             #print(f"Server Test runnin on {port}")  //to double check for port
-        server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        server_socket.bind(("localhost",port))
-        server_socket.listen(5)
+            server_port=int(config[0].strip())
+            for port in config[1:]:
+                server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                server_socket.bind(("localhost",server_port))
+                server_socket.listen(5)
 
-        while True:
-            socket_client , _ = server_socket.accept()
-            domain=socket_client.recv(port).decode("utf-8").strip()
-            response=root_responses(domain,port,config_file)
-            
-            #socket_client.send(response.encode("utf-8"))
-            with open(config_file,"r") as file:
-                for line in file:
-                    socket_client.send(line.encode("utf-8"))
-            socket_client.close()
+                while True:
+                    socket_client , _ = server_socket.accept()
+                    domain=socket_client.recv(server_port).decode("utf-8").strip()
+                    response=root_responses(domain,port,config)
+                    socket_client.send(response.encode("utf-8"))
+            #with open(config_file,"r") as file:
+                #for line in file:
+                  #  socket_client.send(line.encode("utf-8"))
+                    socket_client.close()
         
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
