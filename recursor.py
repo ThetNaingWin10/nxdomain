@@ -55,7 +55,7 @@ def resolve_domain(root_serversocket,time_out,domain):
 
                 #port of the authoritative nameserver
                 
-                response=tld_socket.recv(1024).decode("utf-8")
+                response=tld_socket.recv(data).decode("utf-8")
 
                 if(response.startswith("NXDOMAIN")):
                     return
