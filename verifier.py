@@ -69,7 +69,17 @@ def main(args: list[str]) -> None:
         for line in master_lines:
              if ',' in line:
                 line=line.split(",")
-                print(line[0])
+                lastdomain=line[0].split(".")
+                list1.append(lastdomain)
+                middomain=line[0].ljust(".",2)
+                list2.append(middomain)
+                list3.append(line)
+        for line in list1:
+             print(line)
+        for line in list2:
+             print(line)
+        for line in list3:
+             print(line)      
 
         
         # for items in single_files.iterdir():
