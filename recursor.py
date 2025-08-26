@@ -4,7 +4,6 @@ Write code for your recursor here.
 You may import library modules allowed by the specs, as well as your own other modules.
 """
 import socket
-import sys
 import signal
 
 from sys import argv
@@ -84,9 +83,9 @@ def resolve_domain(root_serversocket,time_out,domain):
 def main(args: list[str]) -> None:
     if len(args)!=2:
         print("INVALID ARGUMENTS")
-        sys.exit(1)
-    root=int(sys.argv[1])
-    time_out=int(sys.argv[2])
+        return
+    root=int(argv[1])
+    time_out=int(argv[2])
 
     server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     server_socket.connect((root_server_ip,root))
@@ -102,7 +101,7 @@ def main(args: list[str]) -> None:
                 result=resolve_domain(server_socket,time_out,domain_name)
             
     except EOFError:
-        sys.exit(1)
+        return
 
 if __name__ == "__main__":
     main(argv[1:])
