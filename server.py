@@ -32,7 +32,7 @@ def handle_command(command):
         else :
             print("INVALID",flush=True)
     
-def root_responses(domain,port,config):
+def root_responses(domain,config):
     target_port=get_port(domain,config)
     if target_port is not None:
         return str(target_port)
@@ -84,8 +84,8 @@ def main(args: list[str]) -> None:
 
                 else:
                     if data in dns_records:
-                        port=dns_records[data]
-                        response=root_responses(data,port,dns_records)
+                        # port=dns_records[data]
+                        response=root_responses(data,dns_records)
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
                     else :
