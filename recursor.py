@@ -43,23 +43,27 @@ def resolve_domain(server_socket,time_out,domain):
 
         #port of the authoritative nameserver
         #testing
-        auth_port=tld_socket.recv(1024).decode("utf-8")
-        
-        auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        auth_socket.connect((server_socket.getpeername()[0],int(auth_port)))
-        auth_socket.send(f"{domain}\n".encode("utf-8"))
+        response=tld_socket.recv(1024).decode("utf-8")
 
-        ip=auth_socket.recv(1024).decode("utf-8")
-
-
-        timetaken=time.time()-starttime
-
-        if(timetaken>time_out):
+        if(response.startswith("NXDOMAIN")):
             print("NXDOMAIN",flush=True)
         else:
-            print(f"{ip}",flush=True)
-        
-        timetaken=time.time()-starttime
+            auth_port=response
+            auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+            auth_socket.connect((server_socket.getpeername()[0],int(auth_port)))
+            auth_socket.send(f"{domain}\n".encode("utf-8"))
+
+            ip=auth_socket.recv(1024).decode("utf-8")
+
+
+            timetaken=time.time()-starttime
+
+            if(timetaken>time_out):
+                print("NXDOMAIN",flush=True)
+            else:
+                print(f"{ip}",flush=True)
+            
+            timetaken=time.time()-starttime
 
 def main(args: list[str]) -> None:
     if len(sys.argv) !=3:
