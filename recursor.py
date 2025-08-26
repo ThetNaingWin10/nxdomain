@@ -8,8 +8,9 @@ import sys
 import time
 
 from sys import argv
-root_server_ip = "127.0.0.1"
+# root_server_ip = "127.0.0.1"
 root_server_port = 1026
+root_server_ip=socket.gethostbyname("localhost")
             
 def valid(domain_name):
     list=domain_name.split(".")
@@ -89,7 +90,7 @@ def main(args: list[str]) -> None:
         sys.exit(1)
     root=int(sys.argv[1])
     time_out=int(sys.argv[2])
-    root_server_ip=socket.gethostbyname("localhost")
+    print(root_server_ip)
 
     server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     server_socket.connect((root_server_ip,root))
