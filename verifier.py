@@ -20,6 +20,8 @@ def check(list,contents):
                        portstogo.append(line[1]) ## validating each domains
      
      if len(portstogo)!=len(list):
+          print(len(portstogo))
+          print(len(list))
           return
      else:
           return portstogo
