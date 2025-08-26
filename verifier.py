@@ -14,10 +14,9 @@ def check(list,contents):
         if "," in line:
              line=line.split(",")
              for domains in list:
-                  if domains==line[0]:
-                       print("YES")
-          
-          
+                  if domains!=line[0]:
+                       return "neq"
+                    
 
 
 def main(args: list[str]) -> None:
@@ -94,7 +93,10 @@ def main(args: list[str]) -> None:
                   with items.open("r") as line:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
-                             check(list1,contents)
+                             valid=check(list1,contents)
+                             if(valid=="neq"):
+                                  print(valid)
+                                  return
                 
 
 if __name__ == "__main__":
