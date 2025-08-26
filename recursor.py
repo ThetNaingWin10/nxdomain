@@ -14,12 +14,10 @@ root_server_port = 1026
             
 def valid(domain_name):
     list=domain_name.split(".")
-    if len(list)!=3:
-        return False
-    else :
-        C=list[0]
-        B=list[1]
-        A=list[2]
+    if len(list)==3 or len(list)==4:
+        C=list[-3]
+        B=list[-2]
+        A=list[-1]
         #validating C
         if C.startswith(".") or C.endswith("."):
             return False
@@ -33,6 +31,9 @@ def valid(domain_name):
             return False
         else:
             return True
+    else :
+        return False
+        
 
 def resolve_domain(root_serversocket,time_out,domain):
         starttime=time.time()
