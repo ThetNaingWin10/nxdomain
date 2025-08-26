@@ -30,12 +30,14 @@ def main(args: list[str]) -> None:
     try:      
         master_lines=master_file.read_text().split("\n")
     except FileNotFoundError:
-        print("invalid arguments123")
+        print("invalid arguments")
         return  
-
-    currentport=master_lines[0].strip()
-    domain=master_lines[1].split(",")[0]
-    target_port=int(master_lines[1].split(",")[1])
+    try:
+        currentport=master_lines[0].strip()
+        domain=master_lines[1].split(",")[0]
+        target_port=int(master_lines[1].split(",")[1])
+    except FileNotFoundError:
+         print("invalid master")
 
     for char in currentport:
          if char.isalpha():
