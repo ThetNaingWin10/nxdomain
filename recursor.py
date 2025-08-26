@@ -13,6 +13,7 @@ def resolve_domain(root_port, timeout) :
     try:
         root_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM) #socket to connect to the root directory
         root_socket.connect(("localhost",root_port))
+
         while True:
             domain=input("Please Enter a Domian or CtrlD to exit") 
             if not domain:
@@ -26,8 +27,9 @@ def resolve_domain(root_port, timeout) :
         tld_port=root_socket.recv(1024).decode("utf-8").strip() # receiving the response from the root server
         print(f"{tld_port}")
         duration= time.time()-startingtime # checking if the duration of the program running exceeds the timeout
-        if(duration>timeout) :
+        if duration>timeout:
             print("NXDOMAIN (Timeout)")
+            
 
 
 def main(args: list[str]) -> None:
