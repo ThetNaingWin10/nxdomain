@@ -22,7 +22,7 @@ def handle_command(command):
                 dns_records[hostname]=port
         else:
             print("INVALID",flush=True)
-            #asdf
+            
             
     
 
@@ -84,6 +84,7 @@ def main(args: list[str]) -> None:
                             sys.exit(1)
                         else:
                             handle_command(data)
+                            config=dns_records;
 
                     else:
                         response=root_responses(data,port,config)
