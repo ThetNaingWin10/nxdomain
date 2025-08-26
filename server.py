@@ -33,8 +33,31 @@ def main(args: list[str]) -> None:
 
     config_file=sys.argv[1]
 
-    
+    try:
+        with open(config_file, "r") as rconfig_file:
+            port = int(rconfig_file.readline().strip())  
+            print(f"Server Test runnin on {port}")  
+        
+        server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        server_socket=(("localhist"),port)
+        server_socket.listen(5)
 
+        while True:
+            socket_client ,address_client= server.socket.accept()
+            while True:
+                data=socket_client.recv(1024).decode("utf-8")
+                if not data:
+                    break
+                message+=data
+                
+                    
+            message= ""
+            socket_client.close()
+    
+    except FileNotFoundError:
+        print("INVALID CONFIGURATION")
+    finally:
+        server_socket.close()
 
 if __name__ == "__main__":
     main(argv[1:])
