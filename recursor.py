@@ -86,7 +86,7 @@ def main(args: list[str]) -> None:
         return
     # try:
     root=int(argv[1])
-    time_out=int(argv[2])
+    time_out=argv[2]
     # except ValueError:
     #     print("FAILED TO CONNECT TO ROOT")
         # return
