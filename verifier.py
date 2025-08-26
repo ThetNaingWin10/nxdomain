@@ -57,6 +57,7 @@ def main(args: list[str]) -> None:
              return
         
         print(currentport)
+        print(valid_domain)
         print(target_port)
 
         if(currentport==1024 and target_port==1029):  ## specifically for the google testcase
