@@ -42,7 +42,7 @@ def resolve_domain(server_socket,time_out,domain):
         tld_socket.send(f"{domain}\n".encode("utf-8"))
 
         #port of the authoritative nameserver
-        auth_port=int(tld_socket.recv(1024).decode("utf-8"))
+        auth_port=tld_socket.recv(1024).decode("utf-8")
         
         auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         auth_socket.connect((server_socket.getpeername()[0],auth_port))
