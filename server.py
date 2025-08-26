@@ -9,6 +9,7 @@ import sys
 
 from sys import argv
 dns_records={}
+message=""
 def handle_command(command):
     global dns_records
     parts=command.split()
