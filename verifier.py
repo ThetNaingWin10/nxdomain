@@ -17,7 +17,7 @@ def check(currentport,domain,content,i):
                         porting_address=parts[1]
                         if(domain_check==domain.rsplit('.',3)[3]):
                             return porting_address
-    return 1
+    return None
 
 
 def main(args: list[str]) -> None:
@@ -46,7 +46,7 @@ def main(args: list[str]) -> None:
                 print(content)
                 print(i)
                 address_port=check(currentport,domain,content,i)
-                if address_port==1:
+                if address_port==None:
                     break
                 else :
                     currentport=address_port
