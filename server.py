@@ -30,7 +30,6 @@ def handle_command(command):
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
     if target_port is not None:
-        print(f"resolve {domain} to {target_port}")
         return str(target_port)
     else:
         return "NXDOMAIN"
@@ -71,6 +70,11 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
+
+                        if response!="NXDOMAIN":
+                            print(f"resolve {data} to {response}")
+                        else:
+                            print(f"resole {data} to NXDOMAIN")
                         
                     socket_client.close()
 
