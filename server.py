@@ -33,16 +33,21 @@ def handle_command(command):
             print("INVALID",flush=True)
     
 def root_responses(domain,config):
-    target_port=get_port(domain,config)
-    if target_port is not None:
-        return str(target_port)
+    if domain in config:
+        target_port=dns_records[domain]
+        return target_port
     else:
         return "NXDOMAIN"
+#     target_port=get_port(domain,config)
+#     if target_port is not None:
+#         return str(target_port)
+#     else:
+#         return "NXDOMAIN"
     
-def get_port(domain,config):
-    if domain in config:
-        return int(dns_records[domain])
-    return None
+# def get_port(domain,config):
+#     if domain in config:
+#         return int(dns_records[domain])
+#     return None
 
 def main(args: list[str]) -> None:
     if len(sys.argv) != 2:
@@ -84,7 +89,6 @@ def main(args: list[str]) -> None:
 
                 else:
                     if data in dns_records:
-                        # port=dns_records[data]
                         response=root_responses(data,dns_records)
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
