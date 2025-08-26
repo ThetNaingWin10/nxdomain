@@ -36,16 +36,22 @@ def main(args: list[str]) -> None:
                         porting_address=parts[1]
                         if(domain_check==domain.rsplit('.',3)[3]):
                             currentport=porting_address
+
+    for single_file in single_files.iterdir():
+        if single_file.is_file():
+            content=single_file.read_text().split("\n")
             
-            if content[0]==currentport:
-                print(currentport)
+            if(content[0]==currentport):
                 for line in content:
                     if "," in line:
                         parts=line.split(',')
                         domain_check=parts[0]
                         porting_address=parts[1]
-                        if domain_check==domain.rsplit(".",2)[2]:
-                            print(porting_address)
+                        if(domain_check==domain.rsplit('.',2)[2]):
+                            currentport=porting_address
+    print(porting_address)
+            
+    
 
 
             
