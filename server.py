@@ -95,6 +95,7 @@ def main(args: list[str]) -> None:
                         response="NXDOMAIN"
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
+                        #dfga
                     
                     
                 socket_client.close()
