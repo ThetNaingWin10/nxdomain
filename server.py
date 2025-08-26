@@ -69,8 +69,8 @@ def main(args: list[str]) -> None:
             while True:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
-                socket_client.send((config+'\n').encode("utf-8"))
-
+                for line in config:
+                    socket_client.send((line+'\n').encode("utf-8"))
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
                         socket_client.close()
