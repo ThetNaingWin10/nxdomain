@@ -58,11 +58,14 @@ def main(args: list[str]) -> None:
         for line in master_lines:
             if "," in line:
                  testing=line.split(',')
+                 if "@" in testing[0]:
+                      print("invalid master")
+                      return
                  print(testing[0])
-                 for char in testing[0]:
-                      if not (char.isdigit() or char.isalpha or char=='.' or char!='@'):
-                           print("invalid master")
-                           return
+                #  for char in testing[0]:
+                #       if not (char.isdigit() or char.isalpha or char=='.'):
+                #            print("invalid master")
+                #            return
                       
         
 
