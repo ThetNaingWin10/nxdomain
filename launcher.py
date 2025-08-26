@@ -82,7 +82,7 @@ def main(args: list[str]) -> None:
                                     port_number+=1
                                 used_ports.add(port_number)
                                 with open(constructpath1,"w") as file:
-                                    print(partial_domain)
+                                    # print(partial_domain)
                                     file.write(f"{previousport}\n{partial_domain},{port_number}")
                                     
 
