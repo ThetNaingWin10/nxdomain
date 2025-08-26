@@ -85,8 +85,8 @@ def main(args: list[str]) -> None:
 
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
-    # except PermissionError:
-    #     print("INVALID CONFIGURATION")
+    except PermissionError:
+        print("INVALID CONFIGURATION")
     finally:
         try:
             if server_socket:

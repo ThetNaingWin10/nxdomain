@@ -38,7 +38,7 @@ def valid(domain_name):
 
 def resolve_domain(root_serversocket,time_out,domain):
         signal.signal(signal.SIGALRM,timeoutsignal)
-        signal.alarm(int(time_out))
+        signal.alarm(round(int(time_out)))
         try:
 
             root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
@@ -107,7 +107,7 @@ def main(args: list[str]) -> None:
             if not valid(domain_name):
                 print("INVALID",flush=True)
             else:
-                result=resolve_domain(server_socket,time_out,domain_name)
+                resolve_domain(server_socket,time_out,domain_name)
             
     except EOFError:
         return
