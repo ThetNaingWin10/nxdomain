@@ -64,7 +64,7 @@ def main(args: list[str]) -> None:
 
                 while True:
                     socket_client , _ = server_socket.accept()
-                    data=socket_client.recv(1024).decode("utf-8").strip()
+                    data=socket_client.recv(server_port).decode("utf-8").strip()
 
                     if data.startswith('!'):
                         handle_command(data)
