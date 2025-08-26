@@ -20,7 +20,7 @@ def handle_command(command):
         elif action=="!DEL":
             if hostname in dns_records:
                 del dns_records[hostname]
-        elif action=="!EXIT" :
+        elif action=="!EXIT\n" :
             sys.exit(1)
         else:
             print("INVALID")
