@@ -28,7 +28,7 @@ def handle_command(command):
         print("INVALID")
     
 def root_responses(domain,port,config):
-    target_port=get_port(domain,config)
+    target_port=get_port(domain,config[1:])
     if target_port is not None:
         return str(target_port)
     else:
