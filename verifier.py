@@ -12,20 +12,14 @@ master_list=[]
 def check(list,contents):
      i=0
      list=[]
-     for x in list:
-        print(x)
      for line in contents:
         if "," in line:
              line=line.split(",")
              list.append(line[0])
+             if line[0] in list:
+                  print("Yes")
 
-            #  for domains in list:
-            #       if domains==line[0]:
-            #            list.append(line[1])
-            #            print(i)
-            #            i+=1
-
-     print(len(contents))
+     print(len(list))
     #     return list
     #  else:
     #     return None
@@ -93,8 +87,8 @@ def main(args: list[str]) -> None:
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
                 list3.append(line[0])
-        for line in list1:
-             print(line) 
+        # for line in list1:
+        #      print(line) 
         # for line in list2:
         #      print(line)
         # for line in list3:
