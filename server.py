@@ -64,23 +64,15 @@ def main(args: list[str]) -> None:
 
     config_file=sys.argv[1]
     try:
-        server_socket='none'
         with open(config_file, "r") as rconfig_file:
+            config=rconfig_file.readlines()
 
-            for line in rconfig_file:
-                line=line.strip()
-                if("," in line):
-                    key,value=line.split(",",1)
-                    dns_records[key]=int(value) ##storing the initial keys and values from the config file
-
-            config=rconfig_file.readlines() ## reading the config file
-
-            server_port=int(config[0].strip()) ## getting the first port
+            server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
 
-            for hostname,port in dns_records.items(): ## looping through the values in the dns_records
+            for port in config[1:]:
 
                 while True:
                     socket_client , _ = server_socket.accept()
@@ -92,6 +84,7 @@ def main(args: list[str]) -> None:
                             sys.exit(1)
                         else:
                             handle_command(data)
+                            config=dns_records;
 
                     else:
                         response=root_responses(data,port,config)
