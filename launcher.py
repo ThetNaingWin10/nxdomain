@@ -31,5 +31,4 @@ def main(args: list[str]) -> None:
 
 
 if __name__ == "__main__":
-    print("HEllo")
     main(argv[1:])
