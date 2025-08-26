@@ -16,7 +16,7 @@ def check(list,contents):
              line=line.split(",")
              for check_domain in list:
                   if check_domain==line[0]:
-                       print[line[1]]
+                       print["Yes"]
                        
              
     
