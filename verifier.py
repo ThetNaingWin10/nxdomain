@@ -13,7 +13,7 @@ def check(list,contents):
      for line in contents:
         if "," in line:
              line=line.split(",")
-             print(line)
+             print(line[0])
           
           
 
