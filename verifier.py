@@ -96,6 +96,7 @@ def main(args: list[str]) -> None:
                                   return
                              for items in valid:
                                   currentport=valid
+                                  break
                                 #   print(items)
 
         for port in currentport:
