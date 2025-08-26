@@ -64,6 +64,7 @@ def main(args: list[str]) -> None:
 
     config_file=sys.argv[1]
     try:
+        server_socket='none'
         with open(config_file, "r") as rconfig_file:
 
             for line in rconfig_file:
