@@ -61,7 +61,7 @@ def main(args: list[str]) -> None:
                     key,value= line.split(",",1)
                     dns_records[key]=value
                 else:
-                    dns_records[line]=None
+                    dns_records[None]=line
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
