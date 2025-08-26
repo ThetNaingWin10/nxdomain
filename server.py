@@ -85,6 +85,7 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
+                        dns_records[f"{data}"]=response
                         print(f"resolve {data} to {response}",flush=True)
                         # if response!="NXDOMAIN":
                         #     dns_records[f"{data}"]=response
