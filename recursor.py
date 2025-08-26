@@ -77,7 +77,7 @@ def resolve_domain(root_serversocket,time_out,domain):
             else:
                 print("No data received")
         except TimeoutError:
-            return "NXDOMAIN"
+            print("NXDOMAIN",flush=True)
         finally:
             signal.alarm(0)
 
@@ -105,8 +105,6 @@ def main(args: list[str]) -> None:
                 print("INVALID",flush=True)
             else:
                 result=resolve_domain(server_socket,time_out,domain_name)
-                if result=="NXDOMAIN":
-                    break
             
     except EOFError:
         sys.exit(1)
