@@ -84,8 +84,6 @@ def main(args: list[str]) -> None:
                 list2.append(middomain)
                 list3.append(line[0])     
 
-        for port in currentport:
-             print(port)
         for items in single_files.iterdir():
              if items.is_file():
                   with items.open("r") as line:
