@@ -54,7 +54,8 @@ def main(args: list[str]) -> None:
                     key,value= line.split(",",1)
                     dns_records[key]=value
                 else:
-                    print("Testing")
+                    print("INVALID")
+                    return
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
