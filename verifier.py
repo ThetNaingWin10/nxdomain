@@ -47,7 +47,6 @@ def main(args: list[str]) -> None:
                 print(i)
                 address_port=check(currentport,domain,content,i)
                 if address_port==None:
-                    i-=1
                     break
                 else :
                     currentport=address_port
