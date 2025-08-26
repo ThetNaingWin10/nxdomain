@@ -105,8 +105,8 @@ def main(args: list[str]) -> None:
                                   print("neq")
                                   return
                              else:
-                                  for line in valid:
-                                       print(line)
+                                  for items in valid:
+                                       print(items)
                             
                              
                              
