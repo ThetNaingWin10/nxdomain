@@ -120,7 +120,10 @@ def main(args: list[str]) -> None:
                 rootdata=single_contents.get('root.conf')
                 if rootdata[0]==mastercontents[0]:
                      masterdata=list(mastercontents[1].keys())
-                     print(masterdata)
+                     rootdomains = [key.split('.')[-1] for key in masterdata]
+                     print(rootdomains)
+
+                     
                      
                     
                  
