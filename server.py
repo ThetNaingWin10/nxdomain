@@ -94,7 +94,7 @@ def main(args: list[str]) -> None:
                 server_socket.close()
         except UnboundLocalError:
             print("INVALID CONFIGURATION")
-            return
+            exit()
 
 if __name__ == "__main__":
     main(argv[1:])
