@@ -92,13 +92,15 @@ def main(args: list[str]) -> None:
         # for line in list3:
         #      print(line)      
 
-        
-        for items in single_files.iterdir():
-             if items.is_file():
-                  with items.open("r") as line:
-                       contents=line.readlines()
-                       if(int(currentport)==int(contents[0])):
-                             check(list1,contents)
+        try:
+            for items in single_files.iterdir():
+                if items.is_file():
+                    with items.open("r") as line:
+                        contents=line.readlines()
+                        if(int(currentport)==int(contents[0])):
+                                check(list1,contents)
+        except FileNotFoundError:
+             print("singles io error")
                 
 
 if __name__ == "__main__":
