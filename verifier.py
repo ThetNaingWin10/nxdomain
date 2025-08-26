@@ -12,8 +12,8 @@ master_list=[]
 def check(list,contents):
      for line in contents:
         if "," in line:
+             line=line.split(",")
              print(line)
-          
           
           
 
