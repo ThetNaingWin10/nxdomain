@@ -119,8 +119,9 @@ def main(args: list[str]) -> None:
                  currentport=rootdata[0]
 
                  for domain in rootdata[1].keys():
-                      if domain in  mastercontents[1]:
+                      if domain in mastercontents[1]:
                            expectedports=mastercontents[1][domain]
+                           print(expectedports)
                            if currentport not in expectedports:
                                 return 'neq'
                 
