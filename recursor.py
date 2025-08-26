@@ -33,15 +33,15 @@ def valid(domain_name):
         else:
             return True
 
-def resolve_domain(server_socket,time_out,domain):
+def resolve_domain(root_server_ip, root_port,time_out,domain):
         starttime=time.time()
 
         root_server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        root_server_socket.connect((root_server_ip,root_server_port))
+        root_server_socket.connect((root_server_ip,root_port))
         # server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         root_server_socket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
 
-        data=(server_socket.recv(1024).decode('utf-8')) #received the TLD port
+        data=root_server_socket.recv(1024).decode('utf-8') #received the TLD port
 
         if(data):
             tld_port=int(data)
@@ -80,7 +80,7 @@ def resolve_domain(server_socket,time_out,domain):
         
 
 def main(args: list[str]) -> None:
-    if len(sys.argv) !=3:
+    if len(args) !=3:
         print("INVALID ARGUMENTS")
         sys.exit(1)
     root=int(sys.argv[1])
@@ -98,7 +98,7 @@ def main(args: list[str]) -> None:
             if not valid(domain_name):
                 print("INVALID",flush=True)
             else:
-                resolve_domain(server_socket,time_out,domain_name)
+                resolve_domain(root_server_ip,root,time_out,domain_name)
             
     except EOFError:
         sys.exit(1)
