@@ -97,7 +97,7 @@ def main(args: list[str]) -> None:
                           print("neq")
                           return
             mid_domain={}
-            print(nextfilecheck)
+            # print(nextfilecheck)
             for key,value in nextfilecheck.items():
                 constant=single_contents.get(f'{key}.conf')
                 mid_domain[key]=constant
@@ -106,6 +106,11 @@ def main(args: list[str]) -> None:
             mid_domain_master = ['.'.join(item.split('.')[-2:]) for item in keys]
             print(mid_domain)
             print(mid_domain_master)
+            if all (element in mid_domain for element in mid_domain_master):
+                print("Yes")
+            else:
+                print('neq')
+                return
                 
                  
                            
