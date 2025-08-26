@@ -59,7 +59,7 @@ def main(args: list[str]) -> None:
         while True:
             socket_client , _ = server_socket.accept()
             domain=socket_client.recv(port).decode("utf-8").strip()
-            response=root_responses(domain,port,rconfig_file)
+            response=root_responses(domain,port,config_file)
             socket_client.send(response.encode("utf-8"))
             socket_client.close()
     
