@@ -77,7 +77,8 @@ def main(args: list[str]) -> None:
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.read()
-                       print(contents)
+                       if(contents==currentport):
+                            print("Yes")
    
     
 
