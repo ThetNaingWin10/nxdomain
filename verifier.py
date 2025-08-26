@@ -19,8 +19,8 @@ def check(list,contents):
                   if domains==line[0]:
                        list.append(line[1])
                        i+=1
-     if i==len(contents):
-          print("true")
+     print(i)
+     print(len(contents))
     #     return list
     #  else:
     #     return None
