@@ -79,7 +79,7 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            # print(mastercontents)
+            print(mastercontents)
             print(single_contents)
             nextfilecheck={}
             if "root.conf" in single_contents:
@@ -120,7 +120,7 @@ def main(args: list[str]) -> None:
                       return
             else:
                  print("YES")
-                 
+
             print(mid_domain)
             print(extraction_middomain)
             print(mid_domain_master)
