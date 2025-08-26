@@ -24,7 +24,7 @@ def main(args: list[str]) -> None:
     singlefile_output=sys.argv[2]
 
     if not os.path.isfile(master_confi):
-        print("INVALID MASTER\n")
+        print("INVALID MASTER")
         sys.exit(1)
     
     pass
