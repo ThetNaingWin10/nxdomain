@@ -48,14 +48,12 @@ def main(args: list[str]) -> None:
         sys.exit()
 
     config_file=sys.argv[1]
-    
-
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
-            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
             server_port=int(config[0].strip())
+            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
