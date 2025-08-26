@@ -25,7 +25,9 @@ master_list=[]
 #           return portstogo
 def read(file):
      with open(file,"r") as contents:
-          return {line.split(',')[0]: line.split(',')[1:] for line in contents.read().splitlines()}
+          lines=contents.read().splitlines()
+          port=lines[0]
+          return port,{line.split(',')[0]: line.split(',')[1:] for line in contents[1:]}
 
 def main(args: list[str]) -> None:
         try:
