@@ -28,11 +28,14 @@ def main(args: list[str]) -> None:
         if single_file.is_file():
             content=single_file.read_text().split("\n")
             portofcontent=content[0].strip()
-            domaincontent=content[1]#.split(",")[0]
-            # contentaddr=content[1].split(",")[1]
-            print(portofcontent)
-            print(domaincontent)
-            # print(contentaddr)
+            domaincontent=content[1]
+            
+            for line in content:
+                parts=line.strip().split(",")
+                print(parts)
+
+            
+
             
             
 
