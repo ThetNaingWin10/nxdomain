@@ -42,7 +42,6 @@ def valid(domain_name):
         #validating C
         if C.startswith(".") or C.endswith("."):
             return False
-
         if not all(char.isalnum() or char == "-" or char == "." for char in C):
             return False
         #validating B
@@ -51,6 +50,8 @@ def valid(domain_name):
         #validating A
         if not all(char.isalnum() or char == "-"  for char in A):
             return False
+        else:
+            return True
     
 
 def main(args: list[str]) -> None:
@@ -64,13 +65,15 @@ def main(args: list[str]) -> None:
     server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     server_socket.connect((root_server_ip,root))
 
-
-    while True:
-        domain_name=input()
-        if not domain_name:
-            break
-        if not valid(domain_name):
-            print("INVALID",flush=True)
+    try:
+        while True:
+            domain_name=input()
+            if not domain_name:
+                break
+            if not valid(domain_name):
+                print("INVALID",flush=True)
+    except EOFError:
+        print("Exiting")
 
 
 
