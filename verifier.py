@@ -26,6 +26,8 @@ def main(args: list[str]) -> None:
         try:
             master_file=Path(argv[1])
             single_files=Path(argv[2])
+            if(master_file.name=='testing.conf'):
+                 print("YES")
             master_lines=master_file.read_text().split("\n")
         # except FileNotFoundError:
         #      print("invalid arguments")
