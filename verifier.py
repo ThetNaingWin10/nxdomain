@@ -31,10 +31,7 @@ def main(args: list[str]) -> None:
             domaincontent=content[1]
             
             for line in content:
-                if(len(line)==1):
-                    print(line)
-                # parts=line.strip().split(",")
-                
+                print(line)
 
             
 
