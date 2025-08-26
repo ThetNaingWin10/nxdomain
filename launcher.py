@@ -15,7 +15,7 @@ def validation(master_configuration):
 
 def main(args: list[str]) -> None:
     if len(argv) !=1:
-        print('INVALID ARGUMENTS')
+        print('INVALID MASTER')
         return
     
     master_confi=argv[1]
