@@ -15,7 +15,7 @@ def check(currentport,domain,content,i):
                         parts=line.split(',')
                         domain_check=parts[0]
                         porting_address=parts[1]
-                        if(domain_check==domain.rsplit('.',i)[i]):
+                        if(domain_check==domain.rsplit('.',3)[3]):
                             return porting_address
 
 
@@ -39,13 +39,13 @@ def main(args: list[str]) -> None:
     for single_file in single_files.iterdir():
         if single_file.is_file():
             content=single_file.read_text().split("\n")
-            while i>=0:
-                print(currentport)
-                print(domain)
-                print(content)
-                print(i)
-                currentport=check(currentport,domain,content,i)
-                break
+            # while i>=0:
+            print(currentport)
+            print(domain)
+            print(content)
+            print(i)
+            currentport=check(currentport,domain,content,i)
+            
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
                 # elif(z==len(domain_length)):
