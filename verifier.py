@@ -59,9 +59,9 @@ def main(args: list[str]) -> None:
              if(target_port==1029) :
                   print("invalid master")
                   return
-        # print(currentport)
-        # print(domain)
-        # print(target_port)
+        print(currentport)
+        print(domain)
+        print(target_port)
 
         domain_length=domain.split(".")
         i=len(domain_length)-1
