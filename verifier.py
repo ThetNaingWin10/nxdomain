@@ -12,11 +12,13 @@ master_list=[]
 def check(list,contents):
      i=0
      list=[]
+     for x in list:
+        print(x)
      for line in contents:
         if "," in line:
              line=line.split(",")
-             for domains in list:
-                  print(domains)
+             list.append(line[0])
+
             #  for domains in list:
             #       if domains==line[0]:
             #            list.append(line[1])
