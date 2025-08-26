@@ -80,7 +80,7 @@ def resolve_domain(root_server_ip, root_port,time_out,domain):
         
 
 def main(args: list[str]) -> None:
-    if len(sys.argv) !=3:
+    if len(args) !=2:
         print("INVALID ARGUMENTS")
         sys.exit(1)
     root=int(sys.argv[1])
