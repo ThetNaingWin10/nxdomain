@@ -77,7 +77,7 @@ def main(args: list[str]) -> None:
                         sys.exit(1)
                     else:
                         handle_command(data)
-                        socket_client.send((data+'\n').encode("utf-8"))
+                        # socket_client.send((data+'\n').encode("utf-8"))
 
                 else:
                     if data in dns_records:
