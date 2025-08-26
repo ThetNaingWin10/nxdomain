@@ -82,7 +82,7 @@ def main(args: list[str]) -> None:
                 else:
                     if data in dns_records:
                         port=dns_records[data]
-                        response=root_responses(data,port,config)
+                        response=root_responses(data,port,dns_records)
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
                     
