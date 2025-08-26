@@ -94,13 +94,11 @@ def main(args: list[str]) -> None:
                              if valid==None:
                                   print("neq")
                                   return
-                             for items in valid:
-                                  currentport=valid
-                                  break
-                                #   print(items)
-
+                             valid=currentport
+                             break
+         
         for port in currentport:
-             print(port)
+            print(port)
                                   
 
 if __name__ == "__main__":
