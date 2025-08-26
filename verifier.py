@@ -30,9 +30,9 @@ def main(args: list[str]) -> None:
                  print("invalid arguments")
                  return
             master_lines=master_file.read_text().split("\n")
-        # except FileNotFoundError:
-        #      print("invalid arguments")
-        #      return
+        except FileNotFoundError:
+             print("invalid master")
+             return
         except IndexError:
              print("invalid arguments")
              return
