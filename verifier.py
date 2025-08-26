@@ -11,13 +11,11 @@ master_list=[]
 
 def check(list,contents):
      i=0
-     list=[]
      for line in contents:
         if "," in line:
              line=line.split(",")
-             print(list)
-            #  if line[0] in list:
-            #       print("yes")
+             if line[0] in list:
+                  print("yes")
              
     
     #  print(i)
