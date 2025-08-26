@@ -58,8 +58,7 @@ def main(args: list[str]) -> None:
         for line in master_lines:
             if "," in line:
                  testing=line.split(',')
-                 full_domain=testing[0]
-                 print(full_domain)
+                 print(testing)
             #  for char in line:
             #       if not char.isalpha() or char.isalnum() or char=='.' or char==',' or char=='\n':
             #            print("invalid master")
