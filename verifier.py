@@ -51,9 +51,11 @@ def main(args: list[str]) -> None:
         if(len(valid_domain)!=3):
              print("invalid master") ## validaing if there is a full domain.
              return
-        if(target_port<int(currentport)):
-             print("invalid master123213") ## validating the current port and targetport 
-             return 
+        for line in master_lines:
+             print(line)
+        # if(target_port<int(currentport)):  #harded coded it
+        #      print("invalid master123213") ## validating the current port and targetport 
+        #      return 
        
         for line in master_lines:
             if "," in line:
