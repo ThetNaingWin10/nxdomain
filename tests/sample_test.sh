@@ -6,7 +6,7 @@
 # earse previous coverage
 coverage erase
 # start a hard-coded server in background by coverage
-coverage run --append tests/sample_server.py tests/sample.conf &
+coverage run --append sample_server.py sample.conf &
 # delay 2s to make sure the server is up and listening at port 1024
 sleep 2
 echo fake recursor sends EXIT
