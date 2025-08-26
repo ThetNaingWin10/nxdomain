@@ -32,7 +32,7 @@ def root_responses(domain,port,config):
     if target_port is not None:
         return str(target_port)
     else:
-        return "NXDOMAIN"
+        return "Hi"
     
 def get_port(domain,config):
     for line in config[1:]:
