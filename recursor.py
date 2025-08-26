@@ -39,10 +39,11 @@ def resolve_domain(root_serversocket,time_out,domain):
         root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
 
         data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
-        print(data,flush=True)
+        
 
-        # if(data):
-        #     tld_port=int(data)
+        if(data):
+            print(data,flush=True)
+            # tld_port=int(data)
             
 
         #     tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
