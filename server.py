@@ -62,7 +62,6 @@ def main(args: list[str]) -> None:
                         return
 
                  ##checking the keys and values
-            return
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
