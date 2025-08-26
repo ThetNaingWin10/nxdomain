@@ -8,6 +8,7 @@ from pathlib import Path
 import pathlib
 master_list=[]
 
+
 def check(currentport,domain,content,i):
     if(content[0]==currentport):
                 for line in content:
@@ -15,6 +16,7 @@ def check(currentport,domain,content,i):
                         parts=line.split(',')
                         domain_check=parts[0]
                         porting_address=parts[1]
+                        
                         if(domain_check==domain.rsplit('.',3)[3]):
                             return porting_address
     return None
@@ -55,13 +57,6 @@ def main(args: list[str]) -> None:
         i=len(domain_length)-1
         # z=0
         try :
-            count=0
-            for file in single_files.iterdir():
-                 if file.is_file():
-                      count+=1
-            if(count==1):
-                 print("invalid single")
-                 return
 
             for single_file in single_files.iterdir():
                 if single_file.is_file():
@@ -70,8 +65,16 @@ def main(args: list[str]) -> None:
                         # print(currentport)
                         # print(domain.rsplit('.',3)[3])
                         # print(content)
-                        print(i)
-                        print(currentport)
+                        # print(i)
+                        # print(currentport)
+                        for line in content: ## validating the single config files
+                             if ',' in line:
+                                  lines=line.split(',')
+                                  domain_check=lines[0]
+                                  for char in domain_check:
+                                       if char.isspace():
+                                            print("invalid single")
+                                            return
                         address_port=check(currentport,domain,content,i)
                         if address_port==None:
                             break
