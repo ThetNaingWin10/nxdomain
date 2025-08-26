@@ -127,10 +127,10 @@ def main(args: list[str]) -> None:
                 temp=single_contents.get(f'{key}.conf')
                 full_domain[key]=temp
 
-            print(full_domain)
+            # print(full_domain)
             # print(extraction_middomain)
             # print(mid_domain_master)
-            print(full_domain_master)
+            # print(full_domain_master)
             reached_ports=[]
             targetedports=[]
             for element in full_domain_master:
@@ -140,8 +140,12 @@ def main(args: list[str]) -> None:
 
             targetedports=[port for port_list in mastercontents[1].values() for port in port_list]
 
-            print(targetedports)
-            print(reached_ports)
+            if all(item in reached_ports for item in targetedports) and all(item in targetedports for item in reached_ports):
+                print("eq")
+                return
+            else:
+                print("neq")
+                return
                        
         except FileNotFoundError:
              print("singles io error")
