@@ -65,7 +65,11 @@ def main(args: list[str]) -> None:
                     data=socket_client.recv(server_port).decode("utf-8").strip()
 
                     if data.startswith('!'):
-                        handle_command(data)
+                        if(data=="!EXIT\n"):
+                            socket_client.close()
+                            sys.exit(1)
+                        else:
+                            handle_command(data)
 
                     else:
                         response=root_responses(data,port,config)
