@@ -113,7 +113,17 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-                 print(single_contents)
+                 
+            if "root.conf" in single_contents:
+                 rootdata=single_contents['root.conf']
+                 currentport=rootdata[0]
+
+                 for domain in rootdata[1].keys():
+                      if domain in  mastercontents[1]:
+                           expectedports=mastercontents[1][domain]
+                           if currentport not in expectedports:
+                                return 'neq'
+                
                                       
                         # if(int(currentport)==int(contents[0])):
                         #         check(list1,contents)
