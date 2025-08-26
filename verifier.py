@@ -92,6 +92,7 @@ def main(args: list[str]) -> None:
                        if(int(currentport)==int(contents[0])):
                              valid=check(list1,contents)
                              currentport=valid
+                             break
         for port in currentport:
              print(port)
                              
