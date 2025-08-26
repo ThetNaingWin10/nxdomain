@@ -71,7 +71,6 @@ def main(args: list[str]) -> None:
             break
         if not valid(domain_name):
             print("INVALID",flush=True)
-            break
 
 
 
