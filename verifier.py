@@ -117,19 +117,19 @@ def main(args: list[str]) -> None:
             print(single_contents)
             
             if "root.conf" in single_contents:
-                rootdata=single_contents['rootconf']
+                rootdata=single_contents.get('root.conf')
                 print(rootdata)
                  
-            if "root.conf" in single_contents:
-                 rootdata=single_contents['root.conf']
-                 currentport=rootdata[0]
+            # if "root.conf" in single_contents:
+            #      rootdata=single_contents['root.conf']
+            #      currentport=rootdata[0]
 
-                 for domain in rootdata[1].keys():
-                      if domain in mastercontents[1]:
-                           expectedports=mastercontents[1][domain]
-                           print(expectedports)
-                           if currentport not in expectedports:
-                                return 'neq'
+            #      for domain in rootdata[1].keys():
+            #           if domain in mastercontents[1]:
+            #                expectedports=mastercontents[1][domain]
+            #                print(expectedports)
+            #                if currentport not in expectedports:
+            #                     return 'neq'
                            
         except FileNotFoundError:
              print("singles io error")
