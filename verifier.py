@@ -71,10 +71,6 @@ def main(args: list[str]) -> None:
                  if "@" in testing[0]:
                       print("invalid master")  # validating the domain whether it contains @
                       return
-        single_file=single_files.read_text().split("\n")
-        for file in single_file:
-             if "," in file:
-                  print(file)
             
 
         # print(master_lines)
@@ -98,6 +94,14 @@ def main(args: list[str]) -> None:
         #      print(line)      
 
         try:
+            for file in single_files.iterdir():
+                if file.is_file():
+                    with items.open("r") as line: ## validating bad configuration file
+                        contents=line.readlines()
+                        if "," in contents:
+                            print(contents)
+                        
+                     
             for items in single_files.iterdir():
                 if items.is_file():
                     with items.open("r") as line:
