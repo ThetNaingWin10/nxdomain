@@ -45,12 +45,13 @@ def main(args: list[str]) -> None:
                 # print(domain.rsplit('.',3)[3])
                 # print(content)
                 print(i)
+                print(currentport)
                 address_port=check(currentport,domain,content,i)
                 if address_port==None:
                     break
                 else :
                     currentport=address_port
-                    print(currentport)
+                    # print(currentport)
                     i-=1
                     break
 
