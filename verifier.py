@@ -128,7 +128,7 @@ def main(args: list[str]) -> None:
                      root_check=list(rootdata[1].keys()) #single config file (au,org)
                      valid=all(item in root_check for item in rootdomains)
                      if valid:
-                          extraction=
+                          print("Yes")
                      else:
                           print("neq")
                           return
