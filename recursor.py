@@ -97,6 +97,9 @@ def main(args: list[str]) -> None:
     except ConnectionRefusedError:
         print("FAILED TO CONNECT TO ROOT")
         return
+    except OverflowError:
+        print("INVALID ARGUMENTS")
+        return
 
     try:
         while True:
