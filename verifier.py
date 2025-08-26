@@ -131,7 +131,12 @@ def main(args: list[str]) -> None:
             # print(extraction_middomain)
             # print(mid_domain_master)
             print(full_domain_master)
-            
+            for element in full_domain_master:
+                for key, (value, inner_dict) in full_domain.items():
+                    if element in inner_dict:
+                        print(f"{inner_dict[element][0]}")
+
+
                  
             
                  
