@@ -11,11 +11,9 @@ master_list=[]
 
 def check(list,contents):
      i=0
-     list=[]
      for line in contents:
         if "," in line:
              line=line.split(",")
-             list.append(line[0])
              if line[0] in list:
                   print("Yes")
 
@@ -79,6 +77,7 @@ def main(args: list[str]) -> None:
         list2=[]
         list3=[]
         for line in master_lines:
+             print(line)
              if ',' in line:
                 line=line.split(",")
                 lastdomain=line[0].split(".")
