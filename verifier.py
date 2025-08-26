@@ -71,8 +71,13 @@ def main(args: list[str]) -> None:
                       return
 
         print(currentport)
-
         print(master_lines)
+        
+        for items in single_files.iterdir():
+             if items.is_file():
+                  with items.open("r") as line:
+                       contents=line.read()
+                       print(contents)
    
     
 
