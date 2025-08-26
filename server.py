@@ -66,7 +66,7 @@ def main(args: list[str]) -> None:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
                 # socket_client.send((data+'\n').encode("utf-8"))  #just in case to see the files inside config file
-
+                # af
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
                         socket_client.close()
