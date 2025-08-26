@@ -89,8 +89,12 @@ def main(args: list[str]) -> None:
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
     finally:
-        if server_socket:
-            server_socket.close()
+        try:
+            if server_socket:
+                server_socket.close()
+        except UnboundLocalError:
+            print("INVALID CONFIGURATION")
+            return
 
 if __name__ == "__main__":
     main(argv[1:])
