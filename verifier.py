@@ -78,8 +78,7 @@ def main(args: list[str]) -> None:
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.readlines()
-                       if "." not in contents:
-                            print(contents)
+                       print(contents[0])
    
     
 
