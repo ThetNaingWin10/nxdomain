@@ -17,12 +17,10 @@ def check(list,contents):
              line=line.split(",")
              for domain in list:
                   if domain==line[0]:
-                       list.append[line[1]]
+                       print(line[1])
                        i+=1
-     print(len(list))
-     for x in list:
-          print(x)
-     print(i)
+    #  print(len(list))
+    #  print(i)
     #     return list
     #  else:
     #     return None
