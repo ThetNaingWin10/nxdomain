@@ -15,7 +15,10 @@ def handle_command(command):
     parts=command.split()
     if(parts==3):
         action,hostname,port=parts
-        dns_records[hostname]=port
+        if action=="!ADD":
+            dns_records[hostname]=port
+        else :
+            print("INVALID",flush=True)
     # global dns_records
     # parts=command.split()
     # if(len(parts)==3):
