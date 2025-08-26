@@ -55,7 +55,13 @@ def main(args: list[str]) -> None:
                     dns_records[key]=value
 
             for key, value in dns_records.items():
-                print(f"Key: {key}, Value: {value}") ##checking the keys and values
+                # print(f"Key: {key}, Value: {value}")
+                for char in key:
+                    if not char.isalpha() and char!='.':
+                        print("INVALID CONFIGURATION")
+                        return
+
+                 ##checking the keys and values
             return
 
             server_port=int(config[0].strip())
