@@ -14,8 +14,10 @@ def check(list,contents):
      for line in contents:
         if "," in line:
              line=line.split(",")
-             if line[0] in list:
-                  print("yes")
+             for check_domain in list:
+                  if check_domain==line[0]:
+                       print[line[1]]
+                       
              
     
     #  print(i)
