@@ -79,8 +79,8 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            print(mastercontents)
-            print(single_contents)
+            # print(mastercontents)
+            # print(single_contents)
             nextfilecheck={}
             if "root.conf" in single_contents:
                 rootdata=single_contents.get('root.conf') ## single config file au org root
