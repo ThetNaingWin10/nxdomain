@@ -9,7 +9,7 @@ from sys import argv
 
 dns_records={}
 
-def handle_command(command):
+def check(command):
     parts=command.split()
     if(len(parts)==3):
         action,hostname,port=parts
@@ -30,7 +30,7 @@ def handle_command(command):
         else :
             print("INVALID",flush=True)
     
-def root_responses(domain,config):
+def rootresponse(domain,config):
     if domain in config:
         target_port=dns_records[domain]
         return target_port
@@ -52,6 +52,7 @@ def main(args: list[str]) -> None:
                 line=line.strip()
                 if(",") in line:
                     key,value= line.split(",",1)
+                    print(key)
                     dns_records[key]=value
 
             server_port=int(config[0].strip())
@@ -69,11 +70,11 @@ def main(args: list[str]) -> None:
                         socket_client.close()
                         return
                     else:
-                        handle_command(data)
+                        check(data)
                         # socket_client.send((data+'\n').encode("utf-8"))
                 else:
                     if data in dns_records:
-                        response=root_responses(data,dns_records)
+                        response=rootresponse(data,dns_records)
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
                     else :
