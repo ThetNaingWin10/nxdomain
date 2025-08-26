@@ -24,7 +24,7 @@ def check(list,contents):
             #            list.append(line[1])
             #            print(i)
             #            i+=1
-    #  print(i)
+
      print(len(contents))
     #     return list
     #  else:
@@ -93,8 +93,8 @@ def main(args: list[str]) -> None:
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
                 list3.append(line[0])
-        # for line in list1:
-        #      print(line) 
+        for line in list1:
+             print(line) 
         # for line in list2:
         #      print(line)
         # for line in list3:
