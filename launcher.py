@@ -104,6 +104,7 @@ def main(args: list[str]) -> None:
                                     if content.tell()==0:
                                         content.write(previousport)
                                     for key,value in data.items():
+                                        print(domain)
                                         if domain in key:
                                             content.write(f"\n{domain},{value}")
         folder_path=argv[2]
