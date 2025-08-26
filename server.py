@@ -43,7 +43,7 @@ def main(args: list[str]) -> None:
         server_socket.listen(1024)
 
         while True:
-            socket_client ,address_client= server.socket.accept()
+            socket_client ,address_client= server_socket.accept()
             while True:
                 data=socket_client.recv(1024).decode("utf-8")
                 if not data:
