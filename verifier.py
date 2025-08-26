@@ -29,6 +29,7 @@ def main(args: list[str]) -> None:
             master_lines=master_file.read_text().split("\n")
         except Exception:
              print("invalid arguments")
+             return
 
         currentport=master_lines[0].strip()
         domain=master_lines[1].split(",")[0]
