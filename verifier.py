@@ -30,9 +30,15 @@ def main(args: list[str]) -> None:
             portofcontent=content[0].strip()
             domaincontent=content[1]
             
-            for line in content:
-                if(content[0]==currentport):
-                    print(line)
+            if(content[0]==currentport):
+                for line in content:
+                    if "," in line:
+                        parts=line.split(',')
+                        domain_check=parts[0]
+                        porting_address=parts[1]
+
+            if domain_check==domain.split(".")[-1]:
+                print(porting_address)
 
             
 
