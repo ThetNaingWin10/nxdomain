@@ -37,16 +37,16 @@ def main(args: list[str]) -> None:
 
         for char in currentport:
             if char.isalpha():
-                print("invalid master")
+                print("invalid master2")
                 return  ## validating if there is alphabet in currentport
         
         valid_domain=domain.split(".")
         if(len(valid_domain)!=3):
-             print("invalid master") ## validaing if there is a full domain.
+             print("invalid master123") ## validaing if there is a full domain.
              return
         
         if(target_port-int(currentport)<10):
-             print("invalid master")
+             print("invalid master1")
              return
         print(currentport)
         print(domain)
