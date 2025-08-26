@@ -47,9 +47,9 @@ def main(args: list[str]) -> None:
              print("invalid master") ## validaing if there is a full domain.
              return
         
-        # if(target_port-int(currentport)<10):
-        #      print("invalid master")
-        #      return
+        if(target_port-int(currentport)<10):
+             print("invalid master")
+             return
         # print(currentport)
         # print(domain)
         # print(target_port)
@@ -67,7 +67,8 @@ def main(args: list[str]) -> None:
                         # print(content)
                         # print(i)
                         # print(currentport)
-                        for line in content: ## validating the single config files
+
+                        for line in content: ## validating the single config files testcase
                              if ',' in line:
                                   lines=line.split(',')
                                   domain_check=lines[0]
@@ -75,7 +76,9 @@ def main(args: list[str]) -> None:
                                        if char.isspace():
                                             print("invalid single")
                                             return
+                                       
                         address_port=check(currentport,domain,content,i)
+
                         if address_port==None:
                             break
                         else :
