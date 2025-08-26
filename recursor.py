@@ -39,7 +39,7 @@ def resolve_domain(server_socket,time_out,domain):
         tld_server_ip, tld_server_port = server_socket.getpeername()
         #Query the TLD
         tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        tld_socket.connect((int(tld_server_ip),tld_port))
+        tld_socket.connect((tld_server_ip,tld_port))
         tld_socket.send(f"{domain}\n".encode("utf-8"))
 
         #port of the authoritative nameserver
