@@ -60,6 +60,8 @@ def main(args: list[str]) -> None:
                 if(",") in line:
                     key,value= line.split(",",1)
                     dns_records[key]=value
+                else:
+                    dns_records[line]=None
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
