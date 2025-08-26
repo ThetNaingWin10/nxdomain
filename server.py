@@ -19,7 +19,7 @@ def handle_command(command):
             dns_records[hostname]=port
         else :
             print("INVALID",flush=True)
-            #afd
+            
     # global dns_records
     # parts=command.split()
     # if(len(parts)==3):
