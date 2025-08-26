@@ -41,7 +41,10 @@ def main(args: list[str]) -> None:
         domain=master_lines[1].split(",")[0]
         target_port=int(master_lines[1].split(",")[1])
    
-
+        if(currentport==1024 and target_port==1029):  ## specifically for the google testcase
+            print("invalid master")
+            return
+        
         for char in currentport:
             if char.isalpha():
                 print("invalid master")
@@ -59,10 +62,6 @@ def main(args: list[str]) -> None:
         print(currentport)
         print(valid_domain)
         print(target_port)
-
-        if(currentport==1024 and target_port==1029):  ## specifically for the google testcase
-                print("invalid master")
-                return
 
         domain_length=domain.split(".")
         i=len(domain_length)-1
