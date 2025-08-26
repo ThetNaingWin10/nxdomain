@@ -20,7 +20,6 @@ def valid(domain_name):
         C=list[0]
         B=list[1]
         A=list[2]
-         #awdsdfasd
         #validating C
         if C.startswith(".") or C.endswith("."):
             return False
@@ -90,7 +89,7 @@ def main(args: list[str]) -> None:
     try:
         while True:
             domain_name=input()
-            
+            print(domain_name)
             if not domain_name:
                 break
             if not valid(domain_name):
