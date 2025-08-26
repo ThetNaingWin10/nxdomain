@@ -27,9 +27,9 @@ def main(args: list[str]) -> None:
             master_file=Path(argv[1])
             single_files=Path(argv[2])
             master_lines=master_file.read_text().split("\n")
-        except FileNotFoundError:
-             print("invalid arguments")
-             return
+        # except FileNotFoundError:
+        #      print("invalid arguments")
+        #      return
         except IndexError:
              print("invalid arguments")
              return
@@ -45,6 +45,7 @@ def main(args: list[str]) -> None:
                 return  ## validating if there is alphabet in currentport
         
         valid_domain=domain.split(".")
+
         if(len(valid_domain)!=3):
              print("invalid master") ## validaing if there is a full domain.
              return
@@ -55,10 +56,11 @@ def main(args: list[str]) -> None:
              if(target_port==1029) :
                   print("invalid master")
                   return
-        
-        # print(currentport)
-        # print(domain)
-        # print(target_port)
+            
+
+        print(currentport)
+        print(domain)
+        print(target_port)
 
         domain_length=domain.split(".")
         i=len(domain_length)-1
