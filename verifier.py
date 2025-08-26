@@ -37,7 +37,7 @@ def main(args: list[str]) -> None:
                         domain_check=parts[0]
                         porting_address=parts[1]
 
-            if domain_check==domain.split(".")[-1]:
+            if domain_check==domain.rsplit(".",3):
                 print(porting_address)
                 currentport=porting_address
 
