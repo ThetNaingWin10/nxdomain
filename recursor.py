@@ -31,17 +31,51 @@ def resolve_domain(root_port, timeout) :
             print("NXDOMAIN (Timeout)")
             
 
+def valid(domain_name):
+    list=domain_name.split(".")
+    if len(list)!=3:
+        return False
+    else :
+        C=list[0]
+        B=list[1]
+        A=list[2]
+        #validating C
+        if C.startswith(".") or C.endswith("."):
+            return False
+
+        if not all(char.isalnum() or char == "-" or char == "." for char in C):
+            return False
+        #validating B
+        if not all(char.isalnum() or char == "-"  for char in B):
+            return False
+        #validating A
+        if not all(char.isalnum() or char == "-"  for char in A):
+            return False
+    
 
 def main(args: list[str]) -> None:
     if len(sys.argv) !=3:
         print("INVALID ARGUMENTS")
         sys.exit(1)
-    try:
-        root=int(sys.argv[1])
-        timeout=float(sys.argv[2])
+    root=int(sys.argv[1])
+    time_out=sys.argv[2]
+    root_server_ip=socket.gethostbyname("localhost")
 
-    except Exception as e:
-        print("Error",str(e))
+    server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    server_socket.connect((root_server_ip,root))
+    
+
+    while True:
+        domain_name=input()
+        if not domain_name:
+            break
+        if not valid(domain_name):
+            print("INVALID",flush=True)
+            break
+
+
+
+    
         
     pass
 
