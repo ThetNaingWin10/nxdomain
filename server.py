@@ -55,34 +55,38 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
-            contents=rconfig_file.read()
+
+            for line in config[1:]:
+                line=line.strip()
+                if(",") in line:
+                    key,value= line.split(",",1)
+                    dns_records[key]=value
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
 
-            for port in config[1:]:
+            while True:
+                socket_client , _ = server_socket.accept()
+                data=socket_client.recv(server_port).decode("utf-8").strip()
 
-                while True:
-                    socket_client , _ = server_socket.accept()
-                    data=socket_client.recv(server_port).decode("utf-8").strip()
-
-                    if data.startswith('!'):
-                        if(data=="!EXIT\n"):
-                            socket_client.close()
-                            sys.exit(1)
-                        else:
-                            handle_command(data)
-                            socket_client.send((data+'\n').encode("utf-8"))
-
+                if data.startswith('!'):
+                    if(data=="!EXIT\n"):
+                        socket_client.close()
+                        sys.exit(1)
                     else:
+                        handle_command(data)
+                        socket_client.send((data+'\n').encode("utf-8"))
+
+                else:
+                    if data in dns_records:
+                        port=dns_records[data]
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
-                        dns_records[f"{data}"]=response
                         print(f"resolve {data} to {response}",flush=True)
-                        
-                    socket_client.close()
+                    
+                socket_client.close()
 
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
