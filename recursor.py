@@ -8,6 +8,8 @@ import sys
 import time
 
 from sys import argv
+root_server_ip = "127.0.0.1"
+root_server_port = 1026
             
 def valid(domain_name):
     list=domain_name.split(".")
@@ -33,13 +35,20 @@ def valid(domain_name):
 
 def resolve_domain(server_socket,time_out,domain):
         starttime=time.time()
-        server_socket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
+
+        root_server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        root_server_socket.connect((root_server_ip,root_server_port))
+        # server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        root_server_socket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
+
         data=(server_socket.recv(1024).decode('utf-8')) #received the TLD port
+
         if(data):
             tld_port=int(data)
-            tld_server_ip, tld_server_port = server_socket.getpeername()
+
             tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-            tld_socket.connect((tld_server_ip,tld_port))
+            tld_socket.connect((root_server_ip,tld_port))
+            
             tld_socket.send(f"{domain}\n".encode("utf-8"))
 
             #port of the authoritative nameserver
