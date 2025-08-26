@@ -19,7 +19,8 @@ def check(list,contents):
                   if check_domain==line[0]:
                        portstogo.append(line[1]) ## validating each domains
      if len(portstogo)!=len(list):
-          return "neq"
+          print("neq")
+          return
      else:
           return portstogo
 
@@ -91,9 +92,6 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
                              valid=check(list1,contents)
-                             if(valid=="neq"):
-                                  print("neq")
-                                  return
                              for items in valid:
                                   print(items)             
                                   
