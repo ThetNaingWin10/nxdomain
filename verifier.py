@@ -81,6 +81,14 @@ def main(args: list[str]) -> None:
                  single_contents[singlefile.name]=read(singlefile)
             print(mastercontents)
             print(single_contents)
+            #validating the ports
+            portslist=[]
+            for key, (value, inner_dict) in single_contents.items():
+                for ports in inner_dict.values():
+                    portslist.extend(ports)
+            print(portslist)
+
+
             nextfilecheck={}
             if "root.conf" in single_contents:
                 rootdata=single_contents.get('root.conf') ## single config file au org root
