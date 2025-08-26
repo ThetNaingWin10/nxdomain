@@ -38,15 +38,12 @@ def main(args: list[str]) -> None:
              return
 
         currentport=master_lines[0].strip()
-        domain=master_lines[1].split(",")[0]
-        target_port=int(master_lines[1].split(",")[1])
         
         for char in currentport:
             if char.isalpha():
                 print("invalid master")
                 return  ## validating if there is alphabet in currentport
         
-        valid_domain=domain.split(".")
 
         # print(master_lines)
         for line in master_lines:
@@ -73,9 +70,8 @@ def main(args: list[str]) -> None:
                       print("invalid master")  # validating the domain whether it contains @
                       return
 
-        # print(currentport)
-        # print(domain)
-        # print(target_port)
+        print(currentport)
+
         print(master_lines)
    
     
