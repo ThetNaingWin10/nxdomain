@@ -9,7 +9,6 @@ import sys
 
 from sys import argv
 dns_records={}
-message=""
 
 def handle_command(command):
     global dns_records
@@ -36,7 +35,7 @@ def root_responses(domain,port,config):
         return "NXDOMAIN"
     
 def get_port(domain,config):
-    for line in config:
+    for line in config[1:]:
         parts=line.strip().split(',')
         if parts[0] ==domain:
             return int(parts[1])
