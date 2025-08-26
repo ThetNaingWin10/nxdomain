@@ -50,7 +50,7 @@ def main(args: list[str]) -> None:
                 print(porting_address)
                 currentport=porting_address
                 i-=1
-                z+=1
+                # z+=1
             
             
     #         if(content[0]==currentport):
