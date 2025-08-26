@@ -3,8 +3,6 @@ Write code for your launcher here.
 
 You may import library modules allowed by the specs, as well as your own other modules.
 """
-import os
-import sys
 
 from sys import argv
 
@@ -16,17 +14,12 @@ def validation(master_configuration):
 
 
 def main(args: list[str]) -> None:
-    if len(sys.argv) !=3:
+    if len(argv) !=1:
         print('INVALID ARGUMENTS')
-        sys.exit(1)
+        return
     
-    master_confi=sys.argv[1]
-    singlefile_output=sys.argv[2]
-
-    if not os.path.isfile(master_confi):
-        print("INVALID MASTER")
-        sys.exit(1)
-        #sdfg
+    master_confi=argv[1]
+        
     
     pass
 
