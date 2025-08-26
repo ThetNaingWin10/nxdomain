@@ -65,7 +65,7 @@ def main(args: list[str]) -> None:
                     domain=socket_client.recv(server_port).decode("utf-8").strip()
                     response=root_responses(domain,port,config)
                     if(response=="NXDOMAIN"):
-                        socket_client.send(("hi").encode("utf-8"))
+                        socket_client.close()
                     socket_client.send((response+'\n').encode("utf-8"))
                     
             #with open(config_file,"r") as file:
