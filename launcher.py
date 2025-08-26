@@ -53,43 +53,80 @@ def main(args: list[str]) -> None:
                 domain,domainport=domains
                 data[domain]=int(domainport)
 
+          
+            constructpath=argv[2]+"/root.config"
+            with open(constructpath,"a") as file:
+                file.write(port.strip())  #adding the port number to the root.config
+            used_ports=set()
             for domain, domainport in data.items():
                 parts=domain.split(".")
                 root_domain=parts[-1]
                 partial_domain='.'.join(parts[1:])
-                
+            
                 if root_domain not in unique_tlds: # for the root
                     unique_tlds[root_domain]=True
-                    argv[2]=f"{root_domain}.config"
-                    with open(argv[2],"w") as file:
-                        file.write(f"{port}{root_domain},{int(port)+1}")
+                    constructpath=argv[2]+"/root.config"
+                    port_number=int(port)+1
+                    while port_number in used_ports:
+                        port_number+=1
+                    used_ports.add(port_number)
+                    with open(constructpath,"a") as file:
+                        file.write(f"\n{root_domain},{port_number}")
 
                 if partial_domain not in unique_tlds:
                     unique_tlds[partial_domain]=True
-                    argv[2]=f"{partial_domain}.config"
-                    with open(argv[2],"w") as file:
-                        file.write(f"{int(port)+1}\n{partial_domain},{int(port)+2}")
+                    constructpath1=argv[2]+f"/{partial_domain}.config"
+                    domaincheck=partial_domain.split(".") ## for checking com from google.com
+                    # print(domaincheck[0])
+                    with open(constructpath,"r") as root_file:
+                        for line in root_file:
+                            if domaincheck[-1] in line:
+                                line=line.split(",")
+                                previousport=line[1]
+                                port_number=int(port)+1
+                                while port_number in used_ports:
+                                    port_number+=1
+                                used_ports.add(port_number)
+                                with open(constructpath1,"w") as file:
+                                    file.write(f"{previousport}\n{partial_domain},{port_number}")
 
                 if domain not in unique_tlds:
                     unique_tlds[domain]=True
-                    argv[2]=f"{domain}.config"
-                    with open(argv[2],"w") as file:
-                        file.write(f"{int(port)+2}\n{domain},{domainport}")
-                
+                    constructpath2=argv[2]+f"/{domain}.config"
+                    domaincheck=domain.split(".")
+                    domaincheck= '.'.join(domaincheck[1:]) ## for checking from domain google.com from www.google.com
+                    with open(constructpath1,'r') as file:
+                        for line in file:
+                            if domaincheck in line:
+                                line=line.split(",")
+                                previousport=line[1]
+                                port_number=int(port)+1
+                                while port_number in used_ports:
+                                    port_number+=1
+                                used_ports.add(port_number)
+                                with open(constructpath2,"w") as file:
+                                        file.write(f"{previousport}\n{domain},{port_number}")
+                                
+                            #     previousport=content_full[1]
+                            #     port_number=int(port)+1
+                            #     while port_number in used_ports:
+                            #             port_number+=1
+                            #     used_ports.add(port_number)
+                            #     with open(constructpath2,"w") as file:
+                            #             file.write(f"{previousport}\n{domain},{port_number}")
+                                
 
-                
-                    
+                        # if domaincheck in content[1]:
+                        #     content_full=content[1].split(",")
+                        #     previousport=content_full[1]
+                        #     port_number=int(port)+1
+                        #     while port_number in used_ports:
+                        #             port_number+=1
+                        #     used_ports.add(port_number)
+                        #     with open(constructpath2,"w") as file:
+                        #             file.write(f"{previousport}\n{domain},{port_number}")
 
-
-                # if tld not in unique_tlds:
-                #     unique_tlds[tld]=True
-
-                #     argv[2]=f"{tld}.config"
-
-                #     with open(argv[2],"w") as file:
-                #         file.write(f"{domain},{port} ")
-                
-
+                            
 
     except FileNotFoundError:
         print("INVALID MASTER")
