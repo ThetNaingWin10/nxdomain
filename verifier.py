@@ -54,25 +54,26 @@ def main(args: list[str]) -> None:
         domain_length=domain.split(".")
         i=len(domain_length)-1
         # z=0
-        
-
-        for single_file in single_files.iterdir():
-            if single_file.is_file():
-                content=single_file.read_text().split("\n")
-                while i>0:
-                    # print(currentport)
-                    # print(domain.rsplit('.',3)[3])
-                    # print(content)
-                    print(i)
-                    print(currentport)
-                    address_port=check(currentport,domain,content,i)
-                    if address_port==None:
-                        break
-                    else :
-                        currentport=address_port
+        try :
+            for single_file in single_files.iterdir():
+                if single_file.is_file():
+                    content=single_file.read_text().split("\n")
+                    while i>0:
                         # print(currentport)
-                        i-=1
-                        break
+                        # print(domain.rsplit('.',3)[3])
+                        # print(content)
+                        print(i)
+                        print(currentport)
+                        address_port=check(currentport,domain,content,i)
+                        if address_port==None:
+                            break
+                        else :
+                            currentport=address_port
+                            # print(currentport)
+                            i-=1
+                            break
+        except FileNotFoundError:
+             print("singles io error")
 
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
