@@ -33,7 +33,7 @@ def valid(domain_name):
         else:
             return True
 
-def resolve_domain(root,root_serversocket,time_out,domain):
+def resolve_domain(root_serversocket,time_out,domain):
         starttime=time.time()
         # server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
@@ -48,7 +48,7 @@ def resolve_domain(root,root_serversocket,time_out,domain):
                 data=int(data)
         
                 tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                tld_socket.connect((root,data))
+                tld_socket.connect((root_server_ip,data))
                 
                 tld_socket.send(f"{domain}\n".encode("utf-8"))
 
@@ -98,7 +98,7 @@ def main(args: list[str]) -> None:
             if not valid(domain_name):
                 print("INVALID",flush=True)
             else:
-                resolve_domain(root,server_socket,time_out,domain_name)
+                resolve_domain(server_socket,time_out,domain_name)
             
     except EOFError:
         sys.exit(1)
