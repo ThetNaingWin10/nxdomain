@@ -34,8 +34,14 @@ def valid(domain_name):
 def resolve_domain(server_socket,time_out,domain):
         starttime=time.time()
         server_socket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
-        tld_port=int(server_socket.recv(1024).decode('utf-8')) #received the TLD port
-        
+        tld_port_Data=(server_socket.recv(1024).decode('utf-8')) #received the TLD port
+        if(tld_port):
+            try:
+                tld_port=int(tld_port_Data)
+            except ValueError:
+                print("Invalid value")
+        else:
+            print("Empty value")
         tld_server_ip, tld_server_port = server_socket.getpeername()
         #Query the TLD
         tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
