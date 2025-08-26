@@ -38,7 +38,7 @@ def valid(domain_name):
 
 def resolve_domain(root_serversocket,time_out,domain):
         signal.signal(signal.SIGALRM,timeoutsignal)
-        signal.alarm(round(int(time_out)))
+        signal.alarm(round(time_out))
         try:
 
             root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
