@@ -13,9 +13,14 @@ def main(args: list[str]) -> None:
         return
     for a in argv:
         print(a)
-    with open(argv[1],"r") as file:
-        contents=file.read()
-        print(contents)
+        
+    try:
+        with open(argv[1],"r") as file:
+            contents=file.read()
+            print(contents)
+    except FileNotFoundError:
+        print("INVALID MASTER")
+
     
 
 
