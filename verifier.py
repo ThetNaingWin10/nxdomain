@@ -31,7 +31,7 @@ def main(args: list[str]) -> None:
         if(master_file.name=='testing.conf'):
                 print("invalid arguments")
                 return
-        master_lines=master_file.read_text().split("\n")
+        # master_lines=master_file.read_text().split("\n")
 
         currentport=master_lines[0].strip()
         
