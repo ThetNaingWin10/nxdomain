@@ -66,7 +66,7 @@ def resolve_domain(root_serversocket,time_out,domain):
                 timetaken=time.time()-starttime
 
                 if(timetaken>time_out):
-                    print("NXDOMAIN",flush=True)
+                    return "NXDOMAIN"
                 else:
                     print(f"{ip}".strip(),flush=True)
                     
@@ -94,7 +94,9 @@ def main(args: list[str]) -> None:
             if not valid(domain_name):
                 print("INVALID",flush=True)
             else:
-                resolve_domain(server_socket,time_out,domain_name)
+                result=resolve_domain(server_socket,time_out,domain_name)
+                if result=="NXDOMAIN":
+                    break
             
     except EOFError:
         sys.exit(1)
