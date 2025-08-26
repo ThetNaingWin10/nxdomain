@@ -15,8 +15,9 @@ def check(list,contents):
      for line in contents:
         if "," in line:
              line=line.split(",")
-             if line[0] in list:
-                  print("yes")
+             print(line[0])
+            #  if line[0] in list:
+            #       print("yes")
              
     
     #  print(i)
