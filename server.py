@@ -63,10 +63,11 @@ def main(args: list[str]) -> None:
                     socket_client , _ = server_socket.accept()
                     domain=socket_client.recv(server_port).decode("utf-8").strip()
                     response=root_responses(domain,port,config)
-                    #socket_client.send((response+"\n").encode("utf-8"))
-                    #socket_client.close()
-
-                server_socket.close()
+                    socket_client.send(response.encode("utf-8"))
+            #with open(config_file,"r") as file:
+                #for line in file:
+                  #  socket_client.send(line.encode("utf-8"))
+                    socket_client.close()
         
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
