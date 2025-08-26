@@ -11,12 +11,19 @@ master_list=[]
 
 def check(list,contents):
      i=0
+     portstogo=[]
      for line in contents:
         if "," in line:
              line=line.split(",")
              for check_domain in list:
                   if check_domain==line[0]:
-                       print(line[1])
+                       portstogo.append(line[1]) ## validating each domains
+     if len(portstogo)!=len(contents):
+          return "neq"
+     else:
+          return portstogo
+     
+     
                        
              
     
