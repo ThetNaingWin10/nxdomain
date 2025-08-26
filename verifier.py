@@ -101,7 +101,9 @@ def main(args: list[str]) -> None:
                         for line in contents:
                             if "," in line:
                                 for char in line:
-                                    print(char)
+                                    if char == " ":
+                                        print("invalid single")
+                                        return
                                       
                         if(int(currentport)==int(contents[0])):
                                 check(list1,contents)
