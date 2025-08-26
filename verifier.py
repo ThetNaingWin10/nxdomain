@@ -98,7 +98,8 @@ def main(args: list[str]) -> None:
                                   print("neq")
                                   return
                              for items in valid:
-                                  print(items)             
+                                  print(items)
+                             break             
                                   
                 
 
