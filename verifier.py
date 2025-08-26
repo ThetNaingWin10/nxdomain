@@ -38,6 +38,7 @@ def main(args: list[str]) -> None:
                             currentport=porting_address
             
             if content[0]==currentport:
+                print("True")
                 for line in content:
                     if "," in line:
                         parts=line.split(',')
