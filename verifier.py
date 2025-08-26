@@ -31,7 +31,8 @@ def main(args: list[str]) -> None:
             domaincontent=content[1]
             
             for line in content:
-                print(line)
+                if(content[0]==currentport):
+                    print(line)
 
             
 
