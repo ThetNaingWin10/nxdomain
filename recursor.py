@@ -15,7 +15,7 @@ def timeoutsignal(signalnumber,frame):
   
 def valid(domain_name):
     list=domain_name.split(".")
-    if len(list)==3 or len(list)==4:
+    if len(list)==3 or len(list)==4 or len(list)==5:
         C=list[-3]
         B=list[-2]
         A=list[-1]
