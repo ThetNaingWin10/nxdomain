@@ -89,13 +89,14 @@ def main(args: list[str]) -> None:
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.readlines()
-                       if(int(currentport)==int(contents[0])):
-                             valid=check(list1,contents)
-                             if valid==None:
-                                  print("neq")
-                                  return
-                             for items in valid:
-                                  print(items)             
+                       for port in currentport:
+                        if(int(port)==int(contents[0])):
+                                valid=check(list1,contents)
+                                if valid==None:
+                                    print("neq")
+                                    return
+                                for items in valid:
+                                    print(items)             
                                   
                 
 
