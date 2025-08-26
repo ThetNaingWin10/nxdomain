@@ -24,7 +24,7 @@ def valid(domain_name):
         A=list[2]
         print(C)
         print(B)
-        print(A)
+        print(A) #awdsdfasd
         #validating C
         if C.startswith(".") or C.endswith("."):
             return False
