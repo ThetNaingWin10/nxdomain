@@ -11,18 +11,20 @@ master_list=[]
 
 def check(list,contents):
      i=0
+     list=[]
      for line in contents:
         if "," in line:
              line=line.split(",")
              for domain in list:
                   if domain==line[0]:
+                       list.append[line[1]]
                        i+=1
-
+     if len(list)==i:
+          return list
+     else:
+          return "neq"
      print(len(list))
      print(i)
-    #     return list
-    #  else:
-    #     return None
                     
 
 
@@ -100,12 +102,14 @@ def main(args: list[str]) -> None:
                   with items.open("r") as line:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
-                             check(list1,contents)
-                            #  if(valid=="neq"):
-                            #       print("neq")
-                            #       return
-                            #  for items in valid:
-                            #       print(items)
+                             valid=check(list1,contents)
+                             if(valid=="neq"):
+                                  print("neq")
+                                  return
+                             else:
+                                  for i in valid:
+                                       print(i)
+                            
                             
                              
                              
