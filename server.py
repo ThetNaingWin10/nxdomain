@@ -30,6 +30,7 @@ def handle_command(command):
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
     if target_port is not None:
+        print(f"resolve {domain} to {target_port}")
         return str(target_port)
     else:
         return "NXDOMAIN"
@@ -57,7 +58,7 @@ def main(args: list[str]) -> None:
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
-            
+
             for port in config[1:]:
 
                 while True:
@@ -66,10 +67,11 @@ def main(args: list[str]) -> None:
 
                     if data.startswith('!'):
                         handle_command(data)
+
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
-                        print(f"resolve {data} to {response}")
+                        
                     socket_client.close()
 
     except FileNotFoundError:
