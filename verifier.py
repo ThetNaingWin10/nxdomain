@@ -121,8 +121,10 @@ def main(args: list[str]) -> None:
                 if rootdata[0]==mastercontents[0]:
                      masterdata=list(mastercontents[1].keys())
                      rootdomains = [key.split('.')[-1] for key in masterdata]
-                     print(rootdomains)
-                     print(rootdata)
+                     print(rootdomains) # au au org master file
+                     root_check=list(rootdata.keys())
+                     print(root_check) ## single config file
+                     
 
                      
                      
