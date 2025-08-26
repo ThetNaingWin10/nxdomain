@@ -50,7 +50,7 @@ def main(args: list[str]) -> None:
                 print(currentport)
                 break
                 # z+=1
-            i-=1
+            # i-=1
             
             
     #         if(content[0]==currentport):
