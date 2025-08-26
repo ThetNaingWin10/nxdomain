@@ -88,9 +88,11 @@ def main(args: list[str]) -> None:
                     portslist.extend(ports)
             print(portslist)
             checked=set()
-            # if "23819" in portslist:
-            #      print("eq")
-            #      return
+            
+            if "co.uk.conf" in single_contents:
+                 value=single_contents["co.uk.conf"][0]
+                 print(value)
+
             for port in portslist:
                  if port in checked:
                       print("neq")
