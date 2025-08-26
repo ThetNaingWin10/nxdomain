@@ -24,10 +24,7 @@ def handle_command(command):
         else:
             print("INVALID",flush=True)
             
-    # if(parts==2):
-    #     action,hostname=parts
-    #     if(action=="!DEL"):
-    #         del dns_records[hostname]
+    
 
             
     # global dns_records
