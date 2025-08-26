@@ -118,7 +118,11 @@ def main(args: list[str]) -> None:
             
             if "root.conf" in single_contents:
                 rootdata=single_contents.get('root.conf')
-                print(rootdata)
+                if rootdata[0]==mastercontents[0]:
+                     masterdata=list(mastercontents.keys())
+                     print(masterdata)
+                     
+                    
                  
             # if "root.conf" in single_contents:
             #      rootdata=single_contents['root.conf']
