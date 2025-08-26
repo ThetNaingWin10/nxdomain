@@ -74,11 +74,12 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
+                        print(f"resolve{data} to response")
 
-                        if response!="NXDOMAIN":
-                            print(f"resolve {data} to {response}")
-                        else:
-                            print(f"resole {data} to NXDOMAIN")
+                        # if response!="NXDOMAIN":
+                        #     print(f"resolve {data} to {response}")
+                        # else:
+                        #     print(f"resole {data} to NXDOMAIN")
                         
                     socket_client.close()
 
