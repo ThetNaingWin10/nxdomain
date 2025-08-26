@@ -31,6 +31,9 @@ def main(args: list[str]) -> None:
     print(currentport)
     print(domain)
     print(target_port)
+    domain_length=domain.split(".")
+    i=len(domain_length)
+    print(i)
 
     for single_file in single_files.iterdir():
         if single_file.is_file():
