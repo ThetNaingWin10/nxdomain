@@ -118,13 +118,14 @@ def main(args: list[str]) -> None:
                  else:
                       print("neq")
                       return
-            else:
-                 print("YES")
+                
             
             ## use the full domain length for the final check
             full_domain={}
             
-
+            
+            for key,value in extraction_middomain:
+                 print(key)
             print(extraction_middomain)
             print(mid_domain_master)
             print(full_domain_master)
