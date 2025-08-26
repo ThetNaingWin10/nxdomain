@@ -37,7 +37,7 @@ def main(args: list[str]) -> None:
              print("invalid arguments")
              return
 
-        currentport=master_lines[0].strip()
+        currentport=int(master_lines[0].strip())
         
         for char in currentport:
             if char.isalpha():
@@ -78,9 +78,10 @@ def main(args: list[str]) -> None:
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.readlines()
-                       list.append(contents[0])
+                       list.append(int(contents[0]))
         for ports in list:
-             print(ports)
+             if(currentport==ports):
+                  print("YEs")
    
     
 
