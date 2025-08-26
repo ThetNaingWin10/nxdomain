@@ -12,27 +12,19 @@ master_list=[]
 def check(list,contents):
      i=0
      portstogo=[]
+     
      for line in contents:
         if "," in line:
              line=line.split(",")
              for check_domain in list:
                   if check_domain==line[0]:
                        portstogo.append(line[1]) ## validating each domains
-     if len(portstogo)!=len(contents):
+
+     uniqueports=list(dict.fromkeys(portstogo))
+     if len(uniqueports)!=len(contents)-1:
           return "neq"
      else:
           return portstogo
-     
-     
-                       
-             
-    
-    #  print(i)
-    #     return list
-    #  else:
-    #     return None
-                    
-
 
 def main(args: list[str]) -> None:
         try:
@@ -94,13 +86,7 @@ def main(args: list[str]) -> None:
                 middomain=line[0].rsplit(".",2)
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
-                list3.append(line[0])
-        # for line in list1:
-        #      print(line) 
-        # for line in list2:
-        #      print(line)
-        # for line in list3:
-        #      print(line)      
+                list3.append(line[0])     
 
         
         for items in single_files.iterdir():
@@ -113,10 +99,7 @@ def main(args: list[str]) -> None:
                                   print("neq")
                                   return
                              for items in valid:
-                                  print(items)
-                            
-                             
-                             
+                                  print(items)             
                                   
                 
 
