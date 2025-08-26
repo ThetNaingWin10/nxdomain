@@ -34,8 +34,8 @@ def main(args: list[str]) -> None:
                         parts=line.split(',')
                         domain_check=parts[0]
                         porting_address=parts[1]
-                        print(domain_check)
-                        print(porting_address)
+                        if(domain_check==domain.rsplit('.',3)[3]):
+                            print(porting_address)
 
             # if content[0]==currentport:
             #     for line in content:
