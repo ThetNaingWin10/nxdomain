@@ -70,6 +70,7 @@ def main(args: list[str]) -> None:
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+            server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
 
