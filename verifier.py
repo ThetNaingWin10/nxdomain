@@ -79,9 +79,7 @@ def main(args: list[str]) -> None:
                   with items.open("r") as line:
                        contents=line.readlines()
                        if "." not in contents:
-                            foundport=int(contents)
-                            if contents==foundport:
-                                 print("True")
+                            print(contents)
    
     
 
