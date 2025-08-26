@@ -48,7 +48,7 @@ def main(args: list[str]) -> None:
         
         valid_domain=domain.split(".")
 
-        if(target_port<1030):
+        if(target_port==1029):
              print("invalid master")
              return
 
@@ -57,7 +57,7 @@ def main(args: list[str]) -> None:
              return
         if(target_port<int(currentport)):
              print("invalid master") ## validating the current port and targetport 
-             return #fdaf
+             return 
         
         print(currentport)
         print(valid_domain)
