@@ -20,9 +20,10 @@ def check(list,contents):
                        list.append(line[1])
                        i+=1
      if i==len(contents):
-        return list
-     else:
-          return None
+          print("true")
+    #     return list
+    #  else:
+    #     return None
                     
 
 
@@ -101,11 +102,11 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
                              valid=check(list1,contents)
-                             if(valid=="neq"):
-                                  print("neq")
-                                  return
-                             for items in valid:
-                                  print(items)
+                            #  if(valid=="neq"):
+                            #       print("neq")
+                            #       return
+                            #  for items in valid:
+                            #       print(items)
                             
                              
                              
