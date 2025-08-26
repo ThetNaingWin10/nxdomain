@@ -119,7 +119,7 @@ def main(args: list[str]) -> None:
             if "root.conf" in single_contents:
                 rootdata=single_contents.get('root.conf')
                 if rootdata[0]==mastercontents[0]:
-                     masterdata=list(mastercontents.keys())
+                     masterdata=list(mastercontents[1].keys())
                      print(masterdata)
                      
                     
