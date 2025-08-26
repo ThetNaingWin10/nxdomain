@@ -15,7 +15,7 @@ def handle_command(command):
     global dns_records
     parts=command.split()
     if(len(parts)==3):
-        action, hostname, port=partsif
+        action, hostname, port=parts
         if action=="!ADD" :
             dns_records[hostname]=port
         elif action=="!DEL":
