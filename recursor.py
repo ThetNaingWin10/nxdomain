@@ -40,8 +40,7 @@ def resolve_domain(root_serversocket,time_out,domain):
 
         data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
         
-
-        if(data):
+        if(data.strip()):
             print(data,flush=True)
             # tld_port=int(data)
             
