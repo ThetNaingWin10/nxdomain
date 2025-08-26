@@ -47,9 +47,9 @@ def main(args: list[str]) -> None:
         with open(config_file, "r") as rconfig_file:
             port = int(rconfig_file.readline().strip())  
             print(f"Server Test runnin on {port}")  
-        #server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        #server_socket.bind(("localhost",1024))
-        #server_socket.listen(1024)
+        server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        server_socket.bind(("localhost",1024))
+        server_socket.listen(1024)
 
         #while True:
             #socket_client ,address_client= server_socket.accept()
