@@ -47,6 +47,9 @@ def main(args: list[str]) -> None:
         sys.exit()
 
     config_file=sys.argv[1]
+    with open(config_file,"r") as file:
+        for line in file:
+            print(line)
 
     try:
         with open(config_file, "r") as rconfig_file:
