@@ -53,7 +53,7 @@ def main(args: list[str]) -> None:
                 domain,domainport=domains
                 data[domain]=int(domainport)
 
-          
+            
             constructpath=argv[2]+"/root.config"
             with open(constructpath,"a") as file:
                 file.write(port.strip())  #adding the port number to the root.config
@@ -93,7 +93,6 @@ def main(args: list[str]) -> None:
                 if domain not in unique_tlds:
                     unique_tlds[domain]=True
                     domianname=domain.split(".")
-                    print(domain)
                     constructpath2=argv[2]+f"/auth{domianname[1]}.config" # creating auth based on the name of the port
                     domaincheck=domain.split(".")
                     domaincheck= '.'.join(domaincheck[1:]) ## for checking from domain google.com from www.google.com
@@ -112,7 +111,9 @@ def main(args: list[str]) -> None:
                                 with open(constructpath2,"a") as content:
                                     if content.tell()==0:
                                         content.write(previousport)
-                                    content.write(f"\n{domain},{port_number}")
+                                    for key,value in data.items():
+                                        if domain in key:
+                                            content.write(f"\n{domain},{value}")
                                 
 
                                 
