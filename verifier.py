@@ -72,7 +72,7 @@ def main(args: list[str]) -> None:
                       print("invalid master")  # validating the domain whether it contains @
                       return
 
-        # print(master_lines)
+        print(master_lines)
         list1=[]
         list2=[]
         list3=[]
