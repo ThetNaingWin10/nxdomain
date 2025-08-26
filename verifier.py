@@ -83,9 +83,9 @@ def main(args: list[str]) -> None:
             print(single_contents)
             #validating the ports
             portslist=[]
-            for key, (value, inner_dict) in single_contents.items():
-                for ports in inner_dict.values():
-                    portslist.extend(ports)
+            for _, (_, inner_dict) in single_contents.items():
+                for domain, ports in inner_dict.items():
+                    portslist.setdefault(domain, []).extend(ports)
             print(portslist)
             checked=set()
             # if "23819" in portslist:
