@@ -74,6 +74,7 @@ def resolve_domain(root_serversocket,time_out,domain):
                             auth_socket.connect((root_server_ip,int(auth_port)))
                         except ConnectionRefusedError:
                             print("FAILED TO CONNECT TO AUTH")
+                            return
                         auth_socket.send(f"{domain}\n".encode("utf-8"))
 
                         ip=auth_socket.recv(1024).decode("utf-8")
