@@ -26,6 +26,7 @@ def main(args: list[str]) -> None:
         single_files=Path(argv[2])
     except IndexError:
          print("invalid arguments")
+         return
 
     master_lines=master_file.read_text().split("\n")
 

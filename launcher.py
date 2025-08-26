@@ -17,7 +17,7 @@ def validation(master_configuration):
 
 def main(args: list[str]) -> None:
     if len(sys.argv) !=3:
-        print('Please input the master configuration file and directory of single file')
+        print('INVALID ARGUMENTS')
         sys.exit(1)
     
     master_confi=sys.argv[1]
