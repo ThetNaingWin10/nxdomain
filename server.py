@@ -10,6 +10,7 @@ import sys
 from sys import argv
 dns_records={}
 message=""
+
 def handle_command(command):
     global dns_records
     parts=command.split()
@@ -45,6 +46,7 @@ def main(args: list[str]) -> None:
 
         while True:
             socket_client ,address_client= server_socket.accept()
+            message=''
             while True:
                 data=socket_client.recv(1024).decode("utf-8")
                 if not data:
