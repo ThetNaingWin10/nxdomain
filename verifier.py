@@ -104,8 +104,13 @@ def main(args: list[str]) -> None:
 
             keys = [key for key in mastercontents[1].keys()]
             mid_domain_master = ['.'.join(item.split('.')[-2:]) for item in keys]
+
+            extraction_middomain=  [(key, value[0]) for key, value in mid_domain.values()]
+
             print(mid_domain)
+            print(extraction_middomain)
             print(mid_domain_master)
+                 
             if all (element in mid_domain for element in mid_domain_master):
                 print("Yes")
             else:
