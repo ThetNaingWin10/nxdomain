@@ -44,8 +44,6 @@ def resolve_domain(root_serversocket,time_out,domain):
         if data=="NXDOMAIN":
             print(data,flush=True)
             return
-        else :
-            tld_port=int(data)
             
 
         #     tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
