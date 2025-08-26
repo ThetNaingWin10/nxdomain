@@ -91,14 +91,11 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
                              valid=check(list1,contents)
-                             if valid==None:
-                                  print("neq")
-                                  return
-                             valid=currentport
-                             break
-         
-        for port in currentport:
-            print(port)
+                             print(valid)
+                            #  if valid==None:
+                            #       print("neq")
+                            #       return
+                             
                                   
 
 if __name__ == "__main__":
