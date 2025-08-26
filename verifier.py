@@ -39,16 +39,15 @@ def main(args: list[str]) -> None:
     for single_file in single_files.iterdir():
         if single_file.is_file():
             content=single_file.read_text().split("\n")
-            while i>0:
+            while i>=0:
 
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
                 # elif(z==len(domain_length)):
                 #     break
                 # else :        
-                porting_address=check(currentport,domain,content,i)
-                print(porting_address)
-                currentport=porting_address
+                currentport=check(currentport,domain,content,i)
+                print(currentport)
                 break
                 # z+=1
             i-=1
