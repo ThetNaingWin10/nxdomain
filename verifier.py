@@ -52,7 +52,13 @@ def main(args: list[str]) -> None:
         for line in master_lines:
              if "," in line:
                   testing=line.split(",")
+                  testing=testing[0].split(".")
                   print(testing)
+                  if len(testing)!=3:
+                       print("invalid master")
+                       return
+                  
+                  
                   
                        
         # if(len(valid_domain)!=3):
