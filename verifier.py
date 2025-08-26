@@ -25,41 +25,41 @@ def main(args: list[str]) -> None:
         single_files=Path(argv[2])
         master_lines=master_file.read_text().split("\n")
 
-    
-    currentport=master_lines[0].strip()
-    domain=master_lines[1].split(",")[0]
-    target_port=int(master_lines[1].split(",")[1])
+        currentport=master_lines[0].strip()
+        domain=master_lines[1].split(",")[0]
+
+        target_port=int(master_lines[1].split(",")[1])
    
 
-    for char in currentport:
-         if char.isalpha():
-              print("invalid master")
-              return
-    print(currentport)
-    print(domain)
-    print(target_port)
-    domain_length=domain.split(".")
-    i=len(domain_length)-1
-    # z=0
-    
+        for char in currentport:
+            if char.isalpha():
+                print("invalid master")
+                return
+        print(currentport)
+        print(domain)
+        print(target_port)
+        domain_length=domain.split(".")
+        i=len(domain_length)-1
+        # z=0
+        
 
-    for single_file in single_files.iterdir():
-        if single_file.is_file():
-            content=single_file.read_text().split("\n")
-            while i>0:
-                # print(currentport)
-                # print(domain.rsplit('.',3)[3])
-                # print(content)
-                print(i)
-                print(currentport)
-                address_port=check(currentport,domain,content,i)
-                if address_port==None:
-                    break
-                else :
-                    currentport=address_port
+        for single_file in single_files.iterdir():
+            if single_file.is_file():
+                content=single_file.read_text().split("\n")
+                while i>0:
                     # print(currentport)
-                    i-=1
-                    break
+                    # print(domain.rsplit('.',3)[3])
+                    # print(content)
+                    print(i)
+                    print(currentport)
+                    address_port=check(currentport,domain,content,i)
+                    if address_port==None:
+                        break
+                    else :
+                        currentport=address_port
+                        # print(currentport)
+                        i-=1
+                        break
 
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
