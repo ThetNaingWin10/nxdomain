@@ -53,8 +53,6 @@ def main(args: list[str]) -> None:
             config=rconfig_file.readlines()
 
             server_port=int(config[0].strip())
-            
-            print("testing",flush=True)
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
@@ -78,7 +76,7 @@ def main(args: list[str]) -> None:
                         if response!="NXDOMAIN":
                             print(f"resolve {data} to {response}",flush=True)
                         else:
-                            print(f"resole {data} to NXDOMAIN",flush=True)
+                            print(f"resolve {data} to NXDOMAIN",flush=True)
                         
                     socket_client.close()
 
