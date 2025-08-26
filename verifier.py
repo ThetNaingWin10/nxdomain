@@ -104,7 +104,7 @@ def main(args: list[str]) -> None:
 
             keys = [key for key in mastercontents[1].keys()]
             mid_domain_master = ['.'.join(item.split('.')[-2:]) for item in keys]
-
+            full_domain_master= ['.'.join(item.split('.')[-3:]) for item in keys]
             extraction_middomain={}
             for key,value in mid_domain.items():
                  dict=value[1]
@@ -124,6 +124,7 @@ def main(args: list[str]) -> None:
             print(mid_domain)
             print(extraction_middomain)
             print(mid_domain_master)
+            print(full_domain_master)
                  
             
                  
