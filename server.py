@@ -65,12 +65,13 @@ def main(args: list[str]) -> None:
                     response=root_responses(domain,port,config) 
                     socket_client.send((response+'\n').encode("utf-8"))
                     if(response=="NXDOMAIN"):
+                        socket_client.close()
                         break
                     
             #with open(config_file,"r") as file:
                 #for line in file:
                   #  socket_client.send(line.encode("utf-8"))
-                socket_client.close()
+                
         
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
