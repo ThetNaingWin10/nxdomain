@@ -3,7 +3,7 @@ Write code for your verifier here.
 
 You may import library modules allowed by the specs, as well as your own other modules.
 """
-import sys
+from sys import argv
 
 
 def main(args: list[str]) -> None:
@@ -12,4 +12,4 @@ def main(args: list[str]) -> None:
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(argv[1:])
