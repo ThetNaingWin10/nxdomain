@@ -30,10 +30,8 @@ def handle_command(command):
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
     if target_port is not None:
-        print(f"resolve {domain} to {target_port}")
         return str(target_port)
     else:
-        print(f"resolve {domain} to NXDOMAIN")
         return "NXDOMAIN"
     
 def get_port(domain,config):
@@ -64,7 +62,6 @@ def main(args: list[str]) -> None:
                 server_socket.bind(("localhost",server_port))
                 server_socket.listen()
 
-
                 while True:
                     socket_client , _ = server_socket.accept()
                     data=socket_client.recv(1024).decode("utf-8").strip()
@@ -75,9 +72,6 @@ def main(args: list[str]) -> None:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
                     
-            #with open(config_file,"r") as file:
-               # for line in file:
-                   # socket_client.send(line.encode("utf-8"))
                     socket_client.close()
 
     except FileNotFoundError:
