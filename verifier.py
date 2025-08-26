@@ -44,13 +44,16 @@ def main(args: list[str]) -> None:
                 # print(currentport)
                 # print(domain.rsplit('.',3)[3])
                 # print(content)
-                # print(i)
+                print(i)
                 address_port=check(currentport,domain,content,i)
                 if address_port==None:
+                    i-=1
                     break
                 else :
                     currentport=address_port
+                    i-=1
                     break
+
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
                 # elif(z==len(domain_length)):
