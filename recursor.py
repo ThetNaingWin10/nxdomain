@@ -60,7 +60,7 @@ def resolve_domain(server_socket,time_out,domain):
             else:
                 auth_port=response
                 auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                auth_socket.connect((server_socket.getpeername()[0],int(auth_port)))
+                auth_socket.connect((root_server_ip,int(auth_port)))
                 auth_socket.send(f"{domain}\n".encode("utf-8"))
 
                 ip=auth_socket.recv(1024).decode("utf-8")
@@ -73,7 +73,6 @@ def resolve_domain(server_socket,time_out,domain):
                 else:
                     print(f"{ip}",flush=True)
                 
-                timetaken=time.time()-starttime
         else:
             print("No data received")
         
