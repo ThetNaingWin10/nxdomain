@@ -28,13 +28,13 @@ def handle_command(command):
     else:
         print("INVALID")
     
-def root_responses(hostname):
-    if hostname in dns_records:
-        print(f"{dns_records[hostname]}")
-        return dns_records[hostname]
+def root_responses(domain,port,config):
+    target_port=get_port(domain,config)
+    if target_port is not None:
+        return str(target_port)
     else:
-        print("NXDOMAIN")
         return "NXDOMAIN"
+    
 def get_port(domain,config):
     for line in config:
         parts=line.strip().split(',')
@@ -60,16 +60,8 @@ def main(args: list[str]) -> None:
         while True:
             socket_client , _ = server_socket.accept()
             domain=socket_client.recv(1024).decode("utf-8").strip()
-            target_port= get_port(domain,config_file)
-            print(target_port)
-
-            if target_port!=-1:
-                
-                with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as targets:
-                    targets.connect(("localhost",target_port))
-                    targets.sendall(domain.encode("utf-8"))
-
-                
+            response=root_responses(domain,port,config_file)
+            socket_client.send(response("utf-8"))
             socket_client.close()
     
     except FileNotFoundError:
