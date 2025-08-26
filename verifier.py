@@ -70,10 +70,11 @@ def main(args: list[str]) -> None:
              if ',' in line:
                 line=line.split(",")
                 lastdomain=line[0].split(".")
-                list1.append(lastdomain)
+                list1.append(lastdomain[-1])
                 middomain=line[0].rsplit(".",2)
+                middomain=".".join(middomain[1:])
                 list2.append(middomain)
-                list3.append(line)
+                list3.append(line[0])
         for line in list1:
              print(line)
         for line in list2:
