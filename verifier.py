@@ -71,7 +71,7 @@ def main(args: list[str]) -> None:
                 line=line.split(",")
                 lastdomain=line[0].split(".")
                 list1.append(lastdomain)
-                middomain=line[0].ljust(".",2)
+                middomain=line[0].lsplit(".",2)
                 list2.append(middomain)
                 list3.append(line)
         for line in list1:
