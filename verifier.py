@@ -21,17 +21,10 @@ def check(currentport,domain,content,i):
 
 
 def main(args: list[str]) -> None:
-    try:
         master_file=Path(argv[1])
         single_files=Path(argv[2])
-    except IndexError:
-         print("invalid arguments")
-         return
-    try:      
         master_lines=master_file.read_text().split("\n")
-    except FileNotFoundError:
-        print("invalid arguments")
-        return  
+
     
     currentport=master_lines[0].strip()
     domain=master_lines[1].split(",")[0]
