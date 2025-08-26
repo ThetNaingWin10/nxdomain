@@ -14,9 +14,13 @@ def main(args: list[str]) -> None:
 
     try:
         with open(argv[1],"r") as file:
+            port=0
             contents=file.read()
-            port=contents[0]
+            domain=contents.split(',')
+            if len(domain)==1:
+                port=domain
             print(port)
+
             # if int(port)<1024 or int(port)>65535 or port.isalpha():  #validating the port number
             #     print("INVALID MASTER")
             
