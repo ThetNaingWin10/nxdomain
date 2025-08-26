@@ -10,14 +10,16 @@ master_list=[]
 
 
 def check(list,contents):
+     i=0
      for line in contents:
         if "," in line:
              line=line.split(",")
              for domains in list:
-                  if domains!=line[0]:
-                       print("neq")
-                  else:
-                       print("eq")
+                  print(domains)
+                  print(line[0])
+                #   if domains==line[0]:
+                #        i+=1
+                       
                 
                     
 
