@@ -84,8 +84,12 @@ def main(args: list[str]) -> None:
     if len(args)!=2:
         print("INVALID ARGUMENTS")
         return
-    root=int(argv[1])
-    time_out=int(argv[2])
+    try:
+        root=int(argv[1])
+        time_out=int(argv[2])
+    except ValueError:
+        print("FAILED TO CONNECT TO ROOT")
+        return
     try :
         server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         server_socket.connect((root_server_ip,root))
