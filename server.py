@@ -12,21 +12,25 @@ from sys import argv
 dns_records={}
 
 def handle_command(command):
-    global dns_records
     parts=command.split()
-    if(len(parts)==3):
-        action, hostname, port=parts
-        if action=="!ADD" :
-            dns_records[hostname]=port
-        elif action=="!DEL":
-            if hostname in dns_records:
-                del dns_records[hostname]
-        elif action=="!EXIT\n" :
-            sys.exit(1)
-        else:
-            print("INVALID")
-    else:
-        print("INVALID")
+    if(parts==3):
+        action,hostname,port=parts
+        dns_records[hostname]=port
+    # global dns_records
+    # parts=command.split()
+    # if(len(parts)==3):
+    #     action, hostname, port=parts
+    #     if action=="!ADD" :
+    #         dns_records[hostname]=port
+    #     elif action=="!DEL":
+    #         if hostname in dns_records:
+    #             del dns_records[hostname]
+    #     elif action=="!EXIT\n" :
+    #         sys.exit(1)
+    #     else:
+    #         print("INVALID")
+    # else:
+    #     print("INVALID")
     
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
@@ -73,9 +77,12 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
+                        
                         if response!="NXDOMAIN":
+                            dns_records[f"{data}"]=response
                             print(f"resolve {data} to {response}",flush=True)
                         else:
+                            dns_records[f"{data}"]="NXDOMAIN"
                             print(f"resolve {data} to NXDOMAIN",flush=True)
                         
                     socket_client.close()
