@@ -94,14 +94,14 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
                              valid=check(list1,contents)
+                             print(list1)
+                             print(contents)
                              if valid==None:
                                   print("neq")
                                   return
                              for items in valid:
-                                  print(items)
-                             break             
+                                  print(items)             
                                   
-                
 
 if __name__ == "__main__":
     main(argv[1:])
