@@ -63,7 +63,7 @@ def main(args: list[str]) -> None:
                     socket_client , _ = server_socket.accept()
                     domain=socket_client.recv(server_port).decode("utf-8").strip()
                     response=root_responses(domain,port,config)
-                    if(response==None):
+                    if(response=="NXDOMAIN"):
                         break
                     socket_client.send((response+'\n').encode("utf-8"))
                     
