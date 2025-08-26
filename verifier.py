@@ -79,7 +79,7 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        print(contents[0])
                     #    print(currentport)
-                       if(int(currentport)==contents[0]):
+                       if(int(currentport)==int(contents[0])):
                              print("Yes")
                     #    list.append(int(contents[0]))
                     
