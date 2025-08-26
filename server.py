@@ -54,6 +54,7 @@ def main(args: list[str]) -> None:
 
             server_port=int(config[0].strip())
             logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+            logging.info("testing")
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
             server_socket.listen()
