@@ -111,11 +111,11 @@ def main(args: list[str]) -> None:
             print(extraction_middomain)
             print(mid_domain_master)
                  
-            if all (element in mid_domain for element in mid_domain_master):
-                print("Yes")
-            else:
-                print('neq')
-                return
+            # if all (element in mid_domain for element in mid_domain_master):
+            #     print("Yes")
+            # else:
+            #     print('neq')
+            #     return
                 
                  
                            
