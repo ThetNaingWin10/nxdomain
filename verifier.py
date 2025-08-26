@@ -94,8 +94,6 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
                              valid=check(list1,contents)
-                             print(list1)
-                             print(contents)
                              if valid==None:
                                   print("neq")
                                   return
