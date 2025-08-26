@@ -86,9 +86,12 @@ def main(args: list[str]) -> None:
         return
     root=int(argv[1])
     time_out=int(argv[2])
-
-    server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    server_socket.connect((root_server_ip,root))
+    try :
+        server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        server_socket.connect((root_server_ip,root))
+    except OverflowError:
+        print("INVALID ARGUMENTS")
+        return
 
     try:
         while True:

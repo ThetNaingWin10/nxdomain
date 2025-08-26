@@ -39,7 +39,7 @@ def root_responses(domain,config):
 
 def main(args: list[str]) -> None:
     if len(argv) != 2:
-        print("INVALID ARGUMENTS")
+        print("INVALID ARGUMENTS") 
         return
 
     config_file=argv[1]
