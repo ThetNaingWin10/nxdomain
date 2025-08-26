@@ -45,6 +45,5 @@ def main(args: list[str]) -> None:
         
     pass
 
-
 if __name__ == "__main__":
     main(argv[1:])

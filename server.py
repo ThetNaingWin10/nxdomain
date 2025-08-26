@@ -48,25 +48,6 @@ def main(args: list[str]) -> None:
             port = int(rconfig_file.readline().strip())  
             print(f"Server Test runnin on {port}")  
         
-        server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        server_socket.bind(("localhost",1024))
-        server_socket.listen(1024)
-
-        while True:
-            socket_client ,address_client= server_socket.accept()
-            message=''
-            while True:
-                data=socket_client.recv(1024).decode("utf-8")
-                if not data:
-                    break
-                message+=data
-                if message.endswith('\n'):
-                    response=root_responses(message.strip())
-                    socket_client.send(response.encode("utf-8"))
-                    message=""
-                
-            socket_client.close()
-    
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
     finally:
