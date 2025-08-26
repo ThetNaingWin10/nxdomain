@@ -16,8 +16,7 @@ def check(list,contents):
         if "," in line:
              line=line.split(",")
              for domains in list:
-                  if domains==line[0]:
-                       print("yes")
+                  print(domains)
             #  for domains in list:
             #       if domains==line[0]:
             #            list.append(line[1])
