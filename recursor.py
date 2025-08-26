@@ -39,13 +39,10 @@ def resolve_domain(root_serversocket,time_out,domain):
         root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
 
         data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
-        
-        # if (data):
-        #     if data=="INVALID":
-        #         print(data,flush=True)
-        #     elif data=="NXDOMAIN":
-        #         print(data,flush=True)
-            # tld_port=int(data)
+        # the invalids outputs are from incorrect domains.
+
+        if (data):
+            told_port=int(data)
             
 
         #     tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
