@@ -41,10 +41,10 @@ def main(args: list[str]) -> None:
         if single_file.is_file():
             content=single_file.read_text().split("\n")
             while i>=0:
-                print(currentport)
-                print(domain.rsplit('.',3)[3])
-                print(content)
-                print(i)
+                # print(currentport)
+                # print(domain.rsplit('.',3)[3])
+                # print(content)
+                # print(i)
                 address_port=check(currentport,domain,content,i)
                 if address_port==None:
                     break
