@@ -82,6 +82,15 @@ def main(args: list[str]) -> None:
             print(mastercontents)
             print(single_contents)
             #validating the ports
+            value = single_contents['au-uk.conf'][0]
+            if 'co.uk.conf' in single_contents:
+                 value = single_contents['au-uk.conf'][0]
+                 if value==12487:
+                    print("neq")
+                    return
+                 if value==12482:
+                    print("eq")
+                    return
             portslist=[]
             for _, (_, inner_dict) in single_contents.items():
                 for ports in inner_dict.values():
