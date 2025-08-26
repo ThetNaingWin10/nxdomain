@@ -53,6 +53,8 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
+            contents=rconfig_file.read()
+
 
             for line in config[1:]:
                 line=line.strip()
@@ -65,6 +67,7 @@ def main(args: list[str]) -> None:
             server_socket.bind(("localhost",server_port))
             #adsf
             server_socket.listen()
+            socket_client.send((contents+'\n').encode("utf-8"))
 
             while True:
                 socket_client , _ = server_socket.accept()
