@@ -8,9 +8,9 @@ import sys
 import time
 
 from sys import argv
-# root_server_ip = "127.0.0.1"
+root_server_ip = "127.0.0.1"
 root_server_port = 1026
-root_server_ip=socket.gethostbyname("localhost")
+
             
 def valid(domain_name):
     list=domain_name.split(".")
@@ -51,12 +51,11 @@ def resolve_domain(root_serversocket,time_out,domain):
         
                 tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                 tld_socket.connect((root_server_ip,data))
-                
-                tld_socket.send(f"{domain}\n".encode("utf-8"))
+                tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode("utf-8"))
 
                 #port of the authoritative nameserver
                 
-                tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode("utf-8"))
+                
                 response=tld_socket.recv(1024).decode("utf-8")
                 print("Response"+response,flush=True)
                 
@@ -90,7 +89,6 @@ def main(args: list[str]) -> None:
         sys.exit(1)
     root=int(sys.argv[1])
     time_out=int(sys.argv[2])
-    print(root_server_ip)
 
     server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     server_socket.connect((root_server_ip,root))
