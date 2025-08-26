@@ -101,10 +101,8 @@ def main(args: list[str]) -> None:
                         for line in contents:
                             if "," in line:
                                 for char in line:
-                                     if char.isspace():
-                                        print("invalid single")
-                                        return
-                             
+                                    print(char)
+                                      
                         if(int(currentport)==int(contents[0])):
                                 check(list1,contents)
         except FileNotFoundError:
