@@ -54,7 +54,7 @@ def main(args: list[str]) -> None:
         if(target_port<int(currentport)):
              print("invalid master") ## validating the current port and targetport 
              return 
-        # print(master_lines)
+        print(master_lines)
         for line in master_lines:
             if "," in line:
                  testing=line.split(',')
