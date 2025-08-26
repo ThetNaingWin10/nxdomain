@@ -106,7 +106,7 @@ def main(args: list[str]) -> None:
                   with items.open("r") as line:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
-                             valid=check(list1,contents)
+                             check(list1,contents)
                             #  if(valid=="neq"):
                             #       print("neq")
                             #       return
