@@ -109,13 +109,15 @@ def main(args: list[str]) -> None:
                                     if char == " ":
                                         print("invalid single")
                                         return
+                                    
+
             mastercontents=read(master_file)
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
             print(mastercontents)
             print(single_contents)
-            targetedports=[]
+            nextfilecheck={}
             if "root.conf" in single_contents:
                 rootdata=single_contents.get('root.conf')
                 if rootdata[0]==mastercontents[0]:
@@ -125,13 +127,12 @@ def main(args: list[str]) -> None:
                      root_check=list(rootdata[1].keys()) #single config file (au,org)
                      valid=all(item in root_check for item in rootdomains)
                      if valid:
-                          targetedports.append(rootdata[1].values())
+                          nextfilecheck.append(rootdata[1])
                      else:
                           print("neq")
                           return
-            for x in targetedports:
-                 print(x)
-                     
+            
+            print(nextfilecheck)           
 
                      
                      
