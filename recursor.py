@@ -54,7 +54,11 @@ def resolve_domain(root_serversocket,time_out,domain):
                     data=int(data)
             
                     tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                    tld_socket.connect((root_server_ip,data))
+                    try:   
+                        tld_socket.connect((root_server_ip,data))
+                    except ConnectionRefusedError:
+                        print("FAILED TO CONNECT TO TLD")
+                        return
                     tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode("utf-8"))
 
                     #port of the authoritative nameserver
