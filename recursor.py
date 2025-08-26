@@ -30,7 +30,35 @@ def valid(domain_name):
             return False
         else:
             return True
-    
+
+def resolve_domain(server_socket,time_out,domain):
+        starttime=time.time()
+        server_socket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
+        tld_port=int(server_socket.recv(1024).decode('utf-8')) #received the TLD port
+
+        #Query the TLD
+        tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        tld_socket.connect((server_socket.getpeername()[0]),tld_port)
+        tld_socket.send(f"{domain}\n".encode("utf-8"))
+
+        #port of the authoritative nameserver
+        auth_port=int(tld_socket.recv(1024).decode("utf-8"))
+        
+        auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+        auth_socket.connect((server_socket.getpeername()[0],auth_port))
+        auth_socket.send(f"{domain}\n".encode("utf-8"))
+
+        ip=auth_socket.recv(1024).decode("utf-8")
+
+
+        timetaken=time.time()-starttime
+
+        if(timetaken>time_out):
+            print("NXDOMAIN",flush=True)
+        else:
+            print(f"{ip}",flush=True)
+        
+        timetaken=time.time()-starttime
 
 def main(args: list[str]) -> None:
     if len(sys.argv) !=3:
@@ -50,7 +78,9 @@ def main(args: list[str]) -> None:
                 break
             if not valid(domain_name):
                 print("INVALID",flush=True)
-                #dsaf
+            else:
+                resolve_domain(server_socket,time_out,domain_name)
+            
     except EOFError:
         sys.exit(1)
 
