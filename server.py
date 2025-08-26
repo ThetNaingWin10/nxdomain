@@ -71,8 +71,9 @@ def main(args: list[str]) -> None:
             while True:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
-                # for line in config:
-                #     socket_client.send((line+'\n').encode("utf-8"))  just in case to see the files inside config file
+                for line in config:
+                    socket_client.send((line+'\n').encode("utf-8"))  #just in case to see the files inside config file
+                
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
                         socket_client.close()
@@ -85,7 +86,7 @@ def main(args: list[str]) -> None:
                     if data in dns_records:
                         port=dns_records[data]
                         response=root_responses(data,port,dns_records)
-                        socket_client.send((response+'\n').encode("utf-8"))
+                        #socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
                     
                 socket_client.close()
