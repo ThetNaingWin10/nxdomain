@@ -133,7 +133,7 @@ def main(args: list[str]) -> None:
                           print("neq")
                           return
             
-            for key,value in nextfilecheck.items:
+            for key,value in nextfilecheck.items():
                  if key in single_contents:
                       print(single_contents.get(f'{key}.conf'))
                  
