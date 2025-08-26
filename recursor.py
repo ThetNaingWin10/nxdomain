@@ -22,9 +22,9 @@ def valid(domain_name):
         C=list[0]
         B=list[1]
         A=list[2]
-        print(C)
-        print(B)
-        print(A) #awdsdfasd
+        print(C,flush=True)
+        print(B,flush=True)
+        print(A,flush=True) #awdsdfasd
         #validating C
         if C.startswith(".") or C.endswith("."):
             return False
