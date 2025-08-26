@@ -93,9 +93,9 @@ def main(args: list[str]) -> None:
                              if valid==None:
                                   print("neq")
                                   return
-                             else:
-                                for items in valid:
-                                    print(items)             
+                             for items in valid:
+                                  print(items)
+                                               
                                   
                 
 
