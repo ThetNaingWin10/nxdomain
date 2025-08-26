@@ -68,7 +68,7 @@ def resolve_domain(root_serversocket,time_out,domain):
                 if(timetaken>time_out):
                     print("NXDOMAIN",flush=True)
                 else:
-                    print(f"{ip}",flush=True)
+                    print(f"{ip}".strip(),flush=True)
                     
         else:
             print("No data received")
