@@ -46,6 +46,7 @@ def resolve_domain(root_serversocket,time_out,domain):
                 print("NXDOMAIN", flush=True)
             else :
                 data=int(data)
+                print(data,flush=True)
         
                 tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                 tld_socket.connect((root_server_ip,data))
@@ -55,7 +56,7 @@ def resolve_domain(root_serversocket,time_out,domain):
                 #port of the authoritative nameserver
                 
                 response=tld_socket.recv(1024).decode("utf-8")
-                print("Response"+response,flush=True)
+
                 if(response.startswith("NXDOMAIN")):
                     print("NXDOMAIN",flush=True)
                 else:
