@@ -15,7 +15,7 @@ def main(args: list[str]) -> None:
     try:
         with open(argv[1],"r") as file:
             contents=file.readlines()
-            port=contents[0]
+            port=contents[0]  # validating the port numbers
             for char in port:
                 if char.isalpha():
                     print("INVALID MASTER")
@@ -23,15 +23,22 @@ def main(args: list[str]) -> None:
             if int(port)<1024 or int(port)>65535:
                 print("INVALID MASTER")
             
-            
-            # for char in contents:
-            #     if char.isalpha():
-            #         print("INVALID")
-            #         return
-
-            # if int(port)<1024 or int(port)>65535 or port.isalpha():  #validating the port number
-            #     print("INVALID MASTER")
-            
+            contents=contents[1:]
+            for content in contents:
+                content=content.split(",")
+                domain=content[0]
+                domain=domain.split('.')
+                for part in domain:
+                    if "@" in part:   # bad full domain validating
+                        print("INVALID")
+                        return
+                if len(domain)==2:
+                    print('INVALID MASTER') # Partial domain check
+                    return
+                ports=content[1]
+                if int(ports)<1024 or int(port)>65535: # Bad port for domain check
+                    print("INVALID MASTER")
+                    return
 
 
     except FileNotFoundError:
