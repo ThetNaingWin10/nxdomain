@@ -17,7 +17,7 @@ def resolve_domain(root_port, timeout) :
             domain=input("Please Enter a Domian or CtrlD to exit") 
             if not domain:
                 break
-        print(f"'{domain}'")
+        
 
         root_socket.send(f"{domain}\n".encode("utf-8")) #send the query to the domain server
         
