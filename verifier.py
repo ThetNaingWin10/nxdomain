@@ -106,9 +106,12 @@ def main(args: list[str]) -> None:
             mid_domain_master = ['.'.join(item.split('.')[-2:]) for item in keys]
 
             extraction_middomain={}
-            for dict in mid_domain.values():
-                 for key,value in dict.items():
-                      extraction_middomain[key]=value[0]
+            for key,value in mid_domain.items():
+                 dict=value[1]
+                 for innerkey, innervalue in dict.items():
+                      extraction_middomain[innerkey] = innervalue[0]
+                      
+                 
             
             print(mid_domain)
             print(extraction_middomain)
