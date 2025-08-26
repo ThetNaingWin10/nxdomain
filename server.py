@@ -30,7 +30,7 @@ def handle_command(command):
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
     if target_port is not None:
-        return str(target_port+"\n")
+        return str(target_port)
     else:
         return "NXDOMAIN\n"
     
@@ -65,7 +65,7 @@ def main(args: list[str]) -> None:
                     response=root_responses(domain,port,config)
                     if(response==None):
                         break
-                    socket_client.send(response.encode("utf-8"))
+                    socket_client.send((response+'\n').encode("utf-8"))
                     
             #with open(config_file,"r") as file:
                 #for line in file:
