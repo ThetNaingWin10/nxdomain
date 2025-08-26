@@ -112,7 +112,6 @@ def main(args: list[str]) -> None:
         while True:
             domain_name=input()
             if not valid(domain_name):
-                print(domain_name)
                 print("INVALID",flush=True)
             else:
                 resolve_domain(server_socket,time_out,domain_name)
