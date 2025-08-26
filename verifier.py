@@ -41,15 +41,13 @@ def main(args: list[str]) -> None:
         if single_file.is_file():
             content=single_file.read_text().split("\n")
             while i>=0:
-
+                currentport=check(currentport,domain,content,i)
+                break
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
                 # elif(z==len(domain_length)):
                 #     break
                 # else :        
-                currentport=check(currentport,domain,content,i)
-                # print(currentport)
-                break
                 # z+=1
             # i-=1
             
