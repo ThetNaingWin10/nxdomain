@@ -53,7 +53,6 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
-            contents=rconfig_file.read()
 
 
             for line in config[1:]:
@@ -70,7 +69,7 @@ def main(args: list[str]) -> None:
             while True:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
-                socket_client.send((contents+'\n').encode("utf-8"))
+                socket_client.send((config+'\n').encode("utf-8"))
 
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
