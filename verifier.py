@@ -9,9 +9,11 @@ import pathlib
 master_list=[]
 
 
-def check(contents):
+def check(list,contents):
      for line in contents:
           print(line)
+          
+          
 
 
 def main(args: list[str]) -> None:
@@ -75,20 +77,20 @@ def main(args: list[str]) -> None:
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
                 list3.append(line[0])
-        for line in list1:
-             print(line)
-        for line in list2:
-             print(line)
-        for line in list3:
-             print(line)      
+        # for line in list1:
+        #      print(line) 
+        # for line in list2:
+        #      print(line)
+        # for line in list3:
+        #      print(line)      
 
         
-        # for items in single_files.iterdir():
-        #      if items.is_file():
-        #           with items.open("r") as line:
-        #                contents=line.readlines()
-        #                if(int(currentport)==int(contents[0])):
-        #                      check(currentport,contents)
+        for items in single_files.iterdir():
+             if items.is_file():
+                  with items.open("r") as line:
+                       contents=line.readlines()
+                       if(int(currentport)==int(contents[0])):
+                             check(list1,contents)
                 
 
 if __name__ == "__main__":
