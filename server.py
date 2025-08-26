@@ -35,6 +35,12 @@ def root_responses(hostname):
     else:
         print("NXDOMAIN")
         return "NXDOMAIN"
+def get_port(domain,config):
+    for line in config:
+        parts=line.strip().split(',')
+        if parts[0] ==domain:
+            return int(parts[1])
+    return -1 
 
 def main(args: list[str]) -> None:
     if len(sys.argv) != 2:
@@ -51,26 +57,24 @@ def main(args: list[str]) -> None:
         server_socket.bind(("localhost",port))
         server_socket.listen(5)
 
-        #while True:
-            #socket_client ,address_client= server_socket.accept()
-           # message=''
-            #while True:
-              #  data=socket_client.recv(1024).decode("utf-8")
-               # if not data:
-                  #  break
-               # message+=data
-              #  if message.endswith('\n'):
-                    #response=root_responses(message.strip())
-                   # socket_client.send(response.encode("utf-8"))
-                   # message=""
+        while True:
+            socket_client , _ = server_socket.accept()
+            domain=socket_client.recv(1024).decode("utf-8").strip()
+            target_port= get_port(domain,rconfig_file.readlines())
+
+            if target_port!=-1:
+                with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as targets:
+                    targets.connect(("localhost",target_port))
+                    targets.sendall(domain.encode("utf-8"))
+                    
                 
-           # socket_client.close()
+            socket_client.close()
     
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
-    #finally:
-        #if server_socket:
-            #server_socket.close()
+    finally:
+        if server_socket:
+            server_socket.close()
 
 if __name__ == "__main__":
     main(argv[1:])
