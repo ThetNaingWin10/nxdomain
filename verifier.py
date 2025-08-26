@@ -28,8 +28,9 @@ def main(args: list[str]) -> None:
             single_files=Path(argv[2])
 
             if "/" not in master_file.parts:
-                 print("invalid master")
+                 print("invalid arguments")
                  return
+            
             master_lines=master_file.read_text().split("\n")
         # except FileNotFoundError:
         #      print("invalid arguments")
