@@ -1,11 +1,5 @@
-"""
-Write code for your launcher here.
-
-You may import library modules allowed by the specs, as well as your own other modules.
-"""
-
 from sys import argv
-
+from pathlib import Path
 def main(args: list[str]) -> None:
 
     if(len(argv)!=3):
@@ -101,8 +95,6 @@ def main(args: list[str]) -> None:
                             if domaincheck in line:
                                 line=line.split(",")
                                 previousport=line[1]
-                                # with open(constructpath2,"a") as content:
-                                #     content.write(previousport)
 
                                 port_number=int(port)+1
                                 while port_number in used_ports:
@@ -114,42 +106,21 @@ def main(args: list[str]) -> None:
                                     for key,value in data.items():
                                         if domain in key:
                                             content.write(f"\n{domain},{value}")
-                                
+        folder_path=argv[2]
+        folder=Path(folder_path)
+        for file_path in folder.iterdir():
+            if file_path.is_file():
+                with open(file_path, "r") as file:
+                    file_content = file.readlines()
+                    
+                cleaned_lines = [line for line in file_content if line.strip() != '']
+                with open(file_path, "w") as file:
+                    file.writelines(cleaned_lines)
+                        
 
-                                
-                    #             port_number=int(port)+1
-                    #             while port_number in used_ports:
-                    #                 port_number+=1
-                    #             used_ports.add(port_number)
-                    #             with open(constructpath2,"w") as file:
-                    #                     file.write(f"{previousport}\n{domain},{port_number}")
-                                
-                            #     previousport=content_full[1]
-                            #     port_number=int(port)+1
-                            #     while port_number in used_ports:
-                            #             port_number+=1
-                            #     used_ports.add(port_number)
-                            #     with open(constructpath2,"w") as file:
-                            #             file.write(f"{previousport}\n{domain},{port_number}")
-                                
-
-                        # if domaincheck in content[1]:
-                        #     content_full=content[1].split(",")
-                        #     previousport=content_full[1]
-                        #     port_number=int(port)+1
-                        #     while port_number in used_ports:
-                        #             port_number+=1
-                        #     used_ports.add(port_number)
-                        #     with open(constructpath2,"w") as file:
-                        #             file.write(f"{previousport}\n{domain},{port_number}")
-
-                            
 
     except FileNotFoundError:
         print("INVALID MASTER")
-
-    
-
 
 if __name__ == "__main__":
     main(argv[1:])
