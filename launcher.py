@@ -22,6 +22,7 @@ def main(args: list[str]) -> None:
                     return
             if int(port)<1024 or int(port)>65535:
                 print("INVALID MASTER")
+                return
 
             if argv[2]=="non_existent":
                 print("NON-WRITABLE SINGLE DIR")  # non existent output dir
@@ -56,19 +57,27 @@ def main(args: list[str]) -> None:
                 parts=domain.split(".")
                 root_domain=parts[-1]
                 partial_domain='.'.join(parts[1:])
-                print(partial_domain)
                 
                 if root_domain not in unique_tlds: # for the root
                     unique_tlds[root_domain]=True
                     argv[2]=f"{root_domain}.config"
                     with open(argv[2],"w") as file:
-                        file.write(f"{port}{root_domain},{domainport}")
+                        file.write(f"{port}{root_domain},{int(port)+1}")
 
-                # if partial_domain not in unique_tlds:
-                #     unique_tlds[partial_domain]=True
-                #     argv[2]=f"{partial_domain}.config"
-                #     with open(argv[2],"w") as file:
-                #         file.write(f"{port}{partial_domain},{domainport}")
+                if partial_domain not in unique_tlds:
+                    unique_tlds[partial_domain]=True
+                    argv[2]=f"{partial_domain}.config"
+                    with open(argv[2],"w") as file:
+                        file.write(f"{int(port)+1}\n{partial_domain},{int(port)+2}")
+
+                if domain not in unique_tlds:
+                    unique_tlds[domain]=True
+                    argv[2]=f"{domain}.config"
+                    with open(argv[2],"w") as file:
+                        file.write(f"{int(port)+2}\n{domain},{domainport}")
+                
+
+                
                     
 
 
