@@ -18,6 +18,8 @@ def check(list,contents):
              for check_domain in list:
                   if check_domain==line[0]:
                        portstogo.append(line[1]) ## validating each domains
+     print(len(portstogo))
+     print(len(list))
      if len(portstogo)!=len(list):
           return
      else:
@@ -82,7 +84,7 @@ def main(args: list[str]) -> None:
                 middomain=line[0].rsplit(".",2)
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
-                list3.append(line[0])     
+                list3.append(line[0])     ## putting the domains in a seperate list
 
         for items in single_files.iterdir():
              if items.is_file():
