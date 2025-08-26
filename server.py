@@ -40,7 +40,7 @@ def get_port(domain,config):
         parts=line.strip().split(',')
         if parts[0] ==domain:
             return int(parts[1])
-    return -1 
+    return None
 
 def main(args: list[str]) -> None:
     if len(sys.argv) != 2:
@@ -59,8 +59,8 @@ def main(args: list[str]) -> None:
 
         while True:
             socket_client , _ = server_socket.accept()
-            domain=socket_client.recv(1024).decode("utf-8").strip()
-            response=root_responses(domain,port,config_file)
+            domain=socket_client.recv(port).decode("utf-8").strip()
+            response=root_responses(domain,port,rconfig_file)
             socket_client.send(response.encode("utf-8"))
             socket_client.close()
     
