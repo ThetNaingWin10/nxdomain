@@ -13,14 +13,13 @@ dns_records={}
 
 def handle_command(command):
     parts=command.split()
-    if(parts==3):
+    if(len(parts)==3):
         action,hostname,port=parts
         if action=="!ADD":
-            for key,value in dns_records.items():
-                if value==port:
-                    return
-                else:
-                    dns_records[hostname]=port
+            if port in dns_records.values():
+                return
+            else:
+                dns_records[hostname]=port
         else:
             print("INVALID",flush=True)
             
@@ -90,12 +89,6 @@ def main(args: list[str]) -> None:
                         socket_client.send((response+'\n').encode("utf-8"))
                         dns_records[f"{data}"]=response
                         print(f"resolve {data} to {response}",flush=True)
-                        # if response!="NXDOMAIN":
-                        #     dns_records[f"{data}"]=response
-                        #     print(f"resolve {data} to {response}",flush=True)
-                        # else:
-                        #     dns_records[f"{data}"]="NXDOMAIN"
-                        #     print(f"resolve {data} to NXDOMAIN",flush=True)
                         
                     socket_client.close()
 
