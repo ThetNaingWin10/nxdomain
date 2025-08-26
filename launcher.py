@@ -6,22 +6,10 @@ You may import library modules allowed by the specs, as well as your own other m
 
 from sys import argv
 
-def validation(master_configuration):
-    try:
-        root_port=int(master_configuration[0])
-    except ValueError:
-        return False
-
-
 def main(args: list[str]) -> None:
     if len(argv) !=1:
-        print('INVALID MASTER')
+        print('INVALID ARUGMENTS')
         return
-    
-    master_confi=argv[1]
-        
-    
-    pass
 
 
 if __name__ == "__main__":
