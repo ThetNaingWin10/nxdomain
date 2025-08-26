@@ -70,7 +70,7 @@ def main(args: list[str]) -> None:
         print("INVALID ARGUMENTS")
         sys.exit(1)
     root=int(sys.argv[1])
-    time_out=sys.argv[2]
+    time_out=int(sys.argv[2])
     root_server_ip=socket.gethostbyname("localhost")
 
     server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
