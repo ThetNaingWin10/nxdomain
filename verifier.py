@@ -8,14 +8,14 @@ from pathlib import Path
 import pathlib
 master_list=[]
 
-def check(currentport,domain,content):
+def check(currentport,domain,content,i):
     if(content[0]==currentport):
                 for line in content:
                     if "," in line:
                         parts=line.split(',')
                         domain_check=parts[0]
                         porting_address=parts[1]
-                        if(domain_check==domain.rsplit('.',3)[3]):
+                        if(domain_check==domain.rsplit('.',i)[i]):
                             return porting_address
 
 
@@ -32,14 +32,28 @@ def main(args: list[str]) -> None:
     print(domain)
     print(target_port)
     domain_length=domain.split(".")
-    i=len(domain_length)
-    print(i)
+    i=len(domain_length)-1
+    z=0
+    
 
     for single_file in single_files.iterdir():
         if single_file.is_file():
             content=single_file.read_text().split("\n")
-            porting_address=check(currentport,domain,content)
-            print(porting_address)
+            while i>0:
+
+                if(z>2):
+                    porting_address=check(currentport,domain,content,0)
+                elif(z==len(domain_length)):
+                    break
+                else :        
+                    porting_address=check(currentport,domain,content,i)
+
+                currentport=porting_address
+                i-=1
+                z+=1
+
+    print(currentport)
+            
             
     #         if(content[0]==currentport):
     #             for line in content:
