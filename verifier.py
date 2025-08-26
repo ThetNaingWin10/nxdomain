@@ -25,13 +25,19 @@ def check(list,contents):
           return portstogo
 
 def main(args: list[str]) -> None:
-        
-        master_file=Path(argv[1])
-        single_files=Path(argv[2])
-        if(master_file.name=='testing.conf'):
-                print("invalid arguments")
-                return
-        # master_lines=master_file.read_text().split("\n")
+        try:
+            master_file=Path(argv[1])
+            single_files=Path(argv[2])
+            if(master_file.name=='testing.conf'):
+                 print("invalid arguments")
+                 return
+            master_lines=master_file.read_text().split("\n")
+        except FileNotFoundError:
+             print("invalid master")
+             return
+        except IndexError:
+             print("invalid arguments")
+             return
 
         currentport=master_lines[0].strip()
         
@@ -41,6 +47,7 @@ def main(args: list[str]) -> None:
                 return  ## validating if there is alphabet in currentport
         
 
+        # print(master_lines)
         for line in master_lines:
              if "," in line:
                   testing=line.split(",")
@@ -64,7 +71,8 @@ def main(args: list[str]) -> None:
                  if "@" in testing[0]:
                       print("invalid master")  # validating the domain whether it contains @
                       return
-                 
+
+        # print(master_lines)
         list1=[]
         list2=[]
         list3=[]
@@ -76,19 +84,22 @@ def main(args: list[str]) -> None:
                 middomain=line[0].rsplit(".",2)
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
-                list3.append(line[0])     
+                list3.append(line[0])
+        # for line in list1:
+        #      print(line) 
+        # for line in list2:
+        #      print(line)
+        # for line in list3:
+        #      print(line)      
 
         
-        # for items in single_files.iterdir():
-        #      if items.is_file():
-        #           with items.open("r") as line:
-        #                contents=line.readlines()
-        #                if(int(currentport)==int(contents[0])):
-        #                      valid=check(list1,contents)
-        #                      currentport=valid
-        #                      break
-        
-                                  
+        for items in single_files.iterdir():
+             if items.is_file():
+                  with items.open("r") as line:
+                       contents=line.readlines()
+                       if(int(currentport)==int(contents[0])):
+                             check(list1,contents)
+                
 
 if __name__ == "__main__":
     main(argv[1:])
