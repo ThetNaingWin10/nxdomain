@@ -54,6 +54,9 @@ def main(args: list[str]) -> None:
                     key,value= line.split(",",1)
                     dns_records[key]=value
 
+            for key, value in dns_records.items():
+                print(f"Key: {key}, Value: {value}") ##checking the keys and values
+
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
@@ -85,8 +88,8 @@ def main(args: list[str]) -> None:
 
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
-    # except PermissionError:
-    #     print("INVALID CONFIGURATION")
+    except PermissionError:
+        print("INVALID CONFIGURATION")
     finally:
         try:
             if server_socket:
