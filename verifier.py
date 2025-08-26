@@ -70,7 +70,6 @@ def main(args: list[str]) -> None:
                       print("invalid master")  # validating the domain whether it contains @
                       return
 
-        print(currentport)
         print(master_lines)
         list=[]
         
@@ -81,7 +80,7 @@ def main(args: list[str]) -> None:
                        print(contents[0])
                        print(currentport)
                        if(int(currentport)==contents[0]):
-                             print(contents)
+                             print("Yes")
                     #    list.append(int(contents[0]))
                     
 
