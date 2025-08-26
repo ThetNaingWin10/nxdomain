@@ -68,6 +68,9 @@ def main(args: list[str]) -> None:
                 #for line in file:
                   #  socket_client.send(line.encode("utf-8"))
                     socket_client.close()
+                    if response=="NXDOMAIN":
+                        break
+                server_socket.close()
         
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
