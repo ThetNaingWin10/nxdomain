@@ -40,7 +40,7 @@ def root_responses(domain,port,config):
         return "NXDOMAIN"
     
 def get_port(domain,config):
-    for line in config:
+    if domain in config:
         return int(dns_records[domain])
     return None
 
@@ -88,6 +88,7 @@ def main(args: list[str]) -> None:
                         response=root_responses(data,port,dns_records)
                         #socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
+                    
                     
                 socket_client.close()
 
