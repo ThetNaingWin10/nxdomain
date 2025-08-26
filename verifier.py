@@ -29,6 +29,7 @@ def main(args: list[str]) -> None:
             content=single_file.read_text().split("\n")
             portofcontent=content[0].strip()
             domaincontent=content[1]
+            domain_check="a"
             
             if(content[0]==currentport):
                 for line in content:
