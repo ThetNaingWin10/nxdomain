@@ -24,7 +24,10 @@ def main(args: list[str]) -> None:
     single_files=argv[2]
 
     masterconfig=read_configuration(master_file)
-    print(len(masterconfig))
+    print(masterconfig[0])
+    print(masterconfig[1])
+    print(masterconfig[2])
+    print(masterconfig[3])
 
     single_dir=pathlib.Path(single_files).iterdir()
 
