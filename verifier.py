@@ -58,12 +58,12 @@ def main(args: list[str]) -> None:
         for line in master_lines:
             if "," in line:
                  testing=line.split(',')
-                 print(testing[0])
-            #  for char in line:
-            #       if not char.isalpha() or char.isalnum() or char=='.' or char==',' or char=='\n':
-            #            print("invalid master")
-            #            return
-
+                 for char in testing[0]:
+                      if not char.isdigit() or char.isalpha or char=='.':
+                           print("invalid master")
+                           return
+                      
+        
 
         # print(currentport)
         # print(domain)
