@@ -19,9 +19,7 @@ def check(list,contents):
              for check_domain in list:
                   if check_domain==line[0]:
                        portstogo.append(line[1]) ## validating each domains
-
-     uniqueports=list(dict.fromkeys(portstogo))
-     if len(uniqueports)!=len(contents)-1:
+     if len(portstogo)!=len(contents):
           return "neq"
      else:
           return portstogo
