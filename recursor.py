@@ -93,7 +93,6 @@ def main(args: list[str]) -> None:
     try:
         while True:
             domain_name=input()
-            print(domain_name,flush=True)
             if not domain_name:
                 break
             if not valid(domain_name):
