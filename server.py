@@ -61,7 +61,7 @@ def main(args: list[str]) -> None:
             socket_client , _ = server_socket.accept()
             domain=socket_client.recv(1024).decode("utf-8").strip()
             response=root_responses(domain,port,config_file)
-            socket_client.send(response("utf-8"))
+            socket_client.send(response.encode("utf-8"))
             socket_client.close()
     
     except FileNotFoundError:
