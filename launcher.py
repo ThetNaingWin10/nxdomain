@@ -11,13 +11,16 @@ def main(args: list[str]) -> None:
     if(len(argv)!=3):
         print("INVALID ARGUMENTS")
         return
-    for a in argv:
-        print(a)
-        
+
     try:
         with open(argv[1],"r") as file:
             contents=file.read()
-            print(contents)
+            port=contents[0]
+            if port<1024 or port>65535 or port.isalpha():  #validating the port number
+                print("INVALID PORT NUMBER")
+            
+
+
     except FileNotFoundError:
         print("INVALID MASTER")
 
