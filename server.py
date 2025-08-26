@@ -55,6 +55,7 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
+            contents=rconfig_file.read()
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -77,6 +78,7 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
+                        socket_client.send((contents+'\n').encode("utf-8"))
                         dns_records[f"{data}"]=response
                         print(f"resolve {data} to {response}",flush=True)
                         
