@@ -73,12 +73,7 @@ def main(args: list[str]) -> None:
             if not valid(domain_name):
                 print("INVALID",flush=True)
     except EOFError:
-
-
-
-    
-        
-    pass
+        sys.exit(1)
 
 if __name__ == "__main__":
     main(argv[1:])
