@@ -25,13 +25,19 @@ def check(list,contents):
           return portstogo
 
 def main(args: list[str]) -> None:
-    try:
+        try:
             master_file=Path(argv[1])
             single_files=Path(argv[2])
             if(master_file.name=='testing.conf'):
                  print("invalid arguments")
                  return
             master_lines=master_file.read_text().split("\n")
+        except FileNotFoundError:
+             print("invalid master")
+             return
+        except IndexError:
+             print("invalid arguments")
+             return
 
         currentport=master_lines[0].strip()
         
@@ -87,7 +93,7 @@ def main(args: list[str]) -> None:
         #                      valid=check(list1,contents)
         #                      currentport=valid
         #                      break
-                        
+        
                                   
 
 if __name__ == "__main__":
