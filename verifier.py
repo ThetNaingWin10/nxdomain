@@ -27,7 +27,10 @@ def main(args: list[str]) -> None:
             master_file=Path(argv[1])
             single_files=Path(argv[2])
             master_lines=master_file.read_text().split("\n")
-        except FileNotFoundError:
+        # except FileNotFoundError:
+        #      print("invalid arguments")
+        #      return
+        except IndexError:
              print("invalid arguments")
              return
 
