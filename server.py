@@ -62,19 +62,21 @@ def main(args: list[str]) -> None:
                 server_socket.bind(("localhost",server_port))
                 server_socket.listen()
 
+
                 while True:
                     socket_client , _ = server_socket.accept()
-                    domain=socket_client.recv(server_port).decode("utf-8").strip()
-                    response=root_responses(domain,port,config)
-                    socket_client.send((response+'\n').encode("utf-8"))
-                    msg=socket_client.recv(1024).decode("utf-8")
-                    if(msg=="EXIT\n"):
-                        break
+                    data=socket_client.recv(1024).decode("utf-8").strip()
+
+                    if data.startswith('!'):
+                        handle_command(data)
+                    else:
+                        response=root_responses(data,port,config)
+                        socket_client.send((response+'\n').encode("utf-8"))
                         
             #with open(config_file,"r") as file:
                # for line in file:
                    # socket_client.send(line.encode("utf-8"))
-        socket_client.close()
+                    socket_client.close()
 
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
