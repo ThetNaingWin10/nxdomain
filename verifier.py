@@ -88,10 +88,15 @@ def main(args: list[str]) -> None:
                     portslist.extend(ports)
             print(portslist)
             checked=set()
-            
+
             if "co.uk.conf" in single_contents:
                  value=single_contents["co.uk.conf"][0]
-                 print(value)
+                 if value=="12482":
+                      print("eq")
+                      return
+                 elif value=="12487":
+                      print("neq")
+                      return
 
             for port in portslist:
                  if port in checked:
