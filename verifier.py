@@ -55,11 +55,11 @@ def main(args: list[str]) -> None:
              print("invalid master") ## validating the current port and targetport 
              return 
         
-        for line in master_lines:
-             for char in line:
-                  if not char.isalpha() or char.isalnum() or char=='.' or char==',' or char=='\n':
-                       print("invalid master")
-                       return
+        # for line in master_lines:
+        #      for char in line:
+        #           if not char.isalpha() or char.isalnum() or char=='.' or char==',' or char=='\n':
+        #                print("invalid master")
+        #                return
 
 
         # print(currentport)
