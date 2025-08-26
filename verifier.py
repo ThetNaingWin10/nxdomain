@@ -17,15 +17,13 @@ def check(list,contents):
              line=line.split(",")
              for domain in list:
                   if domain==line[0]:
-                       list.append[line[1]]
+                       print(line[1])
                        i+=1
-     if len(list)==i:
-          return list
-     else:
-          return "neq"
-     print(len(list))
-     print(i)
-                    
+    #  if len(list)==i:
+    #       return list
+    #  else:
+    #       return "neq"
+     
 
 
 def main(args: list[str]) -> None:
@@ -102,13 +100,8 @@ def main(args: list[str]) -> None:
                   with items.open("r") as line:
                        contents=line.readlines()
                        if(int(currentport)==int(contents[0])):
-                             valid=check(list1,contents)
-                             if(valid=="neq"):
-                                  print("neq")
-                                  return
-                             else:
-                                  for i in valid:
-                                       print(i)
+                             check(list1,contents)
+                             
                             
                             
                              
