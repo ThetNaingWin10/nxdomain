@@ -17,6 +17,7 @@ def check(currentport,domain,content,i):
                         porting_address=parts[1]
                         if(domain_check==domain.rsplit('.',3)[3]):
                             return porting_address
+    return 1
 
 
 def main(args: list[str]) -> None:
@@ -44,8 +45,12 @@ def main(args: list[str]) -> None:
                 print(domain.rsplit('.',3)[3])
                 print(content)
                 print(i)
-                currentport=check(currentport,domain,content,i)
-                break
+                address_port=check(currentport,domain,content,i)
+                if address_port==1:
+                    break
+                else :
+                    currentport=address_port
+                    break
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
                 # elif(z==len(domain_length)):
