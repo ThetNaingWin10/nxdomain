@@ -33,7 +33,7 @@ def root_responses(domain,port,config):
         print(f"resolve {domain} to {target_port}")
         return str(target_port)
     else:
-        #print(f"resolve {domain} to NXDOMAIN")
+        print(f"resolve {domain} to NXDOMAIN")
         return "NXDOMAIN"
     
 def get_port(domain,config):
