@@ -26,6 +26,7 @@ def main(args: list[str]) -> None:
     if not os.path.isfile(master_confi):
         print("INVALID MASTER")
         sys.exit(1)
+        #sdfg
     
     pass
 
