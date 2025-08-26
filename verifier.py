@@ -48,9 +48,10 @@ def main(args: list[str]) -> None:
         
         valid_domain=domain.split(".")
 
-        if(len(valid_domain)!=3):
-             print("invalid master13") ## validaing if there is a full domain.
-             return
+        print(master_lines)
+        # if(len(valid_domain)!=3):
+        #      print("invalid master13") ## validaing if there is a full domain.
+        #      return
         
         for line in master_lines:
              if "," in line:
