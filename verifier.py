@@ -126,11 +126,12 @@ def main(args: list[str]) -> None:
             for key in keys:
                 temp=single_contents.get(f'{key}.conf')
                 full_domain[key]=temp
-                
+
             print(full_domain)
-            print(extraction_middomain)
-            print(mid_domain_master)
+            # print(extraction_middomain)
+            # print(mid_domain_master)
             print(full_domain_master)
+            
                  
             
                  
