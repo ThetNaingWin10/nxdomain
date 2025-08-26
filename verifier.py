@@ -8,8 +8,16 @@ from pathlib import Path
 import pathlib
 master_list=[]
 
-def compare_config(masterconfig,singlefileconfig):
-    return masterconfig==singlefileconfig
+def check(currentport,domain,content):
+    if(content[0]==currentport):
+                for line in content:
+                    if "," in line:
+                        parts=line.split(',')
+                        domain_check=parts[0]
+                        porting_address=parts[1]
+                        if(domain_check==domain.rsplit('.',3)[3]):
+                            return porting_address
+
 
 def main(args: list[str]) -> None:
     master_file=Path(argv[1])
@@ -27,29 +35,31 @@ def main(args: list[str]) -> None:
     for single_file in single_files.iterdir():
         if single_file.is_file():
             content=single_file.read_text().split("\n")
+            porting_address=check(currentport,domain,content)
+            print(porting_address)
             
-            if(content[0]==currentport):
-                for line in content:
-                    if "," in line:
-                        parts=line.split(',')
-                        domain_check=parts[0]
-                        porting_address=parts[1]
-                        if(domain_check==domain.rsplit('.',3)[3]):
-                            currentport=porting_address
+    #         if(content[0]==currentport):
+    #             for line in content:
+    #                 if "," in line:
+    #                     parts=line.split(',')
+    #                     domain_check=parts[0]
+    #                     porting_address=parts[1]
+    #                     if(domain_check==domain.rsplit('.',3)[3]):
+    #                         currentport=porting_address
 
-    for single_file in single_files.iterdir():
-        if single_file.is_file():
-            content=single_file.read_text().split("\n")
+    # for single_file in single_files.iterdir():
+    #     if single_file.is_file():
+    #         content=single_file.read_text().split("\n")
             
-            if(content[0]==currentport):
-                for line in content:
-                    if "," in line:
-                        parts=line.split(',')
-                        domain_check=parts[0]
-                        porting_address=parts[1]
-                        if(domain_check==domain.rsplit('.',2)[2]):
-                            currentport=porting_address
-    print(porting_address)
+    #         if(content[0]==currentport):
+    #             for line in content:
+    #                 if "," in line:
+    #                     parts=line.split(',')
+    #                     domain_check=parts[0]
+    #                     porting_address=parts[1]
+    #                     if(domain_check==domain.rsplit('.',2)[2]):
+    #                         currentport=porting_address
+    
             
     
 
