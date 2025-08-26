@@ -7,9 +7,7 @@ You may import library modules allowed by the specs, as well as your own other m
 from sys import argv
 
 def main(args: list[str]) -> None:
-    if len(argv) !=1:
-        print('INVALID ARGUMENTS')
-        return
+    print(len(argv))
 
 
 if __name__ == "__main__":
