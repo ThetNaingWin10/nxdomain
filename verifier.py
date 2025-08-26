@@ -71,6 +71,11 @@ def main(args: list[str]) -> None:
                  if "@" in testing[0]:
                       print("invalid master")  # validating the domain whether it contains @
                       return
+        single_file=single_files.read_text().split("\n")
+        for file in single_file:
+             if "," in file:
+                  print(file)
+            
 
         # print(master_lines)
         list1=[]
