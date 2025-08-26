@@ -35,7 +35,7 @@ def root_responses(domain,port,config):
         return "NXDOMAIN"
     
 def get_port(domain,config):
-    for line in config[1:]:
+    for line in config:
         parts=line.strip().split(',')
         if parts[0] ==domain:
             return int(parts[1])
@@ -57,12 +57,12 @@ def main(args: list[str]) -> None:
             for port in config[1:]:
                 server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                 server_socket.bind(("localhost",server_port))
-                server_socket.listen(5)
+                server_socket.listen()
 
                 while True:
                     socket_client , _ = server_socket.accept()
                     domain=socket_client.recv(server_port).decode("utf-8").strip()
-                    response=root_responses(domain,port,config) 
+                    response=root_responses(domain,port,config[1:]) 
                     socket_client.send((response+'\n').encode("utf-8"))
                     
             #with open(config_file,"r") as file:
