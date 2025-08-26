@@ -98,7 +98,10 @@ def main(args: list[str]) -> None:
                 if items.is_file():
                     with items.open("r") as line:
                         contents=line.readlines()
-                        print(contents)
+                        for char in contents:
+                            if char.isspace():
+                                print("invalid single")
+                                return
                         if(int(currentport)==int(contents[0])):
                                 check(list1,contents)
         except FileNotFoundError:
