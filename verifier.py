@@ -9,20 +9,23 @@ import pathlib
 master_list=[]
 
 
-def check(list,contents):
-     i=0
-     portstogo=[]
-     for line in contents:
-        if "," in line:
-             line=line.split(",")
-             for check_domain in list:
-                  if check_domain==line[0]:
-                       portstogo.append(line[1]) ## validating each domains
+# def check(list,contents):
+#      i=0
+#      portstogo=[]
+#      for line in contents:
+#         if "," in line:
+#              line=line.split(",")
+#              for check_domain in list:
+#                   if check_domain==line[0]:
+#                        portstogo.append(line[1]) ## validating each domains
 
-     if len(portstogo)!=len(list):
-          return
-     else:
-          return portstogo
+#      if len(portstogo)!=len(list):
+#           return
+#      else:
+#           return portstogo
+def read(file):
+     with open(file,"r") as contents:
+          return {line.split(',')[0]: line.split(',')[1:] for line in contents.read().splitlines()}
 
 def main(args: list[str]) -> None:
         try:
@@ -104,9 +107,11 @@ def main(args: list[str]) -> None:
                                     if char == " ":
                                         print("invalid single")
                                         return
+            mastercontents=read(master_file)
+            print(mastercontents)
                                       
-                        if(int(currentport)==int(contents[0])):
-                                check(list1,contents)
+                        # if(int(currentport)==int(contents[0])):
+                        #         check(list1,contents)
         except FileNotFoundError:
              print("singles io error")
                 
