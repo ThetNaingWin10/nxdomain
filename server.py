@@ -52,7 +52,7 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines() 
-            #print(f"Server Test runnin on {port}")  //to double check for port
+        
             server_port=int(config[0].strip())
             for port in config[1:]:
                 server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -62,7 +62,9 @@ def main(args: list[str]) -> None:
                 while True:
                     socket_client , _ = server_socket.accept()
                     domain=socket_client.recv(server_port).decode("utf-8").strip()
-                    response=root_responses(domain,port,config[1:])
+                    with open(config_file,"w") as file:
+                        file.writelines(config[1:])
+                    response=root_responses(domain,port,config)
                     if(response==None):
                         break
                     socket_client.send((response+'\n').encode("utf-8"))
