@@ -22,7 +22,7 @@ def resolve_domain(root_port, timeout) :
         startingtime=time.time() #starting the timer
 
         tld_port=root_socket.recv(1024).decode("utf-8").strip() # receiving the response from the root server
-
+        print(tld_port)
         duration= time.time()-startingtime # checking if the duration of the program running exceeds the timeout
         if(duration>timeout) :
             print("NXDOMAIN (Timeout)")
