@@ -57,19 +57,22 @@ def resolve_domain(root_serversocket,time_out,domain):
                 
                 response=tld_socket.recv(1024).decode("utf-8")
                 
-                auth_port=int(response)
-                auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                auth_socket.connect((root_server_ip,int(auth_port)))
-                auth_socket.send(f"{domain}\n".encode("utf-8"))
+                if(response.startswith("NXDOMAIN")):
+                    print("NXDOMAIN", flush=True)
+                else :
+                    auth_port=int(response)
+                    auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                    auth_socket.connect((root_server_ip,int(auth_port)))
+                    auth_socket.send(f"{domain}\n".encode("utf-8"))
 
-                ip=auth_socket.recv(1024).decode("utf-8")
+                    ip=auth_socket.recv(1024).decode("utf-8")
 
-                timetaken=time.time()-starttime
+                    timetaken=time.time()-starttime
 
-                if(timetaken>time_out):
-                    return "NXDOMAIN"
-                else:
-                    print(f"{ip}".strip(),flush=True)
+                    if(timetaken>time_out):
+                        return "NXDOMAIN"
+                    else:
+                        print(f"{ip}".strip(),flush=True)
                     
         else:
             print("No data received")
