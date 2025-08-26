@@ -77,7 +77,7 @@ def main(args: list[str]) -> None:
                     unique_tlds[partial_domain]=True
                     constructpath1=argv[2]+f"/{partial_domain}.config"
                     domaincheck=partial_domain.split(".") ## for checking com from google.com
-                    # print(domaincheck[0])
+                    
                     with open(constructpath,"r") as root_file:
                         for line in root_file:
                             if domaincheck[-1] in line:
@@ -92,7 +92,8 @@ def main(args: list[str]) -> None:
 
                 if domain not in unique_tlds:
                     unique_tlds[domain]=True
-                    constructpath2=argv[2]+f"/{domain}.config"
+                    domianname=domain.split(".")
+                    constructpath2=argv[2]+f"/auth{domianname[1]}.config" # creating auth based on the name of the port
                     domaincheck=domain.split(".")
                     domaincheck= '.'.join(domaincheck[1:]) ## for checking from domain google.com from www.google.com
                     with open(constructpath1,'r') as file:
@@ -100,12 +101,24 @@ def main(args: list[str]) -> None:
                             if domaincheck in line:
                                 line=line.split(",")
                                 previousport=line[1]
+                                with open(constructpath2,"w") as content:
+                                    content.write(previousport)
+
                                 port_number=int(port)+1
                                 while port_number in used_ports:
                                     port_number+=1
                                 used_ports.add(port_number)
-                                with open(constructpath2,"w") as file:
-                                        file.write(f"{previousport}\n{domain},{port_number}")
+                                with open(constructpath2,"a") as content:
+                                    content.write(f"\n{domain},{port_number}")
+                                
+
+                                
+                    #             port_number=int(port)+1
+                    #             while port_number in used_ports:
+                    #                 port_number+=1
+                    #             used_ports.add(port_number)
+                    #             with open(constructpath2,"w") as file:
+                    #                     file.write(f"{previousport}\n{domain},{port_number}")
                                 
                             #     previousport=content_full[1]
                             #     port_number=int(port)+1
