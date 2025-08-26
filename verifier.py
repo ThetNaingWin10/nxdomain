@@ -7,7 +7,7 @@ from sys import argv
 import pathlib
 
 def read_configuration(filepath) :
-    list={}
+    list=[]
  
     with open(filepath,'r') as file:
         for line in file:
