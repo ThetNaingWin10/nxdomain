@@ -17,14 +17,10 @@ def valid(domain_name):
     if len(list)!=3 or len(list)!=4:
         return False
     else :
-        if(len(list)==4):
-            list=list[1:]
         C=list[0]
         B=list[1]
         A=list[2]
-        print(C,flush=True)
-        print(B,flush=True)
-        print(A,flush=True) #awdsdfasd
+         #awdsdfasd
         #validating C
         if C.startswith(".") or C.endswith("."):
             return False
