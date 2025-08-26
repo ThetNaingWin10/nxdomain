@@ -14,9 +14,11 @@ root_server_port = 1026
             
 def valid(domain_name):
     list=domain_name.split(".")
-    if len(list)!=3:
+    if len(list)!=3 or len(list)!=4:
         return False
     else :
+        if(len(list)==4):
+            list=list[1:]
         C=list[0]
         B=list[1]
         A=list[2]
