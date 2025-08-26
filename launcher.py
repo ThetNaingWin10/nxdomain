@@ -55,7 +55,7 @@ def main(args: list[str]) -> None:
             for domain, domainport in data.items():
                 parts=domain.split(".")
                 root_domain=parts[-1]
-                partial_domain='.'.join(parts[1:])
+                partial_domain='.'.join(parts[-2:])
             
                 if root_domain not in unique_tlds: # for the root
                     unique_tlds[root_domain]=True
@@ -82,7 +82,9 @@ def main(args: list[str]) -> None:
                                     port_number+=1
                                 used_ports.add(port_number)
                                 with open(constructpath1,"w") as file:
+                                    print(partial_domain)
                                     file.write(f"{previousport}\n{partial_domain},{port_number}")
+                                    
 
                 if domain not in unique_tlds:
                     unique_tlds[domain]=True
@@ -90,11 +92,11 @@ def main(args: list[str]) -> None:
                     constructpath2=argv[2]+f"/auth{domianname[1]}.config" # creating auth based on the name of the port
                     domaincheck=domain.split(".")
                     domaincheck= '.'.join(domaincheck[1:]) ## for checking from domain google.com from www.google.com
-                    with open(constructpath1,'r') as file:
+                    with open(constructpath1,'r') as file:  ## it is not correctly getting the previous port
                         for line in file:
                             if domaincheck in line:
                                 line=line.split(",")
-                                previousport=line[1]
+                                previousport1=line[1]
 
                                 port_number=int(port)+1
                                 while port_number in used_ports:
@@ -102,9 +104,11 @@ def main(args: list[str]) -> None:
                                 used_ports.add(port_number)
                                 with open(constructpath2,"a") as content:
                                     if content.tell()==0:
-                                        content.write(previousport)
+                                        content.write(previousport1)
+                                        # print(domain)
+                                        # print(previousport1)  //mcdonalds.com.au is not taken in as a partial domain
+
                                     for key,value in data.items():
-                                        print(domain)
                                         if domain in key:
                                             content.write(f"\n{domain},{value}")
         folder_path=argv[2]
