@@ -110,19 +110,22 @@ def main(args: list[str]) -> None:
                  dict=value[1]
                  for innerkey, innervalue in dict.items():
                       extraction_middomain[innerkey] = innervalue[0]
-                      
-                 
             
+            
+            for element in mid_domain_master:
+                 if element in extraction_middomain:
+                      continue
+                 else:
+                      print("neq")
+                      return
+            else:
+                 print("YES")
+                 
             print(mid_domain)
             print(extraction_middomain)
             print(mid_domain_master)
                  
-            # if all (element in mid_domain for element in mid_domain_master):
-            #     print("Yes")
-            # else:
-            #     print('neq')
-            #     return
-                
+            
                  
                            
         except FileNotFoundError:
