@@ -110,7 +110,10 @@ def main(args: list[str]) -> None:
                                         print("invalid single")
                                         return
             mastercontents=read(master_file)
-            print(mastercontents)
+            single_contents={}
+            for singlefile in single_files.iterdir():
+                 single_contents[singlefile.name]=read(singlefile)
+                 print(single_contents)
                                       
                         # if(int(currentport)==int(contents[0])):
                         #         check(list1,contents)
