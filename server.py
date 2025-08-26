@@ -74,12 +74,11 @@ def main(args: list[str]) -> None:
                             sys.exit(1)
                         else:
                             handle_command(data)
+                            socket_client.send((data+'\n').encode("utf-8"))
 
                     else:
                         response=root_responses(data,port,config)
-                        # adads
-                        # socket_client.send((response+'\n').encode("utf-8"))
-                        socket_client.send((contents+'\n').encode("utf-8"))
+                        socket_client.send((response+'\n').encode("utf-8"))
                         dns_records[f"{data}"]=response
                         print(f"resolve {data} to {response}",flush=True)
                         
