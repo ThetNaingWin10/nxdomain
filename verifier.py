@@ -53,7 +53,9 @@ def main(args: list[str]) -> None:
              if "," in line:
                   testing=line.split(",")
                   testing=testing[0].split(".")
-                  print(testing)
+                  if len(testing)<3:
+                       print("invalid master")
+                       return
                   
                   
        
