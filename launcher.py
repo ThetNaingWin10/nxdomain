@@ -14,8 +14,20 @@ def main(args: list[str]) -> None:
 
     try:
         with open(argv[1],"r") as file:
-            contents=file.read()
-            print(contents)
+            contents=file.readlines()
+            port=contents[0]
+            for char in port:
+                if char.isalpha():
+                    print("INVALID MASTER")
+                    return
+            if int(port)<1024 or int(port)>65535:
+                print("INVALID MASTER")
+            
+            
+            # for char in contents:
+            #     if char.isalpha():
+            #         print("INVALID")
+            #         return
 
             # if int(port)<1024 or int(port)>65535 or port.isalpha():  #validating the port number
             #     print("INVALID MASTER")
