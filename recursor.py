@@ -34,7 +34,7 @@ def valid(domain_name):
 def resolve_domain(server_socket,time_out,domain):
         starttime=time.time()
         server_socket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
-        data=int(server_socket.recv(1024).decode('utf-8')) #received the TLD port
+        data=(server_socket.recv(1024).decode('utf-8')) #received the TLD port
         if(data):
             tld_port=int(data)
         else:
