@@ -61,9 +61,10 @@ def main(args: list[str]) -> None:
             socket_client , _ = server_socket.accept()
             domain=socket_client.recv(1024).decode("utf-8").strip()
             target_port= get_port(domain,config_file)
+            print(target_port)
 
             if target_port!=-1:
-                print(f"{target_port}")
+                
                 with socket.socket(socket.AF_INET,socket.SOCK_STREAM) as targets:
                     targets.connect(("localhost",target_port))
                     targets.sendall(domain.encode("utf-8"))
