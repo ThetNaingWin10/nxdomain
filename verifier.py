@@ -134,7 +134,8 @@ def main(args: list[str]) -> None:
                           return
             
             for key,value in nextfilecheck.items():
-                print(single_contents.get(f'{key}.conf'))
+                mid_domain=single_contents.get(f'{key}.conf')
+                print(mid_domain)
                  
                
 
