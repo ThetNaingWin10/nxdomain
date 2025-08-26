@@ -16,11 +16,10 @@ def check(list,contents):
              line=line.split(",")
              for domain in list:
                   if domain==line[0]:
-                       print("Yes")
-            #  if line[0] in list:
-            #       print("Yes")
+                       i+=1
 
      print(len(list))
+     print(i)
     #     return list
     #  else:
     #     return None
