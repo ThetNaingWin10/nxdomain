@@ -46,7 +46,7 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             port = int(rconfig_file.readline().strip())  
-            print(f"Server Test runnin on {port}")  
+            #print(f"Server Test runnin on {port}")  //to double check for port
         server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         server_socket.bind(("localhost",port))
         server_socket.listen(5)
