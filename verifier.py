@@ -56,7 +56,7 @@ def main(args: list[str]) -> None:
              return 
         
         print(currentport)
-        print(valid_domain)
+        print(domain)
         print(target_port)
 
         domain_length=domain.split(".")
