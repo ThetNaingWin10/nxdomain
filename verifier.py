@@ -9,7 +9,7 @@ import pathlib
 master_list=[]
 
 
-def check(currentport,contents):
+def check(contents):
      for line in contents:
           print(line)
 
@@ -62,18 +62,23 @@ def main(args: list[str]) -> None:
                       print("invalid master")  # validating the domain whether it contains @
                       return
 
-        print(master_lines)
-        
-        for items in single_files.iterdir():
-             if items.is_file():
-                  with items.open("r") as line:
-                       contents=line.readlines()
-                       if(int(currentport)==int(contents[0])):
-                             check(currentport,contents)
-                            
+        # print(master_lines)
+        list1=[]
+        list2=[]
+        list3=[]
+        for line in master_lines:
+             if ',' in line:
+                line=line.split(",")
+                print(line[0])
 
-   
-    
+        
+        # for items in single_files.iterdir():
+        #      if items.is_file():
+        #           with items.open("r") as line:
+        #                contents=line.readlines()
+        #                if(int(currentport)==int(contents[0])):
+        #                      check(currentport,contents)
+                
 
 if __name__ == "__main__":
     main(argv[1:])
