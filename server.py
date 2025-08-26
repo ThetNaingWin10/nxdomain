@@ -54,18 +54,17 @@ def main(args: list[str]) -> None:
                     key,value= line.split(",",1)
                     dns_records[key]=value
                 else:
-                    dns_records[None]=line
+                    print("Testing")
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
-            server_socket.bind(("localhost",server_port))
+            server_socket.bind(("localhost",server_port))  ##this was causing the invalid port error
             server_socket.listen()
 
             while True:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
                 # socket_client.send((data+'\n').encode("utf-8"))  #just in case to see the files inside config file
-                # af
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
                         socket_client.close()
