@@ -1,12 +1,8 @@
 #!/bin/bash
 
-# first install coverage.py:
-# https://coverage.readthedocs.io/en/latest/install.html
-
-# earse previous coverage
 coverage erase
 # start a hard-coded server in background by coverage
-coverage run --append sample_server.py sample.conf &
+coverage run --append /Users/thetnaingwin/Desktop/INFO1112/"Assignment 2"/nxdomain/server.py sample.conf &
 # delay 2s to make sure the server is up and listening at port 1024
 sleep 2
 echo fake recursor sends EXIT

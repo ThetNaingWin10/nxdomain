@@ -46,8 +46,6 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
-
-
             for line in config[1:]:
                 line=line.strip()
                 if(",") in line:
@@ -55,14 +53,12 @@ def main(args: list[str]) -> None:
                     dns_records[key]=value
 
             for key, value in dns_records.items():
-                # print(f"Key: {key}, Value: {value}")
                 for char in key:
                     if not char.isalpha() and char!='.':
                         print("INVALID CONFIGURATION")
                         return
 
                  ##checking the keys and values
-
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
