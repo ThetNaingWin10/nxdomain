@@ -8,21 +8,6 @@ from pathlib import Path
 import pathlib
 master_list=[]
 
-
-# def check(list,contents):
-#      i=0
-#      portstogo=[]
-#      for line in contents:
-#         if "," in line:
-#              line=line.split(",")
-#              for check_domain in list:
-#                   if check_domain==line[0]:
-#                        portstogo.append(line[1]) ## validating each domains
-
-#      if len(portstogo)!=len(list):
-#           return
-#      else:
-#           return portstogo
 def read(file):
      with open(file,"r") as contents:
           lines=contents.read().splitlines()
@@ -76,27 +61,6 @@ def main(args: list[str]) -> None:
                  if "@" in testing[0]:
                       print("invalid master")  # validating the domain whether it contains @
                       return
-            
-
-        # print(master_lines)
-        list1=[]
-        list2=[]
-        list3=[]
-        for line in master_lines:
-             if ',' in line:
-                line=line.split(",")
-                lastdomain=line[0].split(".")
-                list1.append(lastdomain[-1])
-                middomain=line[0].rsplit(".",2)
-                middomain=".".join(middomain[1:])
-                list2.append(middomain)
-                list3.append(line[0])
-        # for line in list1:
-        #      print(line) 
-        # for line in list2:
-        #      print(line)
-        # for line in list3:
-        #      print(line)      
 
         try:
             for items in single_files.iterdir():
@@ -135,24 +99,9 @@ def main(args: list[str]) -> None:
             
             for key,value in nextfilecheck.items():
                 mid_domain=single_contents.get(f'{key}.conf')
-                print(mid_domain)
+                print(mastercontents)
+                
                  
-               
-
-                     
-                     
-                    
-                 
-            # if "root.conf" in single_contents:
-            #      rootdata=single_contents['root.conf']
-            #      currentport=rootdata[0]
-
-            #      for domain in rootdata[1].keys():
-            #           if domain in mastercontents[1]:
-            #                expectedports=mastercontents[1][domain]
-            #                print(expectedports)
-            #                if currentport not in expectedports:
-            #                     return 'neq'
                            
         except FileNotFoundError:
              print("singles io error")
