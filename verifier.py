@@ -79,15 +79,21 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            print(mastercontents)
-            print(single_contents)
+            # print(mastercontents)
+            # print(single_contents)
             #validating the ports
             portslist=[]
             for key, (value, inner_dict) in single_contents.items():
                 for ports in inner_dict.values():
                     portslist.extend(ports)
             print(portslist)
-
+            checked=set()
+            for port in portslist:
+                 if port in checked:
+                      print("neq")
+                      return
+                 checked.add(port)
+            #validating duplicated ports
 
             nextfilecheck={}
             if "root.conf" in single_contents:
