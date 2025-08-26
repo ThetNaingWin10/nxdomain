@@ -93,6 +93,7 @@ def main(args: list[str]) -> None:
                 if domain not in unique_tlds:
                     unique_tlds[domain]=True
                     domianname=domain.split(".")
+                    print(domain)
                     constructpath2=argv[2]+f"/auth{domianname[1]}.config" # creating auth based on the name of the port
                     domaincheck=domain.split(".")
                     domaincheck= '.'.join(domaincheck[1:]) ## for checking from domain google.com from www.google.com
