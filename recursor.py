@@ -6,12 +6,15 @@ You may import library modules allowed by the specs, as well as your own other m
 import socket
 import sys
 import time
+import signal
 
 from sys import argv
 root_server_ip = "127.0.0.1"
 root_server_port = 1026
 
-            
+def timeoutsignal(signalnumber,frame):
+    raise TimeoutError("NXDOMAIN")
+  
 def valid(domain_name):
     list=domain_name.split(".")
     if len(list)==3 or len(list)==4:
@@ -36,46 +39,48 @@ def valid(domain_name):
         
 
 def resolve_domain(root_serversocket,time_out,domain):
-        starttime=time.time()
+        signal.signal(signal.SIGALRM,timeoutsignal)
+        signal.alarm(time_out)
         # server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
+        try:
 
-        data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
-        # the invalids outputs are from incorrect domains.
+            root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
 
-        if data:
-            if data.startswith("NXDOMAIN"):
-                print("NXDOMAIN", flush=True) 
-            else :
-                data=int(data)
-        
-                tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                tld_socket.connect((root_server_ip,data))
-                tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode("utf-8"))
+            data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
+            # the invalids outputs are from incorrect domains.
 
-                #port of the authoritative nameserver
-                
-                response=tld_socket.recv(1024).decode("utf-8")
-                
-                if(response.startswith("NXDOMAIN")):
-                    print("NXDOMAIN", flush=True)
+            if data:
+                if data.startswith("NXDOMAIN"):
+                    print("NXDOMAIN", flush=True) 
                 else :
-                    auth_port=int(response)
-                    auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                    auth_socket.connect((root_server_ip,int(auth_port)))
-                    auth_socket.send(f"{domain}\n".encode("utf-8"))
+                    data=int(data)
+            
+                    tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                    tld_socket.connect((root_server_ip,data))
+                    tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode("utf-8"))
 
-                    ip=auth_socket.recv(1024).decode("utf-8")
-
-                    timetaken=time.time()-starttime
-
-                    if(timetaken>time_out):
-                        return "NXDOMAIN"
-                    else:
-                        print(f"{ip}".strip(),flush=True)
+                    #port of the authoritative nameserver
                     
-        else:
-            print("No data received")
+                    response=tld_socket.recv(1024).decode("utf-8")
+                    
+                    if(response.startswith("NXDOMAIN")):
+                        print("NXDOMAIN", flush=True)
+                    else :
+                        auth_port=int(response)
+                        auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                        auth_socket.connect((root_server_ip,int(auth_port)))
+                        auth_socket.send(f"{domain}\n".encode("utf-8"))
+
+                        ip=auth_socket.recv(1024).decode("utf-8")
+                        print(f"{ip}".strip(),flush=True)
+                        
+            else:
+                print("No data received")
+        except TimeoutError:
+            return "NXDOMAIN"
+        finally:
+            signal.alarm(0)
+
         
         #Query the TLD
         
