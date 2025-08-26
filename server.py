@@ -71,7 +71,7 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
-                    
+                        print(f"resolve {data} to {response}")
                     socket_client.close()
 
     except FileNotFoundError:
