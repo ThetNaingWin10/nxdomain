@@ -52,7 +52,7 @@ def resolve_domain(server_socket,time_out,domain):
             tld_socket.send(f"{domain}\n".encode("utf-8"))
 
             #port of the authoritative nameserver
-            #testing
+            
             response=tld_socket.recv(1024).decode("utf-8")
 
             if(response.startswith("NXDOMAIN")):
