@@ -9,6 +9,7 @@ import signal
 from sys import argv
 root_server_ip = "127.0.0.1"
 root_server_port = 1026
+FORMAT="utf-8"
 
 def timeoutsignal(signalnumber,frame):
     raise TimeoutError("NXDOMAIN")
@@ -42,9 +43,9 @@ def resolve_domain(root_serversocket,time_out,domain):
         signal.alarm(round(timeout))
         try:
 
-            root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
+            root_serversocket.send(f"{domain.split('.')[-1]}\n".encode(FORMAT))
 
-            data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
+            data=root_serversocket.recv(1024).decode(FORMAT) #received the TLD port
             # the invalids outputs are from incorrect domains.
 
             if data:
@@ -59,11 +60,11 @@ def resolve_domain(root_serversocket,time_out,domain):
                     except ConnectionRefusedError:
                         print("FAILED TO CONNECT TO TLD")
                         return
-                    tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode("utf-8"))
+                    tld_socket.send(f"{domain.split('.')[-2]}.{domain.split('.')[-1]}\n".encode(FORMAT))
 
                     #port of the authoritative nameserver
                     
-                    response=tld_socket.recv(1024).decode("utf-8")
+                    response=tld_socket.recv(1024).decode(FORMAT)
                     
                     if(response.startswith("NXDOMAIN")):
                         print("NXDOMAIN", flush=True)
@@ -75,9 +76,9 @@ def resolve_domain(root_serversocket,time_out,domain):
                         except ConnectionRefusedError:
                             print("FAILED TO CONNECT TO AUTH")
                             return
-                        auth_socket.send(f"{domain}\n".encode("utf-8"))
+                        auth_socket.send(f"{domain}\n".encode(FORMAT))
 
-                        ip=auth_socket.recv(1024).decode("utf-8")
+                        ip=auth_socket.recv(1024).decode(FORMAT)
                         print(f"{ip}".strip(),flush=True)
                         
             else:
