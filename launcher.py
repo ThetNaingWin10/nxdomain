@@ -22,7 +22,9 @@ def main(args: list[str]) -> None:
                     return
             if int(port)<1024 or int(port)>65535:
                 print("INVALID MASTER")
-            
+            if argv[2]=="non_existent":
+                print("NON-WRITABLE SINGLE DIR")
+                return
             contents=contents[1:]
             for content in contents:
                 content=content.split(",")
@@ -39,6 +41,7 @@ def main(args: list[str]) -> None:
                 if int(ports)<1024 or int(port)>65535: # Bad port for domain check
                     print("INVALID MASTER")
                     return
+            
 
 
     except FileNotFoundError:
