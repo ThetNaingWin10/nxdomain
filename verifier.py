@@ -49,7 +49,7 @@ def main(args: list[str]) -> None:
         valid_domain=domain.split(".")
 
         if(target_port==1029):
-             print("invalid master")
+             print("invalid master123213")
              return
 
         if(len(valid_domain)!=3):
