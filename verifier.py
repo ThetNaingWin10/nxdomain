@@ -38,6 +38,7 @@ def main(args: list[str]) -> None:
                         porting_address=parts[1]
                         if domain_check==domain.rsplit(".",3):
                             print(porting_address)
+                            print("YES")
 
             # if content[0]==currentport:
             #     for line in content:
