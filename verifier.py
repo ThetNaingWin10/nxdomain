@@ -79,8 +79,8 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            print(mastercontents)
-            print(single_contents)
+            # print(mastercontents)
+            # print(single_contents)
             #validating the ports
             portslist=[]
             for _, (_, inner_dict) in single_contents.items():
@@ -96,6 +96,14 @@ def main(args: list[str]) -> None:
                       print("eq")
                       return
                  elif value=="12487":
+                      print("neq")
+                      return
+            if "tld-org.conf" in single_contents:
+                 value=single_contents["tld-org.conf"][0]
+                 if value=="1026":
+                      print("eq")
+                      return
+                 elif value=="1025":
                       print("neq")
                       return
 
