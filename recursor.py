@@ -46,37 +46,35 @@ def resolve_domain(root_serversocket,time_out,domain):
                 print("NXDOMAIN", flush=True)
             else :
                 data=int(data)
-            
-
-        #     tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        #     tld_socket.connect((root_server_ip,tld_port))
-            
-        #     tld_socket.send(f"{domain}\n".encode("utf-8"))
-
-        #     #port of the authoritative nameserver
-            
-        #     response=tld_socket.recv(1024).decode("utf-8")
-
-        #     if(response.startswith("NXDOMAIN")):
-        #         print("NXDOMAIN",flush=True)
-        #     else:
-        #         auth_port=response
-        #         auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        #         auth_socket.connect((root_server_ip,int(auth_port)))
-        #         auth_socket.send(f"{domain}\n".encode("utf-8"))
-
-        #         ip=auth_socket.recv(1024).decode("utf-8")
-
-
-        #         timetaken=time.time()-starttime
-
-        #         if(timetaken>time_out):
-        #             print("NXDOMAIN",flush=True)
-        #         else:
-        #             print(f"{ip}",flush=True)
+        
+                tld_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                tld_socket.connect((root_server_ip,data))
                 
-        # else:
-        #     print("No data received")
+                tld_socket.send(f"{domain}\n".encode("utf-8"))
+
+                #port of the authoritative nameserver
+                
+                response=tld_socket.recv(1024).decode("utf-8")
+
+                if(response.startswith("NXDOMAIN")):
+                    print("NXDOMAIN",flush=True)
+                else:
+                    auth_port=response
+                    auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                    auth_socket.connect((root_server_ip,int(auth_port)))
+                    auth_socket.send(f"{domain}\n".encode("utf-8"))
+
+                    ip=auth_socket.recv(1024).decode("utf-8")
+
+                    timetaken=time.time()-starttime
+
+                    if(timetaken>time_out):
+                        print("NXDOMAIN",flush=True)
+                    else:
+                        print(f"{ip}",flush=True)
+                    
+        else:
+            print("No data received")
         
         #Query the TLD
         
