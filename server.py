@@ -30,8 +30,10 @@ def handle_command(command):
 def root_responses(domain,port,config):
     target_port=get_port(domain,config)
     if target_port is not None:
+        print(f"resolve {domain} to {port}")
         return str(target_port)
     else:
+        print(f"resolve {domain} to NXDOMAIN")
         return "NXDOMAIN"
     
 def get_port(domain,config):
