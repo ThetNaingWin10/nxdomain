@@ -32,7 +32,7 @@ def root_responses(domain,port,config):
     if target_port is not None:
         return str(target_port)
     else:
-        return "JJJNXDOMAIN\n"
+        return target_port
     
 def get_port(domain,config):
     for line in config[1:]:
