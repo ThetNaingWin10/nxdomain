@@ -122,6 +122,7 @@ def main(args: list[str]) -> None:
                      masterdata=list(mastercontents[1].keys())
                      rootdomains = [key.split('.')[-1] for key in masterdata]
                      print(rootdomains)
+                     print(rootdata)
 
                      
                      
