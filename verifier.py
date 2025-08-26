@@ -14,8 +14,11 @@ def check(list,contents):
      for line in contents:
         if "," in line:
              line=line.split(",")
-             if line[0] in list:
-                  print("Yes")
+             for domain in list:
+                  if domain==line[0]:
+                       print("Yes")
+            #  if line[0] in list:
+            #       print("Yes")
 
      print(len(list))
     #     return list
@@ -85,8 +88,8 @@ def main(args: list[str]) -> None:
                 middomain=".".join(middomain[1:])
                 list2.append(middomain)
                 list3.append(line[0])
-        for line in list1:
-             print(line) 
+        # for line in list1:
+        #      print(line) 
         # for line in list2:
         #      print(line)
         # for line in list3:
