@@ -58,7 +58,8 @@ def resolve_domain(root_serversocket,time_out,domain):
                 response=tld_socket.recv(1024).decode("utf-8")
 
                 if(response.startswith("NXDOMAIN")):
-                    print("NXDOMAIN",flush=True)
+                    return
+                    # print("NXDOMAIN",flush=True)
                 else:
                     auth_port=response
                     auth_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
