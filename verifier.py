@@ -48,6 +48,10 @@ def main(args: list[str]) -> None:
         
         valid_domain=domain.split(".")
 
+        if(target_port<1030):
+             print("invalid master")
+             return
+
         if(len(valid_domain)!=3):
              print("invalid master") ## validaing if there is a full domain.
              return
