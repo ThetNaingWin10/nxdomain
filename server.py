@@ -6,7 +6,7 @@ You may import library modules allowed by the specs, as well as your own other m
 
 import socket
 from sys import argv
-
+FORMAT="utf-8"
 dns_records={}
 
 def check(command):
@@ -71,23 +71,22 @@ def main(args: list[str]) -> None:
 
             while True:
                 socket_client , _ = server_socket.accept()
-                data=socket_client.recv(server_port).decode("utf-8").strip()
-                # socket_client.send((data+'\n').encode("utf-8"))  #just in case to see the files inside config file
+                data=socket_client.recv(server_port).decode(FORMAT).strip()
+                # socket_client.send((data+'\n').encode("FORMAT"))  #just in case to see the files inside config file
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
                         socket_client.close()
                         return
                     else:
                         check(data)
-                        # socket_client.send((data+'\n').encode("utf-8"))
                 else:
                     if data in dns_records:
                         response=rootresponse(data,dns_records)
-                        socket_client.send((response+'\n').encode("utf-8"))
+                        socket_client.send((response+'\n').encode(FORMAT))
                         print(f"resolve {data} to {response}",flush=True)
                     else :
                         response="NXDOMAIN"
-                        socket_client.send((response+'\n').encode("utf-8"))
+                        socket_client.send((response+'\n').encode(FORMAT))
                         print(f"resolve {data} to {response}",flush=True)
                       
                 socket_client.close()
