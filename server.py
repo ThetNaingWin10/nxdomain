@@ -56,6 +56,7 @@ def main(args: list[str]) -> None:
 
             for key, value in dns_records.items():
                 print(f"Key: {key}, Value: {value}") ##checking the keys and values
+            return
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
