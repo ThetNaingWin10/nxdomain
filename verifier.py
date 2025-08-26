@@ -17,15 +17,18 @@ def main(args: list[str]) -> None:
     master_lines=master_file.read_text().split("\n")
 
     currentport=master_lines[0].strip()
+    domain=master_lines[1].split(",")[0]
     target_port=int(master_lines[1].split(",")[1])
 
     print(currentport)
+    print(domain)
     print(target_port)
 
     for single_file in single_files.iterdir():
         if single_file.is_file():
             content=single_file.read_text().split("\n")
-            print(content)
+            portofcontent=content[0].strip()
+            
             
 
             
