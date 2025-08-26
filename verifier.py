@@ -55,6 +55,14 @@ def main(args: list[str]) -> None:
         i=len(domain_length)-1
         # z=0
         try :
+            count=0
+            for file in single_files.iterdir():
+                 if file.is_file():
+                      count+=1
+            if(count==1):
+                 print("invalid single")
+                 return
+
             for single_file in single_files.iterdir():
                 if single_file.is_file():
                     content=single_file.read_text().split("\n")
