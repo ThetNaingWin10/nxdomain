@@ -16,6 +16,7 @@ def check(currentport,domain,content,i):
                         domain_check=parts[0]
                         porting_address=parts[1]
                         if(domain_check==domain.rsplit('.',i)[i]):
+                            print(porting_address)
                             return porting_address
 
 
@@ -51,8 +52,6 @@ def main(args: list[str]) -> None:
                 currentport=porting_address
                 i-=1
                 z+=1
-
-    print(currentport)
             
             
     #         if(content[0]==currentport):
