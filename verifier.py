@@ -99,8 +99,8 @@ def main(args: list[str]) -> None:
             mid_domain={}
             print(nextfilecheck)
             for key,value in nextfilecheck.items():
-                mid_domain=single_contents.get(f'{key}.conf')
-                mid_domain[key]=mid_domain
+                constant=single_contents.get(f'{key}.conf')
+                mid_domain[key]=constant
 
             keys = [key for key in mastercontents[1].keys()]
             mid_domain_master = ['.'.join(item.split('.')[-2:]) for item in keys]
