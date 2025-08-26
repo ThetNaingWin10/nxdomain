@@ -94,14 +94,6 @@ def main(args: list[str]) -> None:
         #      print(line)      
 
         try:
-            for file in single_files.iterdir():
-                if file.is_file():
-                    with items.open("r") as line: ## validating bad configuration file
-                        contents=line.readlines()
-                        if "," in contents:
-                            print(contents)
-                        
-                     
             for items in single_files.iterdir():
                 if items.is_file():
                     with items.open("r") as line:
