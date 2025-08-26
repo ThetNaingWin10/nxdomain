@@ -4,43 +4,48 @@ Write code for your verifier here.
 You may import library modules allowed by the specs, as well as your own other modules.
 """
 from sys import argv
+from pathlib import Path
 import pathlib
-
-def read_configuration(filepath) :
-    list=[]
- 
-    with open(filepath,'r') as file:
-        for line in file:
-            line=line.strip()
-            if line:
-                list.append(line)
-    return list
+master_list=[]
 
 def compare_config(masterconfig,singlefileconfig):
     return masterconfig==singlefileconfig
 
 def main(args: list[str]) -> None:
-    master_file=argv[1]
-    single_files=argv[2]
+    master_file=Path(argv[1])
+    single_files=Path(argv[2])
+    master_lines=master_file.read_text().split("\n")
 
-    masterconfig=read_configuration(master_file)
-    print(masterconfig[0])
-    print(masterconfig[1])
-    print(masterconfig[2])
-    print(masterconfig[3])
+    currentport=master_lines[0].strip()
+    target_port=int(master_lines[1].split(",")[1])
 
-    single_dir=pathlib.Path(single_files).iterdir()
+    print("currentport"+currentport)
+    print("targetport"+target_port)
 
-    # for singlefile in single_dir:
-    #     if singlefile.is_file():
-    #         config=read_configuration(singlefile)
-    #         if config is not None:
-    #             if not compare_config(masterconfig,config):
-    #                 result= "neq"
-    #                 break
-    # print("eq")
+    for single_file in single_files.iterdir():
+        if single_file.is_file():
+            content=single_file.read_text().split("\n")
+            print(content)
+            
+
+            
+            
+
+            # if(currentport) != content_lines[0].strip().split(",")[-1]:
+
+        
+   
+
+
+        # first_line=file.readline().strip()
+        # second_line=file.readline().strip()
+        # parts=second_line.split(',')
+        # if(len(parts)==2):
+        #     url,port=parts
+        #     master_list.append((url,int(port)))
+   
     
-
 
 if __name__ == "__main__":
     main(argv[1:])
+ 
