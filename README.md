@@ -1,4 +1,4 @@
-# NXDOMAIN — simplified DNS (INFO1112)
+# NXDOMAIN — simplified DNS
 
 A small, educational DNS-like system in Python. It includes:
 - a launcher that converts a `master.conf` into single-file configs,
