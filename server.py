@@ -77,6 +77,7 @@ def main(args: list[str]) -> None:
 
                     else:
                         response=root_responses(data,port,config)
+                        # adads
                         # socket_client.send((response+'\n').encode("utf-8"))
                         socket_client.send((contents+'\n').encode("utf-8"))
                         dns_records[f"{data}"]=response
