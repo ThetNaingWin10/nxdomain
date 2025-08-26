@@ -36,16 +36,15 @@ def main(args: list[str]) -> None:
                         porting_address=parts[1]
                         if(domain_check==domain.rsplit('.',3)[3]):
                             currentport=porting_address
-            print(currentport)
-
-            # if content[0]==currentport:
-            #     for line in content:
-            #         if "," in line:
-            #             parts=line.split(',')
-            #             domain_check=parts[0]
-            #             porting_address=parts[1]
-            # if domain_check==domain.rsplit(".",2):
-            #     print(porting_address)
+            
+            if content[0]==currentport:
+                for line in content:
+                    if "," in line:
+                        parts=line.split(',')
+                        domain_check=parts[0]
+                        porting_address=parts[1]
+                        if domain_check==domain.rsplit(".",2)[2]:
+                            print(porting_address)
 
 
             
