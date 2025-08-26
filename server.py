@@ -56,11 +56,10 @@ def main(args: list[str]) -> None:
             
         if config:
             server_port=int(config[0].strip())
-            
+            server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+            server_socket.bind(("localhost",server_port))
+            server_socket.listen()
             for port in config[1:]:
-                server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                server_socket.bind(("localhost",server_port))
-                server_socket.listen()
 
                 while True:
                     socket_client , _ = server_socket.accept()
