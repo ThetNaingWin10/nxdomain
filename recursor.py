@@ -40,8 +40,11 @@ def resolve_domain(root_serversocket,time_out,domain):
 
         data=root_serversocket.recv(1024).decode('utf-8') #received the TLD port
         
-        if not data.isspace():
-            print(data,flush=True)
+        if (data):
+            if data=="INVAID":
+                print(data,flush=True)
+            elif data=="NXDOMAIN":
+                print(data,flush=True)
             # tld_port=int(data)
             
 
