@@ -78,8 +78,9 @@ def main(args: list[str]) -> None:
              if items.is_file():
                   with items.open("r") as line:
                        contents=line.readlines()
-                       if(int(currentport)==contents[0]):
-                            print(contents)
+                       print(contents[0])
+                    #    if(int(currentport)==contents[0]):
+                    #         print(contents)
                     #    list.append(int(contents[0]))
                     
 
