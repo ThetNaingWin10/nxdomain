@@ -18,7 +18,7 @@ def check(list,contents):
              for domain in list:
                   if domain==line[0]:
                        print("YEs")
-    #  print(len(list))
+    
     #  print(i)
     #     return list
     #  else:
