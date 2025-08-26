@@ -16,7 +16,7 @@ def main(args: list[str]) -> None:
         with open(argv[1],"r") as file:
             contents=file.read()
             port=contents[0]
-            if port<1024 or port>65535 or port.isalpha():  #validating the port number
+            if int(port)<1024 or int(port)>65535 or port.isalpha():  #validating the port number
                 print("INVALID PORT NUMBER")
             
 
