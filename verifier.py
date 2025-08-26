@@ -79,20 +79,14 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            # print(mastercontents)
-            # print(single_contents)
+            print(mastercontents)
+            print(single_contents)
             #validating the ports
-            if "12487" in single_contents:
-                  print("neq")
-                  return
-            elif "12482" in single_contents:
-                 print("eq")
-                 return
             portslist=[]
             for _, (_, inner_dict) in single_contents.items():
                 for ports in inner_dict.values():
                     portslist.extend(ports)
-            # print(portslist)
+            print(portslist)
             checked=set()
             # if "23819" in portslist:
             #      print("eq")
