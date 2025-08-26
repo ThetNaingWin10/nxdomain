@@ -102,14 +102,16 @@ def main(args: list[str]) -> None:
                             if domaincheck in line:
                                 line=line.split(",")
                                 previousport=line[1]
-                                with open(constructpath2,"w") as content:
-                                    content.write(previousport)
+                                # with open(constructpath2,"a") as content:
+                                #     content.write(previousport)
 
                                 port_number=int(port)+1
                                 while port_number in used_ports:
                                     port_number+=1
                                 used_ports.add(port_number)
                                 with open(constructpath2,"a") as content:
+                                    if content.tell()==0:
+                                        content.write(previousport)
                                     content.write(f"\n{domain},{port_number}")
                                 
 
