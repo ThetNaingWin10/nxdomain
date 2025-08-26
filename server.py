@@ -52,7 +52,6 @@ def main(args: list[str]) -> None:
                 line=line.strip()
                 if(",") in line:
                     key,value= line.split(",",1)
-                    print(key)
                     dns_records[key]=value
 
             server_port=int(config[0].strip())
@@ -86,8 +85,8 @@ def main(args: list[str]) -> None:
 
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
-    except PermissionError:
-        print("INVALID CONFIGURATION")
+    # except PermissionError:
+    #     print("INVALID CONFIGURATION")
     finally:
         try:
             if server_socket:
