@@ -123,8 +123,9 @@ def main(args: list[str]) -> None:
             ## use the full domain length for the final check
             full_domain={}
             keys=list(extraction_middomain.keys())
-            for key in keys:
-                 if key in 
+            print(keys)
+            # for key in keys:
+            #     temp=
             print(extraction_middomain)
             print(mid_domain_master)
             print(full_domain_master)
