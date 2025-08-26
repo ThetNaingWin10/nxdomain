@@ -100,7 +100,10 @@ def main(args: list[str]) -> None:
                         contents=line.readlines()
                         for line in contents:
                             if "," in line:
-                                 print(line)
+                                for char in line:
+                                     if char.isspace():
+                                        print("invalid single")
+                                        return
                              
                         if(int(currentport)==int(contents[0])):
                                 check(list1,contents)
