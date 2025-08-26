@@ -80,8 +80,7 @@ def main(args: list[str]) -> None:
                        contents=line.readlines()
                        list.append(contents[0])
         for ports in list:
-             if ports == currentport:
-                  print("Yes")
+             print(ports)
    
     
 
