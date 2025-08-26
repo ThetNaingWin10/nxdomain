@@ -30,7 +30,7 @@ def main(args: list[str]) -> None:
                 domain=domain.split('.')
                 for part in domain:
                     if "@" in part:   # bad full domain validating
-                        print("INVALID")
+                        print("INVALID MASTER")
                         return
                 if len(domain)==2:
                     print('INVALID MASTER') # Partial domain check
