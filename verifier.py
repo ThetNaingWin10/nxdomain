@@ -61,13 +61,6 @@ def main(args: list[str]) -> None:
                  if "@" in testing[0]:
                       print("invalid master")
                       return
-                #  print(testing[0])
-                #  for char in testing[0]:
-                #       if not (char.isdigit() or char.isalpha or char=='.'):
-                #            print("invalid master")
-                #            return
-                      
-        
 
         # print(currentport)
         # print(domain)
