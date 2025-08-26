@@ -60,7 +60,7 @@ def main(args: list[str]) -> None:
                  testing=line.split(',')
                  print(testing[0])
                  for char in testing[0]:
-                      if not char.isdigit() or char.isalpha or char=='.':
+                      if (not char.isdigit() or char.isalpha or char=='.'):
                            print("invalid master")
                            return
                       
