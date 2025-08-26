@@ -5,7 +5,6 @@ You may import library modules allowed by the specs, as well as your own other m
 """
 import socket
 import sys
-import time
 import signal
 
 from sys import argv
@@ -41,7 +40,6 @@ def valid(domain_name):
 def resolve_domain(root_serversocket,time_out,domain):
         signal.signal(signal.SIGALRM,timeoutsignal)
         signal.alarm(time_out)
-        # server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         try:
 
             root_serversocket.send(f"{domain.split('.')[-1]}\n".encode('utf-8'))
@@ -82,8 +80,6 @@ def resolve_domain(root_serversocket,time_out,domain):
             signal.alarm(0)
 
         
-        #Query the TLD
-        
 
 def main(args: list[str]) -> None:
     if len(args)!=2:
@@ -98,7 +94,6 @@ def main(args: list[str]) -> None:
     try:
         while True:
             domain_name=input()
-            # print(domain_name)
             if not domain_name:
                 break
             if not valid(domain_name):
@@ -108,7 +103,6 @@ def main(args: list[str]) -> None:
             
     except EOFError:
         sys.exit(1)
-        #sdaf
 
 if __name__ == "__main__":
     main(argv[1:])

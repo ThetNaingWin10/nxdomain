@@ -5,10 +5,8 @@ You may import library modules allowed by the specs, as well as your own other m
 """
 
 import socket
-import sys
-
-
 from sys import argv
+
 dns_records={}
 
 def handle_command(command):
@@ -38,23 +36,13 @@ def root_responses(domain,config):
         return target_port
     else:
         return "NXDOMAIN"
-#     target_port=get_port(domain,config)
-#     if target_port is not None:
-#         return str(target_port)
-#     else:
-#         return "NXDOMAIN"
-    
-# def get_port(domain,config):
-#     if domain in config:
-#         return int(dns_records[domain])
-#     return None
 
 def main(args: list[str]) -> None:
-    if len(sys.argv) != 2:
+    if len(argv) != 2:
         print("INVALID ARGUMENTS")
-        sys.exit()
+        return
 
-    config_file=sys.argv[1]
+    config_file=argv[1]
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
@@ -78,15 +66,14 @@ def main(args: list[str]) -> None:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
                 # socket_client.send((data+'\n').encode("utf-8"))  #just in case to see the files inside config file
-                #dasf
+
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
                         socket_client.close()
-                        sys.exit(1)
+                        return
                     else:
                         handle_command(data)
                         # socket_client.send((data+'\n').encode("utf-8"))
-
                 else:
                     if data in dns_records:
                         response=root_responses(data,dns_records)
@@ -97,8 +84,6 @@ def main(args: list[str]) -> None:
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
                       
-                    
-                    
                 socket_client.close()
 
     except FileNotFoundError:
