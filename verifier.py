@@ -43,7 +43,7 @@ def main(args: list[str]) -> None:
         
         for char in currentport:
             if char.isalpha():
-                print("invalid master")
+                print("invalid master123")
                 return  ## validating if there is alphabet in currentport
         
         valid_domain=domain.split(".")
@@ -54,21 +54,17 @@ def main(args: list[str]) -> None:
         
         for line in master_lines:
              if "," in line:
-                  testing=line.split(",")
+                  testing=line.split(",")  # validating out negative port numbers
                   port=int(testing[1])
                   if(port<0):
                        print("invalid master")
                        return
-                
-        # if(target_port<int(currentport)):  #harded coded it
-        #      print("invalid master123213") ## validating the current port and targetport 
-        #      return 
        
         for line in master_lines:
             if "," in line:
                  testing=line.split(',')
                  if "@" in testing[0]:
-                      print("invalid master")
+                      print("invalid master")  # validating the domain whether it contains @
                       return
 
         # print(currentport)
