@@ -27,6 +27,14 @@ def handle_command(command):
             print("INVALID")
     else:
         print("INVALID")
+    
+def root_responses(hostname):
+    if hostname in dns_records:
+        print(f"{dns_records[hostname]}")
+        return dns_records[hostname]
+    else:
+        print("NXDOMAIN")
+        return "NXDOMAIN"
 
 def main(args: list[str]) -> None:
     if len(sys.argv) != 2:
@@ -52,15 +60,18 @@ def main(args: list[str]) -> None:
                 if not data:
                     break
                 message+=data
+                if message.endswith('\n'):
+                    response=root_responses(message.strip())
+                    socket_client.send(response.encode("utf-8"))
+                    message=""
                 
-                    
-            message= ""
             socket_client.close()
     
     except FileNotFoundError:
         print("INVALID CONFIGURATION")
     finally:
-        server_socket.close()
+        if server_socket:
+            server_socket.close()
 
 if __name__ == "__main__":
     main(argv[1:])
