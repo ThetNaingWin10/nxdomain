@@ -65,13 +65,12 @@ def main(args: list[str]) -> None:
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
             server_socket.bind(("localhost",server_port))
-            #adsf
             server_socket.listen()
-            socket_client.send((contents+'\n').encode("utf-8"))
 
             while True:
                 socket_client , _ = server_socket.accept()
                 data=socket_client.recv(server_port).decode("utf-8").strip()
+                socket_client.send((contents+'\n').encode("utf-8"))
 
                 if data.startswith('!'):
                     if(data=="!EXIT\n"):
