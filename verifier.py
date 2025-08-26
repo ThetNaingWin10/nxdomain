@@ -11,7 +11,8 @@ master_list=[]
 
 def check(list,contents):
      for line in contents:
-          print(line)
+          line=line.split(",")
+          print(line[1])
           
           
 
