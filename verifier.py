@@ -79,8 +79,8 @@ def main(args: list[str]) -> None:
             single_contents={}
             for singlefile in single_files.iterdir():
                  single_contents[singlefile.name]=read(singlefile)
-            # print(mastercontents)
-            # print(single_contents)
+            print(mastercontents)
+            print(single_contents)
             #validating the ports
             portslist=[]
             for key, (value, inner_dict) in single_contents.items():
