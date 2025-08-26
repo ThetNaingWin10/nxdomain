@@ -134,8 +134,7 @@ def main(args: list[str]) -> None:
                           return
             
             for key,value in nextfilecheck.items():
-                 if key in single_contents:
-                      print(single_contents.get(f'{key}.conf'))
+                print(single_contents.get(f'{key}.conf'))
                  
                
 
