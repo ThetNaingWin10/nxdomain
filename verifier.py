@@ -27,7 +27,7 @@ def read(file):
      with open(file,"r") as contents:
           lines=contents.read().splitlines()
           port=lines[0]
-          return port,{line.split(',')[0]: line.split(',')[1:] for line in contents[1:]}
+          return port,{line.split(',')[0]: line.split(',')[1:] for line in lines[1:]}
 
 def main(args: list[str]) -> None:
         try:
