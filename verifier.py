@@ -18,7 +18,6 @@ def check(list,contents):
              for domain in list:
                   if domain==line[0]:
                        print(line[1])
-                       i+=1
     #  print(len(list))
     #  print(i)
     #     return list
