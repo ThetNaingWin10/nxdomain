@@ -102,7 +102,7 @@ def main(args: list[str]) -> None:
 
             keys = [key for key in mastercontents[1].keys()]
             mid_domain_master = [key.split('.')[-3] for key in keys]
-            print(mid_domain_master)
+            print(keys)
                 
                  
                            
