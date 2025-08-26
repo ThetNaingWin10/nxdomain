@@ -52,8 +52,8 @@ def main(args: list[str]) -> None:
                 else :
                     currentport=address_port
                     # print(currentport)
-                    i-=1
-                    break
+                i-=1
+                    
 
                 # if(z>2):
                 #     porting_address=check(currentport,domain,content,0)
