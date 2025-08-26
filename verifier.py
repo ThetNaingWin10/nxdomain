@@ -123,9 +123,7 @@ def main(args: list[str]) -> None:
             
             ## use the full domain length for the final check
             full_domain={}
-            for key,value in extraction_middomain:
-                constant=single_contents.get(f'{key}.conf')
-                mid_domain[key]=constant
+            
 
             print(extraction_middomain)
             print(mid_domain_master)
