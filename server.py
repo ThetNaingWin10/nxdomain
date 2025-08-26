@@ -88,6 +88,9 @@ def main(args: list[str]) -> None:
                         response=root_responses(data,port,dns_records)
                         socket_client.send((response+'\n').encode("utf-8"))
                         print(f"resolve {data} to {response}",flush=True)
+                    else :
+                        response="NXDOMAIN"
+                        print(f"resolve {data} to {response}",flush=True)
                     
                     
                 socket_client.close()
