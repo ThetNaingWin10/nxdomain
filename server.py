@@ -39,7 +39,7 @@ def main(args: list[str]) -> None:
             print(f"Server Test runnin on {port}")  
         
         server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        server_socket=(("localhist"),port)
+        server_socket.bind(("localhost",5))
         server_socket.listen(5)
 
         while True:
