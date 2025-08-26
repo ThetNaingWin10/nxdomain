@@ -6,6 +6,7 @@ You may import library modules allowed by the specs, as well as your own other m
 
 import socket
 import sys
+import logging
 
 from sys import argv
 dns_records={}
@@ -52,6 +53,7 @@ def main(args: list[str]) -> None:
     try:
         with open(config_file, "r") as rconfig_file:
             config=rconfig_file.readlines()
+            logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
             server_port=int(config[0].strip())
             server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -74,12 +76,10 @@ def main(args: list[str]) -> None:
                     else:
                         response=root_responses(data,port,config)
                         socket_client.send((response+'\n').encode("utf-8"))
-                        print(f"resolve{data} to response")
-
-                        # if response!="NXDOMAIN":
-                        #     print(f"resolve {data} to {response}")
-                        # else:
-                        #     print(f"resole {data} to NXDOMAIN")
+                        if response!="NXDOMAIN":
+                            logging.info(f"resolve {data} to {response}")
+                        else:
+                            logging.info(f"resole {data} to NXDOMAIN")
                         
                     socket_client.close()
 
