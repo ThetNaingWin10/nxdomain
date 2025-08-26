@@ -57,7 +57,7 @@ def main(args: list[str]) -> None:
              return
         if(target_port<int(currentport)):
              print("invalid master") ## validating the current port and targetport 
-             return
+             return #fdaf
         
         print(currentport)
         print(valid_domain)
